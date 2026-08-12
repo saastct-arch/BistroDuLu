@@ -1,0 +1,137 @@
+<!-- @dsCard group="Website" viewport="1740x1000" name="Mapa e contato — mockup" subtitle="Fecho da página: informações à esquerda, mapa sangrando à direita, ícones só em areia sobre carvão" -->
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>Bistrô du Lú — Mapa e contato</title><link rel="stylesheet" href="../../styles.css"><script src="../../assets/image-slot.js"></script><style>
+*{box-sizing:border-box}
+body{margin:0;background:var(--carvao-900);font-family:var(--font-sans-body);font-weight:var(--w-body);color:var(--text-body);padding:56px}
+a{color:var(--areia-quente);text-decoration:none}a:hover{color:var(--terracota-suave)}
+.sheet{display:grid;gap:72px;max-width:1628px;margin:0 auto}
+.row{display:grid;grid-template-columns:1180px 390px;gap:58px;align-items:start}
+.caption{display:grid;gap:6px;margin-bottom:18px}
+.caption h2{margin:0;font-family:var(--font-serif-display);font-weight:var(--w-heading);font-size:24px;color:var(--text-strong)}
+.caption p{margin:0;font-size:13px;color:var(--text-faint);letter-spacing:.04em}
+.eyebrow{font-size:11px;font-weight:500;letter-spacing:var(--ls-eyebrow);text-transform:uppercase;color:var(--text-muted)}
+.frame{border:1px solid var(--verde-garrafa);border-radius:var(--r-sm);overflow:hidden;background:var(--carvao)}
+.note{border-left:1px solid var(--verde-garrafa);padding-left:16px;font-size:13px;line-height:1.7;color:var(--text-faint);max-width:390px}
+.note b{color:var(--text-muted);font-weight:500}
+/* ---------- desktop ---------- */
+.ct{position:relative;background:linear-gradient(180deg,var(--carvao) 0%,var(--vinho-arroxeado) 20%,var(--vinho-arroxeado) 100%)}
+.ct .inner{display:grid;grid-template-columns:minmax(0,520px) minmax(0,1fr);align-items:stretch}
+.ct .info{padding:96px 72px 96px var(--gutter-desktop);display:grid;align-content:center}
+.ct h2{margin:18px 0 34px;font-family:var(--font-serif-display);font-weight:var(--w-heading);font-size:44px;line-height:1.08;letter-spacing:var(--ls-display);color:var(--text-strong)}
+.blk{display:grid;gap:8px;padding:24px 0;border-top:1px solid var(--verde-garrafa)}
+.blk:last-of-type{border-bottom:1px solid var(--verde-garrafa)}
+.blk dt,.blk .lbl{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--areia-a38)}
+.blk .addr{margin:0;font-size:17px;line-height:1.6;color:var(--text-strong)}
+.blk .addr span{display:block;color:var(--areia-a80);font-size:15px}
+.blk a.dir{justify-self:start;margin-top:6px;font-size:13px;letter-spacing:.05em;border-bottom:1px solid var(--verde-300);padding-bottom:1px;transition:var(--t-color)}
+.hrs{display:grid;gap:11px;margin:0}
+.hrs .r{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:baseline;font-size:14px}
+.hrs .r dt{color:var(--areia-a60);text-transform:uppercase;letter-spacing:.14em;font-size:12px}
+.hrs .r dd{margin:0;color:var(--text-strong);font-variant-numeric:tabular-nums}
+.hrs .r.off dd{color:var(--text-faint)}
+/* ícones: sem texto ao lado, areia sobre carvão */
+.icons{display:flex;gap:14px;margin-top:32px}
+.icons a{width:52px;height:52px;display:grid;place-items:center;background:var(--carvao);border:1px solid var(--verde-garrafa);border-radius:var(--r-xs);transition:var(--t-color)}
+.icons a:hover{border-color:var(--terracota-suave)}
+.icons svg{width:22px;height:22px;display:block;fill:var(--areia-quente)}
+.icons a:hover svg{fill:var(--areia-quente)}
+/* mapa sangrando */
+.ct .map{position:relative;min-height:600px;overflow:hidden;box-shadow:inset 1px 0 0 var(--verde-garrafa)}
+.ct .map iframe{display:block;width:100%;height:100%;border:0}
+.ct .map .veil{position:absolute;inset:0;z-index:2;background:linear-gradient(268deg,rgba(23,18,15,0) 62%,rgba(23,18,15,.62) 100%);pointer-events:none}
+.mapcap{position:absolute;right:24px;top:20px;z-index:3;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--areia-a60);background:var(--carvao-a90);border:1px solid var(--verde-garrafa);padding:8px 12px;border-radius:var(--r-xs)}
+/* ---------- mobile ---------- */
+.phone{width:390px;border:1px solid var(--verde-garrafa);border-radius:var(--r-md);overflow:hidden;background:var(--carvao)}
+.ctM{background:linear-gradient(180deg,var(--carvao) 0%,var(--vinho-arroxeado) 20%,var(--vinho-arroxeado) 100%)}
+.ctM .map{position:relative;height:260px;overflow:hidden;border-bottom:1px solid var(--verde-garrafa)}
+.ctM .map iframe{display:block;width:100%;height:100%;border:0}
+.ctM .map .veil{position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(180deg,rgba(23,18,15,.20) 0%,rgba(23,18,15,.44) 72%,rgba(23,18,15,0) 100%)}
+.ctM .info{padding:34px var(--gutter-mobile) 42px}
+.ctM h2{margin:14px 0 24px;font-family:var(--font-serif-display);font-weight:var(--w-heading);font-size:30px;line-height:1.1;color:var(--text-strong)}
+.ctM .blk{padding:20px 0}
+.ctM .icons{margin-top:26px}
+.ctM .icons a{width:48px;height:48px}
+</style></head><body>
+<div class="sheet">
+
+<section>
+<div class="caption"><span class="eyebrow">Contato</span><h2>Mapa e contato — informações à esquerda, mapa sangrando à direita</h2><p>Fecho da página em carvão profundo. Terracota aparece duas vezes no máximo: o pino do mapa e a borda dos ícones em hover. Ícones sem rótulo, em areia quente sobre quadrado carvão com fio verde garrafa.</p></div>
+<div class="row">
+<div class="frame"><div class="ct">
+<div class="inner">
+<div class="info">
+<span class="eyebrow">Onde estamos</span>
+<h2>Como chegar</h2>
+<div class="blk">
+<span class="lbl">Endereço</span>
+<p class="addr">Rua Jequitibá, 910 — Horto<span>Ipatinga · MG — 35160-306</span></p>
+<a class="dir" href="https://www.google.com/maps/search/?api=1&query=Rua+Jequitiba%2C+910+-+Horto%2C+Ipatinga+-+MG%2C+35160-306" target="_blank" rel="noopener">Abrir no Google Maps →</a>
+</div>
+<div class="blk">
+<span class="lbl">Funcionamento</span>
+<dl class="hrs">
+<div class="r"><dt>Terça a sábado</dt><dd>19h — 00h</dd></div>
+<div class="r"><dt>Domingo</dt><dd>12h — 16h</dd></div>
+<div class="r off"><dt>Segunda</dt><dd>Fechado</dd></div>
+</dl>
+<p style="margin:10px 0 0;font-size:12px;line-height:1.6;color:var(--text-faint)">Cozinha até 23h · domingo até 15h</p>
+</div>
+<div class="icons">
+<a href="#" aria-label="WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.85 9.85 0 0 0 12.04 2Zm5.8 14.1c-.24.68-1.4 1.3-1.93 1.35-.53.05-1.03.07-1.6-.1a12.9 12.9 0 0 1-4.44-2.64 10.6 10.6 0 0 1-2.2-3.16c-.23-.6-.24-1.12-.16-1.53.08-.4.6-1.02.83-1.23.23-.2.42-.22.6-.21.18.01.38.02.55.4.17.4.6 1.48.65 1.59.05.11.08.24.01.38-.07.14-.35.5-.5.68-.14.17-.2.24-.09.44.11.2.51.86 1.1 1.4.75.7 1.38.93 1.58 1.03.2.1.32.09.44-.04.13-.14.53-.6.67-.8.14-.2.28-.16.47-.09.19.07 1.2.6 1.4.71.2.11.33.16.38.25.05.09.05.53-.19 1.2Z"></path></svg></a>
+<a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.96.24 2.65.51.72.28 1.33.65 1.94 1.26.61.61.98 1.22 1.26 1.94.27.69.46 1.48.51 2.65.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.24 1.96-.51 2.65-.28.72-.65 1.33-1.26 1.94-.61.61-1.22.98-1.94 1.26-.69.27-1.48.46-2.65.51-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.96-.24-2.65-.51a5.36 5.36 0 0 1-1.94-1.26 5.36 5.36 0 0 1-1.26-1.94c-.27-.69-.46-1.48-.51-2.65C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.24-1.96.51-2.65.28-.72.65-1.33 1.26-1.94A5.36 5.36 0 0 1 5.94 1.3c.69-.27 1.48-.46 2.65-.51C9.86 2.17 10.24 2.16 12 2.16Zm0 1.98c-3.15 0-3.5.01-4.73.07-.94.04-1.45.2-1.79.33-.45.17-.77.38-1.11.72-.34.34-.55.66-.72 1.11-.13.34-.29.85-.33 1.79-.06 1.23-.07 1.58-.07 4.73s.01 3.5.07 4.73c.04.94.2 1.45.33 1.79.17.45.38.77.72 1.11.34.34.66.55 1.11.72.34.13.85.29 1.79.33 1.23.06 1.58.07 4.73.07s3.5-.01 4.73-.07c.94-.04 1.45-.2 1.79-.33.45-.17.77-.38 1.11-.72.34-.34.55-.66.72-1.11.13-.34.29-.85.33-1.79.06-1.23.07-1.58.07-4.73s-.01-3.5-.07-4.73c-.04-.94-.2-1.45-.33-1.79a2.98 2.98 0 0 0-.72-1.11 2.98 2.98 0 0 0-1.11-.72c-.34-.13-.85-.29-1.79-.33-1.23-.06-1.58-.07-4.73-.07Zm0 3.37a4.49 4.49 0 1 1 0 8.98 4.49 4.49 0 0 1 0-8.98Zm0 1.98a2.51 2.51 0 1 0 0 5.02 2.51 2.51 0 0 0 0-5.02Zm5.72-2.2a1.05 1.05 0 1 1-2.1 0 1.05 1.05 0 0 1 2.1 0Z"></path></svg></a>
+</div>
+</div>
+<div class="map">
+<iframe id="ct-map" src="https://www.google.com/maps?q=Bistro+Du+Lu,+Rua+Jequitiba,+910+-+Horto,+Ipatinga+-+MG,+35160-306&t=k&z=18&hl=pt-BR&output=embed" title="Mapa de satélite — Bistrô du Lú, Rua Jequitibá, 910, Horto, Ipatinga MG" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+<div class="veil"></div>
+<span class="mapcap">Estacionamento na rua · vaga em frente</span>
+</div>
+</div>
+</div></div>
+<div class="note">
+<p><b>Assimetria.</b> Quarta variação de alinhamento da página: coluna de texto estreita (520px) à esquerda e mapa ocupando o resto, sangrando até a borda direita.</p>
+<p><b>Ícones sem rótulo.</b> 52×52px, areia quente sobre carvão, fio de 1px em verde garrafa; o hover troca só a borda para terracota — nada de preenchimento colorido.</p>
+<p><b>Pino.</b> O marcador agora é o do próprio Google, ancorado no endereço real — o pino decorativo em terracota saiu para não duplicar a marcação.</p>
+<p><b>Mapa.</b> Satélite real do Google Maps (Rua Jequitibá, 910 — Horto), embutido via iframe. O véu escurece o recorte contra o carvão, mas abre no rodapé para não encobrir a atribuição do Google.</p>
+</div>
+</div>
+</section>
+
+<section>
+<div class="caption"><span class="eyebrow">Contato · 390</span><h2>Mobile</h2><p>Mapa de 260px no topo, endereço e horários empilhados nos mesmos blocos com fio fino, ícones de 48px lado a lado.</p></div>
+<div class="row">
+<div class="phone"><div class="ctM">
+<div class="map">
+<iframe id="ct-map-m" src="https://www.google.com/maps?q=Bistro+Du+Lu,+Rua+Jequitiba,+910+-+Horto,+Ipatinga+-+MG,+35160-306&t=k&z=18&hl=pt-BR&output=embed" title="Mapa de satélite — Bistrô du Lú, Rua Jequitibá, 910, Horto, Ipatinga MG" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+<div class="veil"></div>
+</div>
+<div class="info">
+<span class="eyebrow">Onde estamos</span>
+<h2>Como chegar</h2>
+<div class="blk">
+<span class="lbl">Endereço</span>
+<p class="addr">Rua Jequitibá, 910 — Horto<span>Ipatinga · MG — 35160-306</span></p>
+<a class="dir" href="https://www.google.com/maps/search/?api=1&query=Rua+Jequitiba%2C+910+-+Horto%2C+Ipatinga+-+MG%2C+35160-306" target="_blank" rel="noopener">Abrir no Google Maps →</a>
+</div>
+<div class="blk">
+<span class="lbl">Funcionamento</span>
+<dl class="hrs">
+<div class="r"><dt>Ter — sáb</dt><dd>19h — 00h</dd></div>
+<div class="r"><dt>Domingo</dt><dd>12h — 16h</dd></div>
+<div class="r off"><dt>Segunda</dt><dd>Fechado</dd></div>
+</dl>
+<p style="margin:10px 0 0;font-size:12px;line-height:1.6;color:var(--text-faint)">Cozinha até 23h · domingo até 15h</p>
+</div>
+<div class="icons">
+<a href="#" aria-label="WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.85 9.85 0 0 0 12.04 2Zm5.8 14.1c-.24.68-1.4 1.3-1.93 1.35-.53.05-1.03.07-1.6-.1a12.9 12.9 0 0 1-4.44-2.64 10.6 10.6 0 0 1-2.2-3.16c-.23-.6-.24-1.12-.16-1.53.08-.4.6-1.02.83-1.23.23-.2.42-.22.6-.21.18.01.38.02.55.4.17.4.6 1.48.65 1.59.05.11.08.24.01.38-.07.14-.35.5-.5.68-.14.17-.2.24-.09.44.11.2.51.86 1.1 1.4.75.7 1.38.93 1.58 1.03.2.1.32.09.44-.04.13-.14.53-.6.67-.8.14-.2.28-.16.47-.09.19.07 1.2.6 1.4.71.2.11.33.16.38.25.05.09.05.53-.19 1.2Z"></path></svg></a>
+<a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.96.24 2.65.51.72.28 1.33.65 1.94 1.26.61.61.98 1.22 1.26 1.94.27.69.46 1.48.51 2.65.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.24 1.96-.51 2.65-.28.72-.65 1.33-1.26 1.94-.61.61-1.22.98-1.94 1.26-.69.27-1.48.46-2.65.51-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.96-.24-2.65-.51a5.36 5.36 0 0 1-1.94-1.26 5.36 5.36 0 0 1-1.26-1.94c-.27-.69-.46-1.48-.51-2.65C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.24-1.96.51-2.65.28-.72.65-1.33 1.26-1.94A5.36 5.36 0 0 1 5.94 1.3c.69-.27 1.48-.46 2.65-.51C9.86 2.17 10.24 2.16 12 2.16Zm0 1.98c-3.15 0-3.5.01-4.73.07-.94.04-1.45.2-1.79.33-.45.17-.77.38-1.11.72-.34.34-.55.66-.72 1.11-.13.34-.29.85-.33 1.79-.06 1.23-.07 1.58-.07 4.73s.01 3.5.07 4.73c.04.94.2 1.45.33 1.79.17.45.38.77.72 1.11.34.34.66.55 1.11.72.34.13.85.29 1.79.33 1.23.06 1.58.07 4.73.07s3.5-.01 4.73-.07c.94-.04 1.45-.2 1.79-.33.45-.17.77-.38 1.11-.72.34-.34.55-.66.72-1.11.13-.34.29-.85.33-1.79.06-1.23.07-1.58.07-4.73s-.01-3.5-.07-4.73c-.04-.94-.2-1.45-.33-1.79a2.98 2.98 0 0 0-.72-1.11 2.98 2.98 0 0 0-1.11-.72c-.34-.13-.85-.29-1.79-.33-1.23-.06-1.58-.07-4.73-.07Zm0 3.37a4.49 4.49 0 1 1 0 8.98 4.49 4.49 0 0 1 0-8.98Zm0 1.98a2.51 2.51 0 1 0 0 5.02 2.51 2.51 0 0 0 0-5.02Zm5.72-2.2a1.05 1.05 0 1 1-2.1 0 1.05 1.05 0 0 1 2.1 0Z"></path></svg></a>
+</div>
+</div>
+</div></div>
+<div class="note">
+<p><b>Mapa primeiro.</b> No mobile o mapa entra antes do texto — quem chega nesta seção já está decidindo o deslocamento.</p>
+<p><b>Sem FAB aqui.</b> O WhatsApp aparece como ícone da seção; o botão flutuante pertence à área de reservas.</p>
+</div>
+</div>
+</section>
+
+</div></body></html>

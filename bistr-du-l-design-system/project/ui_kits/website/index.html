@@ -1,0 +1,131 @@
+<!-- @dsCard group="Website" viewport="1740x900" name="Header & Footer — mockup" subtitle="Chosen composition: desktop logo-left, mobile centred monogram" -->
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>Bistrô du Lú — Header & Footer</title><link rel="stylesheet" href="../../styles.css"><script src="../../assets/image-slot.js"></script><style>
+*{box-sizing:border-box}
+body{margin:0;background:var(--carvao-900);font-family:var(--font-sans-body);font-weight:var(--w-body);color:var(--text-body);padding:56px}
+a{color:var(--areia-quente);text-decoration:none}a:hover{color:var(--terracota-suave)}
+.sheet{display:grid;gap:72px;max-width:1628px;margin:0 auto}
+.row{display:grid;grid-template-columns:1180px 390px;gap:58px;align-items:start}
+.caption{display:grid;gap:6px;margin-bottom:18px}
+.caption h2{margin:0;font-family:var(--font-serif-display);font-weight:var(--w-heading);font-size:24px;color:var(--text-strong);letter-spacing:var(--ls-heading)}
+.caption p{margin:0;font-size:13px;color:var(--text-faint);letter-spacing:.04em}
+.eyebrow{font-size:11px;font-weight:500;letter-spacing:var(--ls-eyebrow);text-transform:uppercase;color:var(--text-muted)}
+.frame{border:1px solid var(--verde-garrafa);border-radius:var(--r-sm);overflow:hidden;background:var(--carvao)}
+.stage{position:relative;height:392px;background:var(--grad-vinho-carvao)}
+.stage .photo{position:absolute;inset:0}
+.stage .scrim{position:absolute;inset:0;background:linear-gradient(178deg,rgba(78,21,23,.62) 0%,rgba(23,18,15,.42) 40%,var(--carvao) 100%);pointer-events:none}
+.hd{position:absolute;left:0;right:0;top:0;z-index:3;height:var(--header-h-desktop);padding:0 var(--gutter-desktop);background:var(--surface-sticky);backdrop-filter:var(--blur-sticky);-webkit-backdrop-filter:var(--blur-sticky);border-bottom:1px solid var(--verde-a55);display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:40px}
+.hd img.mark{height:44px;width:auto;display:block}
+.nav{display:flex;align-items:center;gap:34px;justify-self:end}
+.nav a{font-size:13px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;white-space:nowrap;padding-bottom:4px;border-bottom:1px solid transparent;transition:var(--t-color)}
+.nav a.on{border-bottom-color:var(--verde-300)}
+.cta{display:inline-flex;align-items:center;gap:10px;background:var(--cta-bg);color:var(--cta-fg);font-size:14px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:13px 26px;border-radius:var(--r-xs);line-height:1;transition:var(--t-color);white-space:nowrap}
+.cta:hover{background:var(--cta-bg-hover);color:var(--cta-fg)}
+.hero{position:absolute;left:var(--gutter-desktop);right:var(--gutter-desktop);bottom:44px;z-index:2;display:grid;gap:14px;max-width:620px}
+.hero h1{margin:0;font-family:var(--font-serif-display);font-weight:var(--w-heading);font-size:52px;line-height:var(--lh-display);letter-spacing:var(--ls-display);color:var(--text-strong)}
+.hero p{margin:0;font-size:16px;line-height:var(--lh-body);color:var(--areia-a80);max-width:44ch}
+/* ---- mobile: monograma centralizado, toggle à esquerda ---- */
+.phone{width:390px;border:1px solid var(--verde-garrafa);border-radius:var(--r-md);overflow:hidden;background:var(--carvao)}
+.stage-m{position:relative;height:392px;background:var(--grad-vinho-carvao)}
+.hd-m{position:absolute;left:0;right:0;top:0;z-index:3;height:var(--header-h-mobile);padding:0 var(--gutter-mobile);background:var(--surface-sticky);backdrop-filter:var(--blur-sticky);-webkit-backdrop-filter:var(--blur-sticky);border-bottom:1px solid var(--verde-a55);display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px}
+.hd-m img.mark{height:34px;width:auto;display:block;justify-self:center}
+.hd-m .burger{width:34px;height:34px;display:inline-flex;align-items:center;justify-content:center;border:1px solid transparent;border-radius:var(--r-xs)}
+.hd-m .cta{padding:10px 15px;font-size:12px}
+.icon-areia{filter:invert(85%) sepia(18%) saturate(310%) hue-rotate(348deg) brightness(96%)}
+.hero-m{position:absolute;left:var(--gutter-mobile);right:var(--gutter-mobile);bottom:28px;z-index:2;display:grid;gap:10px}
+.hero-m h1{margin:0;font-family:var(--font-serif-display);font-weight:var(--w-heading);font-size:36px;line-height:1.06;color:var(--text-strong)}
+.hero-m p{margin:0;font-size:14px;line-height:1.6;color:var(--areia-a80)}
+/* ---- footer ---- */
+.ft{background:var(--carvao);border-top:1px solid var(--verde-garrafa);padding:72px var(--gutter-desktop) 40px}
+.ft-grid{display:grid;grid-template-columns:1.05fr 1fr 1.15fr auto;gap:64px;align-items:start;max-width:var(--max-content);margin:0 auto}
+.ft img.mark{height:104px;width:auto;display:block}
+.ft h3{margin:0 0 12px;font-size:var(--fs-eyebrow);font-weight:500;letter-spacing:var(--ls-eyebrow);text-transform:uppercase;color:var(--text-muted)}
+.ft address{font-style:normal;font-size:15px;line-height:1.7;color:var(--text-muted)}
+.hours{display:grid;gap:7px;font-size:15px;max-width:340px}
+.hours div{display:flex;justify-content:space-between;gap:18px}
+.hours span:first-child{color:var(--text-muted)}
+.hours span:last-child{color:var(--text-body);white-space:nowrap}
+.social{display:flex;gap:8px;justify-self:end}
+.social a{width:40px;height:40px;display:inline-flex;align-items:center;justify-content:center;border:1px solid transparent;border-radius:var(--r-xs);transition:var(--t-color)}
+.social a:hover{border-color:var(--verde-300)}
+.legal{max-width:var(--max-content);margin:48px auto 0;padding-top:16px;border-top:1px solid var(--areia-a08);display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;font-size:12px;letter-spacing:.08em;color:var(--text-faint)}
+.ft.m{padding:40px var(--gutter-mobile) 26px}
+.ft.m .ft-grid{grid-template-columns:1fr;gap:30px}
+.ft.m img.mark{height:88px}
+.ft.m .social{justify-self:start}
+.ft.m .legal{margin-top:28px;gap:6px;flex-direction:column}
+.note{border-left:1px solid var(--verde-garrafa);padding-left:16px;font-size:13px;line-height:1.7;color:var(--text-faint);max-width:390px}
+.note b{color:var(--text-muted);font-weight:500}
+</style></head><body>
+<div class="sheet">
+
+<section>
+<div class="caption"><span class="eyebrow">Header · composição escolhida</span><h2>Desktop: logo à esquerda · Mobile: monograma centralizado</h2><p>Sticky translúcido nos dois casos — carvão 72% + blur 14px, hairline verde-garrafa na base. O CTA terracota mantém a extrema direita e nunca desaparece.</p></div>
+<div class="row">
+<div class="frame"><div class="stage">
+<div class="photo"><image-slot id="hero-a" shape="rect" fit="cover" placeholder="Arraste uma foto do salão / prato"></image-slot></div>
+<div class="scrim"></div>
+<header class="hd">
+<img class="mark" src="../../assets/logo-monogram-areia.png" alt="Bistrô du Lú">
+<nav class="nav"><a href="#" class="on">Menu</a><a href="#">A casa</a><a href="#">Reservas</a><a href="#">Contato</a></nav>
+<a class="cta" href="#">Reservar uma mesa</a>
+</header>
+<div class="hero"><h1>Cozinha de bairro,<br>feita com afeto</h1><p>Menu curto que muda com a feira. Horto, Ipatinga, desde 2017.</p></div>
+</div></div>
+<div>
+<div class="phone"><div class="stage-m">
+<div class="photo" style="position:absolute;inset:0"><image-slot id="hero-a-m" shape="rect" fit="cover" placeholder="Foto — mobile"></image-slot></div>
+<div class="scrim"></div>
+<header class="hd-m">
+<span class="burger"><img src="https://cdn.jsdelivr.net/npm/lucide-static@0.428.0/icons/menu.svg" width="20" height="20" alt="Abrir menu" class="icon-areia"></span>
+<img class="mark" src="../../assets/logo-monogram-areia.png" alt="Bistrô du Lú">
+<a class="cta" href="#">Reservar</a>
+</header>
+<div class="hero-m"><h1>Cozinha de bairro, feita com afeto</h1><p>Menu curto que muda com a feira.</p></div>
+</div></div>
+<p class="note" style="margin-top:18px"><b>Mobile 390px.</b> Toggle de menu à esquerda, monograma centralizado e CTA à direita com rótulo encurtado para “Reservar”. A navegação completa abre a partir do toggle.</p>
+</div>
+</div>
+</section>
+
+<section>
+<div class="caption"><span class="eyebrow">Footer</span><h2>Endereço, horários e sociais</h2><p>Fundo carvão, linha fina verde-garrafa separando da página, ícones em areia quente — só ícone, sem texto.</p></div>
+<div class="row">
+<div class="frame"><footer class="ft">
+<div class="ft-grid">
+<img class="mark" src="../../assets/logo-vertical-areia.png" alt="Bistrô du Lú">
+<div><h3>Onde estamos</h3><address>Rua Jequitibá, 910 — Horto<br>Ipatinga · MG, 35160-306<br>+55 11 99999-9999</address></div>
+<div><h3>Horários</h3><div class="hours">
+<div><span>Terça a sábado</span><span>19h — 00h</span></div>
+<div><span>Domingo</span><span>12h — 16h</span></div>
+<div><span>Segunda</span><span>Fechado</span></div>
+<p style="margin:10px 0 0;font-size:12px;line-height:1.6;color:var(--text-faint)">Cozinha até 23h · domingo até 15h</p></div></div>
+<div class="social">
+<a href="#" aria-label="WhatsApp" title="WhatsApp"><img src="https://cdn.simpleicons.org/whatsapp/D9C9B3" width="22" height="22" alt=""></a>
+<a href="#" aria-label="Instagram" title="Instagram"><img src="https://cdn.simpleicons.org/instagram/D9C9B3" width="22" height="22" alt=""></a>
+</div>
+</div>
+<div class="legal"><span>© 2026 Bistrô du Lú · Desde 2017</span><span>Cozinha · Sabor · Afeto</span></div>
+</footer></div>
+<div>
+<div class="phone"><footer class="ft m">
+<div class="ft-grid">
+<img class="mark" src="../../assets/logo-vertical-areia.png" alt="Bistrô du Lú">
+<div><h3>Onde estamos</h3><address>Rua Jequitibá, 910 — Horto<br>Ipatinga · MG, 35160-306<br>+55 11 99999-9999</address></div>
+<div><h3>Horários</h3><div class="hours">
+<div><span>Ter — sáb</span><span>19h — 00h</span></div>
+<div><span>Domingo</span><span>12h — 16h</span></div>
+<div><span>Segunda</span><span>Fechado</span></div>
+<p style="margin:10px 0 0;font-size:12px;line-height:1.6;color:var(--text-faint)">Cozinha até 23h · domingo até 15h</p></div></div>
+<div class="social">
+<a href="#" aria-label="WhatsApp" title="WhatsApp"><img src="https://cdn.simpleicons.org/whatsapp/D9C9B3" width="22" height="22" alt=""></a>
+<a href="#" aria-label="Instagram" title="Instagram"><img src="https://cdn.simpleicons.org/instagram/D9C9B3" width="22" height="22" alt=""></a>
+</div>
+</div>
+<div class="legal"><span>© 2026 Bistrô du Lú · Desde 2017</span><span>Cozinha · Sabor · Afeto</span></div>
+</footer></div>
+<p class="note" style="margin-top:18px"><b>Fotografia.</b> Os retângulos do herói são placeholders — arraste fotos reais do bistrô sobre eles. Nenhuma ilustração vetorial de comida é permitida.</p>
+</div>
+</div>
+</section>
+
+</div></body></html>

@@ -1,0 +1,19 @@
+:root{
+/* small radii only; pill is rationed to 1-2 elements per screen */
+--r-xs:4px;
+--r-sm:6px;
+--r-md:8px;
+--r-pill:999px;
+
+--bw-hairline:1px; /* @kind spacing */
+--bw-thick:2px; /* @kind spacing */
+
+--border-hairline:1px solid var(--verde-garrafa);
+--border-soft:1px solid var(--areia-a14);
+--border-light:1px solid rgba(78,21,23,.14); /* @kind other */
+
+/* elevation = hairline, not diffuse shadow. Shadows only for true overlays. */
+--elev-card:none;
+--elev-overlay:0 18px 48px rgba(15,12,10,.55);
+--blur-sticky:saturate(1.05) blur(14px); /* @kind other */
+}

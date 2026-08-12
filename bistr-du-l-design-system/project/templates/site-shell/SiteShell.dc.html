@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<!-- @template name="Site shell (header + footer)" description="Bistrô du Lú page shell: sticky translucent header, gradient body, carvão footer." -->
+<helmet><script src="./ds-base.js"></script><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"><style>body{margin:0}</style></helmet>
+<div style="min-height:100vh;background:linear-gradient(178deg,#4E1517 0%,#350E10 46%,#17120F 100%);font-family:'Jost','Avenir Next',sans-serif;font-weight:300;color:#D9C9B3;display:flex;flex-direction:column">
+<x-import component-from-global-scope="BistrDuLDesignSystem_e90921.SiteHeader" variant="{{ headerVariant }}" hint-size="100%,84px"></x-import>
+<main style="flex:1;max-width:1280px;margin:0 auto;padding:128px 56px;display:grid;gap:20px;justify-items:start">
+<span style="font-size:12px;font-weight:500;letter-spacing:.26em;text-transform:uppercase;color:rgba(217,201,179,.6)">· Cozinha · Sabor · Afeto ·</span>
+<h1 style="margin:0;font-family:'Playfair Display',Georgia,serif;font-weight:500;font-size:60px;line-height:1.04;letter-spacing:-.01em;color:#EDE3D5;max-width:18ch">Cozinha de bairro, feita com afeto</h1>
+<p style="margin:0;font-size:19px;line-height:1.68;max-width:52ch;color:rgba(217,201,179,.8)">Menu curto que muda com a feira. Horto, Ipatinga, desde 2017. Substitua este bloco pelo conteúdo da página.</p>
+<x-import component-from-global-scope="BistrDuLDesignSystem_e90921.Button" variant="cta" hint-size="220px,44px">Reservar uma mesa</x-import>
+</main>
+<x-import component-from-global-scope="BistrDuLDesignSystem_e90921.SiteFooter" hint-size="100%,380px"></x-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;headerVariant&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;left&quot;,&quot;centered&quot;],&quot;default&quot;:&quot;centered&quot;,&quot;tsType&quot;:&quot;'left' | 'centered'&quot;,&quot;section&quot;:&quot;Header&quot;}}">
+class Component extends DCLogic {
+  renderVals(){ return { headerVariant: this.props.headerVariant ?? 'left' }; }
+}
+</script>
+</body>
+</html>

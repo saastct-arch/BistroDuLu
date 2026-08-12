@@ -1,0 +1,105 @@
+<!-- @dsCard group="Website" viewport="1740x1240" name="Galeria do ambiente — mockup" subtitle="Mosaico editorial de alturas desiguais sobre vinho arroxeado — desktop + trilha mobile" -->
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>Bistrô du Lú — Galeria</title><link rel="stylesheet" href="../../styles.css"><script src="../../assets/image-slot.js"></script><style>
+*{box-sizing:border-box}
+body{margin:0;background:var(--carvao-900);font-family:var(--font-sans-body);font-weight:var(--w-body);color:var(--text-body);padding:56px}
+a{color:var(--areia-quente);text-decoration:none}a:hover{color:var(--terracota-suave)}
+.sheet{display:grid;gap:72px;max-width:1628px;margin:0 auto}
+.row{display:grid;grid-template-columns:1180px 390px;gap:58px;align-items:start}
+.caption{display:grid;gap:6px;margin-bottom:18px}
+.caption h2{margin:0;font-family:var(--font-serif-display);font-weight:var(--w-heading);font-size:24px;color:var(--text-strong)}
+.caption p{margin:0;font-size:13px;color:var(--text-faint);letter-spacing:.04em}
+.eyebrow{font-size:11px;font-weight:500;letter-spacing:var(--ls-eyebrow);text-transform:uppercase;color:var(--text-muted)}
+.frame{border:1px solid var(--verde-garrafa);border-radius:var(--r-sm);overflow:hidden;background:var(--carvao)}
+.note{border-left:1px solid var(--verde-garrafa);padding-left:16px;font-size:13px;line-height:1.7;color:var(--text-faint);max-width:390px}
+.note b{color:var(--text-muted);font-weight:500}
+/* ---------- desktop ---------- */
+.gal{background:linear-gradient(180deg,var(--carvao) 0%,var(--vinho-arroxeado) 20%,var(--vinho-arroxeado) 100%);padding:100px 0 108px}
+.gal .head{padding:0 var(--gutter-desktop);display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:60px;margin-bottom:56px}
+.gal h2{margin:18px 0 0;font-family:var(--font-serif-display);font-weight:var(--w-heading);font-size:46px;line-height:1.08;letter-spacing:var(--ls-display);color:var(--text-strong);max-width:20ch}
+.gal .head p{margin:0;font-size:15px;line-height:1.72;color:var(--areia-a60);max-width:34ch;padding-bottom:6px}
+/* mosaico: colunas desiguais, alturas desiguais, sem quadriculado */
+.mos{padding:0 var(--gutter-desktop);display:grid;grid-template-columns:1.35fr 1fr 1.05fr;gap:20px;align-items:start}
+.mos .col{display:grid;gap:20px}
+.mos .col.b{padding-top:64px}
+.mos .col.c{padding-top:22px}
+.shot{position:relative;overflow:hidden;border:1px solid var(--verde-garrafa)}
+.shot image-slot{display:block;width:100%;height:100%}
+.shot .tint{position:absolute;inset:0;z-index:2;background:linear-gradient(184deg,rgba(78,21,23,.12) 0%,rgba(23,18,15,.34) 100%);pointer-events:none;transition:var(--t-color)}
+.shot:hover .tint{background:linear-gradient(184deg,rgba(78,21,23,0) 0%,rgba(23,18,15,.14) 100%)}
+.shot cap,.shot .cap{position:absolute;left:14px;bottom:12px;z-index:3;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--areia-a60)}
+.h-xl{height:520px}.h-lg{height:400px}.h-md{height:300px}.h-sm{height:232px}
+.gal .foot{padding:0 var(--gutter-desktop);margin-top:44px;display:flex;align-items:center;gap:18px;border-top:1px solid var(--verde-garrafa);padding-top:22px}
+.gal .foot span{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--areia-a38)}
+.gal .foot a{font-size:13px;letter-spacing:.06em;border-bottom:1px solid var(--verde-300);padding-bottom:1px;margin-left:auto;transition:var(--t-color)}
+/* ---------- mobile: trilha horizontal com larguras desiguais ---------- */
+.phone{width:390px;border:1px solid var(--verde-garrafa);border-radius:var(--r-md);overflow:hidden;background:var(--carvao)}
+.galM{background:linear-gradient(180deg,var(--carvao) 0%,var(--vinho-arroxeado) 20%,var(--vinho-arroxeado) 100%);padding:40px 0 44px}
+.galM .head{padding:0 var(--gutter-mobile);margin-bottom:26px}
+.galM h2{margin:14px 0 12px;font-family:var(--font-serif-display);font-weight:var(--w-heading);font-size:31px;line-height:1.1;color:var(--text-strong)}
+.galM .head p{margin:0;font-size:14px;line-height:1.7;color:var(--areia-a60)}
+.rail{display:flex;gap:12px;overflow-x:auto;padding:0 var(--gutter-mobile) 4px;scrollbar-width:none}
+.rail::-webkit-scrollbar{display:none}
+.rail .shot{flex:0 0 auto}
+.w-a{width:214px;height:286px}.w-b{width:150px;height:230px;align-self:flex-end}.w-c{width:186px;height:262px}
+.galM .foot{padding:0 var(--gutter-mobile);margin-top:22px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--verde-garrafa);padding-top:16px}
+.galM .foot span{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--areia-a38)}
+.galM .foot a{font-size:13px;border-bottom:1px solid var(--verde-300);padding-bottom:1px}
+</style></head><body>
+<div class="sheet">
+
+<section>
+<div class="caption"><span class="eyebrow">Galeria</span><h2>O ambiente — mosaico editorial sobre vinho arroxeado</h2><p>Três colunas de larguras diferentes (1,35 / 1 / 1,05) com deslocamento vertical de 64px e 22px: nenhuma linha alinha com a vizinha, então a leitura não cai no padrão de banco de imagens. Fundo vinho→carvão para alternar com o carvão da seção "Sobre nós". Terracota só no hover do link.</p></div>
+<div class="row">
+<div class="frame"><div class="gal">
+<div class="head">
+<div><span class="eyebrow">Especial | Romântico | Familiar</span><h2>Ambientes</h2></div>
+<p>Fotografias do salão feitas em serviço, sem produção — é assim que a casa se parece às nove da noite.</p>
+</div>
+<div class="mos">
+<div class="col a">
+<div class="shot h-xl"><image-slot id="gal-1" shape="rect" fit="cover" placeholder="Foto real — salão em perspectiva, mesas postas, luz de vela"></image-slot><div class="tint"></div><span class="cap">Salão principal</span></div>
+<div class="shot h-md"><image-slot id="gal-2" shape="rect" fit="cover" placeholder="Foto real — detalhe da mesa: toalha, taça, pão"></image-slot><div class="tint"></div></div>
+</div>
+<div class="col b">
+<div class="shot h-lg"><image-slot id="gal-3" shape="rect" fit="cover" placeholder="Foto real — canto reservado para dois, vertical"></image-slot><div class="tint"></div><span class="cap">Mesa dos dois</span></div>
+<div class="shot h-sm"><image-slot id="gal-4" shape="rect" fit="cover" placeholder="Foto real — adega / prateleira de garrafas"></image-slot><div class="tint"></div></div>
+<div class="shot h-md"><image-slot id="gal-5" shape="rect" fit="cover" placeholder="Foto real — fachada à noite"></image-slot><div class="tint"></div><span class="cap">Fachada</span></div>
+</div>
+<div class="col c">
+<div class="shot h-md"><image-slot id="gal-6" shape="rect" fit="cover" placeholder="Foto real — cozinha em serviço, movimento"></image-slot><div class="tint"></div></div>
+<div class="shot h-xl"><image-slot id="gal-7" shape="rect" fit="cover" placeholder="Foto real — vista do salão a partir da porta, vertical"></image-slot><div class="tint"></div><span class="cap">Entrada</span></div>
+</div>
+</div>
+<div class="foot"><span></span><a href="#">Ver no Instagram →</a></div>
+</div></div>
+<div class="note">
+<p><b>Por que não é grid.</b> Sete fotos em quatro alturas (520 / 400 / 300 / 232px) e colunas com topos deslocados — o olho percorre em ziguezague em vez de varrer linhas.</p>
+<p><b>Elevação sem sombra.</b> Cada foto tem borda de 1px em verde garrafa; o hover clareia o véu sobre a imagem em vez de levantar um card.</p>
+<p><b>Legendas seletivas.</b> Só quatro das sete fotos têm legenda, para o mosaico não virar catálogo.</p>
+<p><b>Sem CTA.</b> A galeria termina num link discreto para o Instagram; a reserva continua sendo a única ação em terracota da página.</p>
+</div>
+</div>
+</section>
+
+<section>
+<div class="caption"><span class="eyebrow">Galeria · 390</span><h2>Mobile</h2><p>Trilha horizontal com larguras e alturas desiguais e uma foto alinhada à base — mantém a assimetria do mosaico num único gesto de arrasto.</p></div>
+<div class="row">
+<div class="phone"><div class="galM">
+<div class="head"><span class="eyebrow">Especial | Romântico | Familiar</span><h2>Ambientes</h2><p>Fotografias do salão feitas em serviço, sem produção.</p></div>
+<div class="rail">
+<div class="shot w-a"><image-slot id="gal-m1" shape="rect" fit="cover" placeholder="Foto real — salão em perspectiva"></image-slot><div class="tint"></div><span class="cap">Salão</span></div>
+<div class="shot w-b"><image-slot id="gal-m2" shape="rect" fit="cover" placeholder="Foto real — detalhe da mesa"></image-slot><div class="tint"></div></div>
+<div class="shot w-c"><image-slot id="gal-m3" shape="rect" fit="cover" placeholder="Foto real — canto reservado para dois"></image-slot><div class="tint"></div><span class="cap">Mesa dos dois</span></div>
+<div class="shot w-b"><image-slot id="gal-m4" shape="rect" fit="cover" placeholder="Foto real — adega"></image-slot><div class="tint"></div></div>
+<div class="shot w-a"><image-slot id="gal-m5" shape="rect" fit="cover" placeholder="Foto real — fachada à noite"></image-slot><div class="tint"></div><span class="cap">Fachada</span></div>
+</div>
+<div class="foot"><span>12 fotos</span><a href="#">Instagram →</a></div>
+</div></div>
+<div class="note">
+<p><b>Arrasto, não grid.</b> Cinco fotos em três larguras; a segunda e a quarta alinham pela base, criando degrau na trilha.</p>
+<p><b>Sem barra de scroll.</b> A trilha esconde o scrollbar e sangra até a borda direita para sinalizar continuidade.</p>
+</div>
+</div>
+</section>
+
+</div></body></html>

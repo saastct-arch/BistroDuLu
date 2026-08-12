@@ -1,0 +1,71 @@
+:root{
+/* ---- Brand core (given palette, verbatim) ---- */
+--vinho-arroxeado:#4E1517;
+--carvao:#17120F;
+--verde-garrafa:#1F3327;
+--terracota-suave:#B06A55;
+--areia-quente:#D9C9B3;
+
+/* ---- Derived steps (only for gradients, hovers, hairlines) ---- */
+--vinho-900:#350E10;
+--vinho-700:#4E1517;
+--vinho-500:#63201F;
+--carvao-900:#0F0C0A;
+--carvao-700:#17120F;
+--carvao-500:#241C18;
+--verde-700:#16241B;
+--verde-500:#1F3327;
+--verde-300:#2C4736;
+--terracota-600:#96543F;
+--terracota-500:#B06A55;
+--terracota-300:#C4866F;
+--areia-500:#D9C9B3;
+--areia-400:#C4B49E;
+--areia-300:#A9977E;
+
+/* ---- Alphas (transparency / blur layers) ---- */
+--areia-a80:rgba(217,201,179,.80);
+--areia-a60:rgba(217,201,179,.60);
+--areia-a38:rgba(217,201,179,.38);
+--areia-a14:rgba(217,201,179,.14);
+--areia-a08:rgba(217,201,179,.08);
+--carvao-a90:rgba(23,18,15,.90);
+--carvao-a72:rgba(23,18,15,.72);
+--vinho-a70:rgba(78,21,23,.70);
+--verde-a55:rgba(31,51,39,.55);
+
+/* ---- Semantic surfaces ---- */
+--surface-vinho:var(--vinho-arroxeado);
+--surface-carvao:var(--carvao);
+--surface-areia:var(--areia-quente);
+--surface-card:var(--carvao-500);
+--surface-card-light:#E7DCCB;
+--surface-sticky:var(--carvao-a72);       /* translucent header */
+--surface-overlay:var(--carvao-a90);
+
+/* Section gradients — never one flat colour across a whole page */
+--grad-vinho-carvao:linear-gradient(178deg,var(--vinho-arroxeado) 0%,var(--vinho-900) 46%,var(--carvao) 100%);
+--grad-carvao-vinho:linear-gradient(2deg,var(--vinho-arroxeado) 0%,var(--carvao) 72%);
+--grad-carvao-deep:linear-gradient(180deg,var(--carvao) 0%,var(--carvao-900) 100%);
+--grad-protection:linear-gradient(180deg,rgba(23,18,15,0) 0%,rgba(23,18,15,.78) 62%,var(--carvao) 100%);
+
+/* ---- Semantic text ---- */
+--text-body:var(--areia-quente);
+--text-strong:#EDE3D5;
+--text-muted:var(--areia-a60);
+--text-faint:var(--areia-a38);
+--text-on-light:var(--vinho-arroxeado);
+--text-on-light-muted:rgba(78,21,23,.66);
+--text-accent:var(--terracota-suave);
+
+/* ---- Lines & accents ---- */
+--line-hairline:var(--verde-garrafa);       /* the brand's divider colour */
+--line-soft:var(--areia-a14);
+--line-strong:var(--verde-300);
+
+/* ---- Interactive ---- */
+--cta-bg:var(--terracota-suave);
+--cta-bg-hover:var(--terracota-600);
+--cta-fg:#1B0C13;
+--focus-ring:var(--terracota-300);
+}

@@ -1,0 +1,110 @@
+<!-- @dsCard group="Website" viewport="1740x900" name="Hero — mockup" subtitle="Full-bleed photo, text over the lower half — desktop + mobile 390" -->
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>Bistrô du Lú — Hero</title><link rel="stylesheet" href="../../styles.css"><script src="../../assets/image-slot.js"></script><style>
+*{box-sizing:border-box}
+body{margin:0;background:var(--carvao-900);font-family:var(--font-sans-body);font-weight:var(--w-body);color:var(--text-body);padding:56px}
+a{color:var(--areia-quente);text-decoration:none}a:hover{color:var(--terracota-suave)}
+.sheet{display:grid;gap:72px;max-width:1628px;margin:0 auto}
+.row{display:grid;grid-template-columns:1180px 390px;gap:58px;align-items:start}
+.caption{display:grid;gap:6px;margin-bottom:18px}
+.caption h2{margin:0;font-family:var(--font-serif-display);font-weight:var(--w-heading);font-size:24px;color:var(--text-strong)}
+.caption p{margin:0;font-size:13px;color:var(--text-faint);letter-spacing:.04em}
+.eyebrow{font-size:11px;font-weight:500;letter-spacing:var(--ls-eyebrow);text-transform:uppercase;color:var(--text-muted)}
+.frame{border:1px solid var(--verde-garrafa);border-radius:var(--r-sm);overflow:hidden;background:var(--carvao)}
+.note{border-left:1px solid var(--verde-garrafa);padding-left:16px;font-size:13px;line-height:1.7;color:var(--text-faint);max-width:390px}
+.note b{color:var(--text-muted);font-weight:500}
+.cta{display:inline-flex;align-items:center;gap:10px;background:var(--cta-bg);color:var(--cta-fg);font-size:14px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:13px 26px;border-radius:var(--r-xs);line-height:1;transition:var(--t-color);white-space:nowrap}
+.cta:hover{background:var(--cta-bg-hover);color:var(--cta-fg)}
+.cta.lg{font-size:15px;padding:19px 32px}
+/* ---------- desktop header: variação A (logo à esquerda) ---------- */
+.hd{position:absolute;left:0;right:0;top:0;z-index:4;height:var(--header-h-desktop);padding:0 var(--gutter-desktop);background:var(--surface-sticky);backdrop-filter:var(--blur-sticky);-webkit-backdrop-filter:var(--blur-sticky);border-bottom:1px solid var(--verde-a55);display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:40px}
+.hd img.mark{height:44px;width:auto;display:block}
+.nav{display:flex;align-items:center;gap:34px;justify-self:end}
+.nav a{font-size:13px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;white-space:nowrap;padding-bottom:4px;border-bottom:1px solid transparent;transition:var(--t-color)}
+.nav a.on{border-bottom-color:var(--verde-300)}
+/* ---------- hero desktop ---------- */
+.hero{position:relative;height:760px;overflow:hidden}
+.hero .photo{position:absolute;inset:0}
+.hero .grad{position:absolute;inset:0;z-index:2;background:linear-gradient(178deg,rgba(78,21,23,.44) 0%,rgba(78,21,23,.12) 26%,rgba(53,14,16,.74) 60%,var(--carvao) 100%);pointer-events:none}
+.hero .copy{position:absolute;left:var(--gutter-desktop);right:var(--gutter-desktop);bottom:64px;z-index:3;display:grid;grid-template-columns:minmax(0,720px) auto;align-items:end;gap:56px}
+.hero h1{margin:16px 0 20px;font-family:var(--font-serif-display);font-weight:var(--w-heading);font-size:74px;line-height:1.02;letter-spacing:var(--ls-display);color:var(--text-strong)}
+.hero .pos{margin:0;font-size:19px;line-height:var(--lh-body);color:var(--areia-a80);max-width:42ch}
+.hero .side{display:grid;gap:14px;justify-items:end;text-align:right;padding-bottom:6px}
+.hero .wordmark{width:360px;height:auto;display:block}
+.heroM .wordmark{width:252px;height:auto;display:block;margin:0 auto 4px;justify-self:center}
+.hero .side small{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-faint)}
+.hero .meta{position:absolute;left:var(--gutter-desktop);top:calc(var(--header-h-desktop) + 40px);z-index:3;display:flex;gap:20px;align-items:center;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--areia-a60)}
+.hero .meta span.sep{width:1px;height:12px;background:var(--verde-300)}
+/* ---------- mobile header: variação B (toggle à esquerda, monograma centralizado) ---------- */
+.phone{width:390px;border:1px solid var(--verde-garrafa);border-radius:var(--r-md);overflow:hidden;background:var(--carvao)}
+.hd-m{position:absolute;left:0;right:0;top:0;z-index:4;height:var(--header-h-mobile);padding:0 var(--gutter-mobile);background:var(--surface-sticky);backdrop-filter:var(--blur-sticky);-webkit-backdrop-filter:var(--blur-sticky);border-bottom:1px solid var(--verde-a55);display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px}
+.hd-m img.mark{height:34px;width:auto;display:block;justify-self:center}
+.hd-m .burger{width:34px;height:34px;display:inline-flex;align-items:center;justify-content:center;border:1px solid transparent;border-radius:var(--r-xs)}
+.hd-m .cta{padding:10px 15px;font-size:12px}
+.icon-areia{filter:invert(85%) sepia(18%) saturate(310%) hue-rotate(348deg) brightness(96%)}
+/* ---------- hero mobile (mesma composição B) ---------- */
+.heroM{position:relative;height:720px;overflow:hidden}
+.heroM .photo{position:absolute;inset:0}
+.heroM .grad{position:absolute;inset:0;z-index:2;background:linear-gradient(180deg,rgba(23,18,15,.58) 0%,rgba(78,21,23,.14) 22%,rgba(53,14,16,.76) 56%,var(--carvao) 100%);pointer-events:none}
+.heroM .copy{position:absolute;left:var(--gutter-mobile);right:var(--gutter-mobile);bottom:36px;z-index:3;display:grid;gap:22px;justify-items:start}
+.heroM h1{margin:6px 0 0;font-family:var(--font-serif-display);font-weight:var(--w-heading);font-size:46px;line-height:1.02;letter-spacing:-.01em;color:var(--text-strong)}
+.heroM .pos{margin:0;font-size:15px;line-height:1.66;color:var(--areia-a80)}
+.heroM .cta.lg{width:100%;justify-content:center;padding:18px 20px;font-size:14px}
+.heroM .meta{display:flex;gap:12px;align-items:center;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-faint)}
+.heroM .meta span.sep{width:1px;height:11px;background:var(--verde-300)}
+</style></head><body>
+<div class="sheet">
+
+<section>
+<div class="caption"><span class="eyebrow">Hero</span><h2>Fotografia full-bleed · texto sobre a metade inferior</h2><p>Degradê vinho→carvão a partir de 26% garante o contraste de leitura. Header desktop na variação A (logo à esquerda); header mobile na variação B (toggle à esquerda, monograma centralizado).</p></div>
+<div class="row">
+<div class="frame"><div class="hero">
+<div class="photo"><image-slot id="hero-full" shape="rect" fit="cover" placeholder="Foto do ambiente — salão à noite, luz de vela"></image-slot></div>
+<div class="grad"></div>
+<header class="hd">
+<img class="mark" src="../../assets/logo-monogram-areia.png" alt="Bistrô du Lú">
+<nav class="nav"><a href="#" class="on">Menu</a><a href="#">A casa</a><a href="#">Reservas</a><a href="#">Contato</a></nav>
+<a class="cta" href="#reservas">Reservar uma mesa</a>
+</header>
+<div class="meta"><span>Horto · Ipatinga, MG</span></div>
+<div class="copy">
+<div>
+<img class="wordmark" src="../../assets/logo-topo.png" alt="Bistrô du Lú — Cozinha &amp; Afeto · Desde 2017">
+</div>
+<div class="side">
+<a class="cta lg" href="#reservas">Reservar uma mesa</a>
+<small>| Ter — dom</small>
+</div>
+</div>
+</div></div>
+<div>
+<div class="phone"><div class="heroM">
+<div class="photo"><image-slot id="hero-full-m" shape="rect" fit="cover" placeholder="Foto do ambiente — mobile"></image-slot></div>
+<div class="grad"></div>
+<header class="hd-m">
+<span class="burger"><img src="https://cdn.jsdelivr.net/npm/lucide-static@0.428.0/icons/menu.svg" width="20" height="20" alt="Abrir menu" class="icon-areia"></span>
+<img class="mark" src="../../assets/logo-monogram-areia.png" alt="Bistrô du Lú">
+<a class="cta" href="#">Reservar</a>
+</header>
+<div class="copy">
+<img class="wordmark" src="../../assets/logo-topo.png" alt="Bistrô du Lú — Cozinha &amp; Afeto · Desde 2017">
+<a class="cta lg" href="#reservas">Reservar uma mesa</a>
+<div class="meta"><span class="sep"></span><span>Ter — dom</span></div>
+</div>
+</div></div>
+<p class="note" style="margin-top:18px"><b>Mobile 390px.</b> Mesma composição do desktop: foto sangrando, texto ancorado no rodapé do hero, CTA de largura total. Dois pontos de terracota acima da dobra — o botão do header sticky e o do hero.</p>
+</div>
+</div>
+</section>
+
+<section>
+<div class="row">
+<div class="note" style="max-width:none;display:grid;gap:16px">
+<p style="margin:0"><b>Critério de conversão.</b> O botão terracota é o único preenchimento saturado da tela e aparece duas vezes sem rolar, no desktop e no mobile. Nada mais na tela usa terracota.</p>
+<p style="margin:0"><b>Sem simetria central.</b> O bloco de texto ocupa o canto inferior esquerdo e o CTA vai para o extremo oposto no desktop; no mobile o texto fica alinhado à esquerda, nunca centralizado.</p>
+<p style="margin:0"><b>Fotografia.</b> Os retângulos aceitam arrastar-e-soltar e as fotos ficam salvas. Ambiente com luz baixa e grão leve; nenhuma ilustração vetorial.</p>
+</div>
+<div></div>
+</div>
+</section>
+
+</div></body></html>

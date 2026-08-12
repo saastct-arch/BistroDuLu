@@ -1,0 +1,96 @@
+<!-- @dsCard group="Website" viewport="1740x900" name="Peça em casa — mockup" subtitle="Hierarquia secundária: foto menor à direita, botão em verde garrafa, altura reduzida" -->
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>Bistrô du Lú — Peça em casa</title><link rel="stylesheet" href="../../styles.css"><script src="../../assets/image-slot.js"></script><style>
+*{box-sizing:border-box}
+body{margin:0;background:var(--carvao-900);font-family:var(--font-sans-body);font-weight:var(--w-body);color:var(--text-body);padding:56px}
+a{color:var(--areia-quente);text-decoration:none}a:hover{color:var(--terracota-suave)}
+.sheet{display:grid;gap:72px;max-width:1628px;margin:0 auto}
+.row{display:grid;grid-template-columns:1180px 390px;gap:58px;align-items:start}
+.caption{display:grid;gap:6px;margin-bottom:18px}
+.caption h2{margin:0;font-family:var(--font-serif-display);font-weight:var(--w-heading);font-size:24px;color:var(--text-strong)}
+.caption p{margin:0;font-size:13px;color:var(--text-faint);letter-spacing:.04em}
+.eyebrow{font-size:11px;font-weight:500;letter-spacing:var(--ls-eyebrow);text-transform:uppercase;color:var(--text-muted)}
+.frame{border:1px solid var(--verde-garrafa);border-radius:var(--r-sm);overflow:hidden;background:var(--carvao)}
+.note{border-left:1px solid var(--verde-garrafa);padding-left:16px;font-size:13px;line-height:1.7;color:var(--text-faint);max-width:390px}
+.note b{color:var(--text-muted);font-weight:500}
+/* ---------- botão secundário (verde garrafa) ---------- */
+.btn2{display:inline-flex;align-items:center;gap:10px;background:var(--verde-500);border:1px solid var(--verde-300);color:var(--text-strong);font-size:13px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:15px 26px;border-radius:var(--r-xs);line-height:1;transition:var(--t-color);white-space:nowrap}
+.btn2:hover{background:var(--verde-300);border-color:var(--terracota-suave);color:var(--text-strong)}
+.btn2 .arw{font-size:15px;line-height:1;transform:translateY(-1px);color:var(--areia-a60)}
+.link{font-size:13px;letter-spacing:.04em;color:var(--areia-a60);border-bottom:1px solid var(--verde-300);padding-bottom:1px;transition:var(--t-color)}
+.link:hover{color:var(--terracota-suave)}
+/* ---------- desktop ---------- */
+.del{position:relative;background:linear-gradient(180deg,var(--vinho-arroxeado) 0%,var(--carvao) 20%,var(--carvao) 100%);border-top:1px solid var(--verde-garrafa)}
+.del .inner{display:grid;grid-template-columns:minmax(0,1fr) 420px;gap:80px;align-items:center;padding:76px var(--gutter-desktop)}
+.del .copy{display:grid;gap:0;max-width:560px}
+.del h2{margin:16px 0 16px;font-family:var(--font-serif-display);font-weight:var(--w-heading);font-size:38px;line-height:1.1;letter-spacing:-.005em;color:var(--text-strong)}
+.del p.lead{margin:0 0 26px;font-size:16px;line-height:var(--lh-body);color:var(--areia-a80);max-width:46ch;text-wrap:pretty}
+.facts{margin:0 0 30px;display:flex;gap:0;border-top:1px solid var(--verde-garrafa);padding-top:18px}
+.facts div{padding-right:34px;margin-right:34px;border-right:1px solid var(--verde-garrafa)}
+.facts div:last-child{border-right:0;padding-right:0;margin-right:0}
+.facts dt{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--areia-a38);margin-bottom:6px}
+.facts dd{margin:0;font-size:14px;color:var(--areia-a80);font-variant-numeric:tabular-nums}
+.act{display:flex;align-items:center;gap:26px;flex-wrap:wrap}
+.del .shot{position:relative;height:300px;border:1px solid var(--verde-garrafa);border-radius:var(--r-xs);overflow:hidden}
+.del .shot .tint{position:absolute;inset:0;z-index:2;background:linear-gradient(184deg,rgba(78,21,23,.10) 0%,rgba(23,18,15,.42) 100%);pointer-events:none}
+/* ---------- mobile ---------- */
+.phone{width:390px;border:1px solid var(--verde-garrafa);border-radius:var(--r-md);overflow:hidden;background:var(--carvao)}
+.delM{background:linear-gradient(180deg,var(--vinho-arroxeado) 0%,var(--carvao) 20%,var(--carvao) 100%);border-top:1px solid var(--verde-garrafa);padding:36px var(--gutter-mobile) 40px}
+.delM h2{margin:14px 0 14px;font-family:var(--font-serif-display);font-weight:var(--w-heading);font-size:29px;line-height:1.1;color:var(--text-strong)}
+.delM p.lead{margin:0 0 22px;font-size:15px;line-height:1.66;color:var(--areia-a80)}
+.delM .shot{position:relative;height:170px;border:1px solid var(--verde-garrafa);border-radius:var(--r-xs);overflow:hidden;margin-bottom:24px}
+.delM .facts{display:grid;grid-template-columns:1fr 1fr;gap:16px 0;margin-bottom:24px}
+.delM .facts div{border-right:0;padding-right:0;margin-right:0}
+.delM .act{gap:18px}
+.delM .btn2{flex:1;justify-content:center;padding:16px 18px}
+</style></head><body>
+<div class="sheet">
+
+<section>
+<div class="caption"><span class="eyebrow">Delivery</span><h2>Peça em casa — bloco secundário, só texto e um botão</h2><p>Sem imagem: a seção pesa menos por altura e por tipografia, não por foto. Altura total ~330px contra 660px da reserva. Botão em verde garrafa com borda 1px; terracota só aparece no hover — nenhum elemento da tela usa terracota em repouso.</p></div>
+<div class="row">
+<div class="frame"><div class="del">
+<div class="inner" style="grid-template-columns:minmax(0,1fr)">
+<div class="copy">
+<span class="eyebrow">Também para levar</span>
+<h2>Peça em casa</h2>
+<p class="lead">Um recorte do menu sai para viagem.</p>
+<dl class="facts">
+<div><dt>Retirada</dt><dd>Ter — Sáb, 19h00 às 23h00<br>Dom, 12h00 às 15h00</dd></div>
+</dl>
+<div class="act">
+<a class="btn2" href="#"><span>Ver menu para viagem</span><span class="arw">→</span></a>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+<div class="note">
+<p><b>Como o peso cai.</b> Título 38px (contra 58px na reserva), padding vertical 76px (contra 96px), nenhuma imagem e botão de 15px de padding vertical (contra 22px).</p>
+<p><b>Sem parecer desativado.</b> O verde garrafa é preenchimento sólido com borda um passo mais clara, texto em areia forte e a mesma tabela de dados da reserva — mesma qualidade de acabamento, menor amplitude.</p>
+<p><b>Degradê.</b> A seção abre em vinho, herdado das reservas, e resolve em carvão nos 20% iniciais. Depois dela vem Como chegar, que volta ao vinho.</p>
+</div>
+</div>
+</section>
+
+<section>
+<div class="caption"><span class="eyebrow">Delivery · 390</span><h2>Mobile</h2><p>Título, texto curto, bloco único de retirada e botão secundário em largura total. Sem foto e sem segundo link.</p></div>
+<div class="row">
+<div class="phone"><div class="delM">
+<span class="eyebrow">Também para levar</span>
+<h2>Peça em casa</h2>
+<p class="lead">Um recorte do menu sai para viagem.</p>
+<dl class="facts" style="grid-template-columns:1fr">
+<div><dt>Retirada</dt><dd>Ter — Sáb, 19h00 às 23h00<br>Dom, 12h00 às 15h00</dd></div>
+</dl>
+<div class="act">
+<a class="btn2" href="#"><span>Ver menu para viagem</span><span class="arw">→</span></a>
+</div>
+</div></div>
+<div class="note">
+<p><b>Ordem.</b> Eyebrow → título → texto → retirada → botão: quatro linhas de leitura e um destino, sem imagem competindo com o hero.</p>
+<p><b>Uma ação só.</b> Pedidos não passam por WhatsApp — a seção tem um único destino, o menu para viagem.</p>
+</div>
+</div>
+</section>
+
+</div></body></html>

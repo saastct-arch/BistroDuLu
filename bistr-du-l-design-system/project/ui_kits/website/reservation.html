@@ -1,0 +1,121 @@
+<!-- @dsCard group="Website" viewport="1740x1020" name="Reservar uma mesa — mockup" subtitle="Assimetria: foto grande à esquerda, copy à direita — CTA Get In + FAB WhatsApp neutro" -->
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>Bistrô du Lú — Reservar uma mesa</title><link rel="stylesheet" href="../../styles.css"><script src="../../assets/image-slot.js"></script><style>
+*{box-sizing:border-box}
+body{margin:0;background:var(--carvao-900);font-family:var(--font-sans-body);font-weight:var(--w-body);color:var(--text-body);padding:56px}
+a{color:var(--areia-quente);text-decoration:none}a:hover{color:var(--terracota-suave)}
+.sheet{display:grid;gap:72px;max-width:1628px;margin:0 auto}
+.row{display:grid;grid-template-columns:1180px 390px;gap:58px;align-items:start}
+.caption{display:grid;gap:6px;margin-bottom:18px}
+.caption h2{margin:0;font-family:var(--font-serif-display);font-weight:var(--w-heading);font-size:24px;color:var(--text-strong)}
+.caption p{margin:0;font-size:13px;color:var(--text-faint);letter-spacing:.04em}
+.eyebrow{font-size:11px;font-weight:500;letter-spacing:var(--ls-eyebrow);text-transform:uppercase;color:var(--text-muted)}
+.frame{border:1px solid var(--verde-garrafa);border-radius:var(--r-sm);overflow:hidden;background:var(--carvao)}
+.note{border-left:1px solid var(--verde-garrafa);padding-left:16px;font-size:13px;line-height:1.7;color:var(--text-faint);max-width:390px}
+.note b{color:var(--text-muted);font-weight:500}
+/* ---------- CTA primário (Get In) ---------- */
+.cta{display:inline-flex;align-items:center;gap:12px;background:var(--cta-bg);color:var(--cta-fg);font-size:15px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:22px 40px;border-radius:var(--r-xs);line-height:1;transition:var(--t-color);white-space:nowrap}
+.cta:hover{background:var(--cta-bg-hover);color:var(--cta-fg)}
+.cta .arw{font-size:17px;line-height:1;transform:translateY(-1px)}
+.sub{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-faint)}
+/* ---------- seção desktop ---------- */
+.res{position:relative;padding:0;background:linear-gradient(180deg,var(--carvao) 0%,var(--vinho-arroxeado) 20%,var(--vinho-arroxeado) 100%)}
+.res .inner{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);align-items:stretch}
+.res .shot{position:relative;min-height:660px}
+.res .shot .edge{position:absolute;inset:0;z-index:2;box-shadow:inset -1px 0 0 var(--verde-garrafa);background:linear-gradient(92deg,rgba(23,18,15,0) 62%,rgba(78,21,23,.42) 100%);pointer-events:none}
+.res .copy{padding:96px var(--gutter-desktop) 96px 78px;display:grid;align-content:center;gap:0}
+.res h2{margin:22px 0 26px;font-family:var(--font-serif-display);font-weight:var(--w-heading);font-size:58px;line-height:1.06;letter-spacing:var(--ls-display);color:var(--text-strong);max-width:15ch;text-wrap:pretty}
+.res p.lead{margin:0 0 40px;font-size:18px;line-height:var(--lh-body);color:var(--areia-a80);max-width:44ch;text-wrap:pretty}
+.hours{margin:0 0 44px;display:grid;gap:14px;max-width:420px;border-top:1px solid var(--verde-garrafa);padding-top:22px}
+.hours .r{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:baseline;font-size:14px;letter-spacing:.03em}
+.hours .r dt{color:var(--areia-a60);text-transform:uppercase;letter-spacing:.14em;font-size:12px}
+.hours .r dd{margin:0;color:var(--text-strong);font-variant-numeric:tabular-nums}
+.hours .r.off dd{color:var(--text-faint)}
+.act{display:grid;gap:16px;justify-items:start}
+.alt{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--areia-a60);border-left:1px solid var(--verde-garrafa);padding-left:14px;line-height:1.6}
+.alt a{border-bottom:1px solid var(--verde-300);padding-bottom:1px}
+/* ---------- FAB WhatsApp (neutro) ---------- */
+.fab{position:absolute;left:34px;bottom:34px;z-index:6;display:inline-flex;align-items:center;gap:11px;background:var(--carvao-a90);border:1px solid var(--verde-300);color:var(--areia-quente);border-radius:var(--r-xs);padding:13px 18px 13px 15px;font-size:13px;letter-spacing:.05em;backdrop-filter:var(--blur-sticky);-webkit-backdrop-filter:var(--blur-sticky);transition:var(--t-color)}
+.fab:hover{border-color:var(--terracota-suave);color:var(--areia-quente)}
+.fab svg{width:19px;height:19px;display:block;fill:var(--areia-a80)}
+.fab b{font-weight:500;color:var(--text-strong)}
+.fab span.hint{color:var(--text-faint);font-size:12px}
+/* ---------- mobile ---------- */
+.phone{width:390px;border:1px solid var(--verde-garrafa);border-radius:var(--r-md);overflow:hidden;background:var(--carvao)}
+.resM{position:relative;background:linear-gradient(180deg,var(--carvao) 0%,var(--vinho-arroxeado) 20%,var(--vinho-arroxeado) 100%)}
+.resM .shot{position:relative;height:300px}
+.resM .shot .edge{position:absolute;inset:0;z-index:2;background:linear-gradient(180deg,rgba(23,18,15,0) 46%,rgba(78,21,23,.55) 100%);border-bottom:1px solid var(--verde-garrafa)}
+.resM .copy{padding:40px var(--gutter-mobile) 116px}
+.resM h2{margin:16px 0 18px;font-family:var(--font-serif-display);font-weight:var(--w-heading);font-size:38px;line-height:1.05;letter-spacing:-.01em;color:var(--text-strong)}
+.resM p.lead{margin:0 0 30px;font-size:15px;line-height:1.66;color:var(--areia-a80)}
+.resM .hours{margin:0 0 32px;max-width:none}
+.resM .cta{width:100%;justify-content:center;padding:20px;font-size:14px}
+.resM .act{justify-items:stretch}
+.resM .fab{right:18px;bottom:22px;padding:12px 16px}
+</style></head><body>
+<div class="sheet">
+
+<section>
+<div class="caption"><span class="eyebrow">Reserva</span><h2>Reservar uma mesa — foto dominante à esquerda, ação à direita</h2><p>Alinhamento assimétrico para quebrar a simetria do hero. A seção abre em carvão e resolve em vinho nos 20% iniciais, herdando a cor da seção anterior. Terracota aparece uma única vez na tela (o botão Get In); o WhatsApp fica neutro, carvão translúcido com borda fina verde garrafa, num canto inferior fixo.</p></div>
+<div class="row">
+<div class="frame"><div class="res">
+<div class="inner">
+<div class="shot">
+<div class="photo" style="position:absolute;inset:0"><image-slot id="res-room" shape="rect" fit="cover" placeholder="Foto real — mesa posta, taças e velas, ângulo baixo"></image-slot></div>
+<div class="edge"></div>
+</div>
+<div class="copy">
+<span class="eyebrow">Reservas</span>
+<h2>Reservar uma mesa</h2>
+<p class="lead">O salão tem trinta e dois lugares. Reserve com dois a três dias de antecedência — sextas e sábados costumam fechar antes.</p>
+<dl class="hours">
+<div class="r"><dt>Terça a sábado</dt><dd>19h — 00h</dd></div>
+<div class="r"><dt>Domingo</dt><dd>12h — 16h</dd></div>
+<div class="r off"><dt>Segunda</dt><dd>Fechado</dd></div>
+</dl>
+<p style="margin:10px 0 0;font-size:12px;line-height:1.6;color:var(--text-faint)">Cozinha até 23h · domingo até 15h</p>
+<div class="act">
+<a class="cta" href="#"><span>Reservar no Get In</span><span class="arw">→</span></a>
+<span class="sub">Confirmação imediata · sem taxa</span>
+</div>
+</div>
+</div>
+<a class="fab" href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.85 9.85 0 0 0 12.04 2Zm5.8 14.1c-.24.68-1.4 1.3-1.93 1.35-.53.05-1.03.07-1.6-.1a12.9 12.9 0 0 1-4.44-2.64 10.6 10.6 0 0 1-2.2-3.16c-.23-.6-.24-1.12-.16-1.53.08-.4.6-1.02.83-1.23.23-.2.42-.22.6-.21.18.01.38.02.55.4.17.4.6 1.48.65 1.59.05.11.08.24.01.38-.07.14-.35.5-.5.68-.14.17-.2.24-.09.44.11.2.51.86 1.1 1.4.75.7 1.38.93 1.58 1.03.2.1.32.09.44-.04.13-.14.53-.6.67-.8.14-.2.28-.16.47-.09.19.07 1.2.6 1.4.71.2.11.33.16.38.25.05.09.05.53-.19 1.2Z"></path></svg><b>WhatsApp</b><span class="hint">dúvidas e grupos</span></a>
+</div></div>
+<div class="note">
+<p><b>Hierarquia.</b> O Get In é o único elemento em terracota da tela, com 22px de padding vertical e caixa alta espaçada — lê como ação primária à distância.</p>
+<p><b>WhatsApp secundário.</b> Superfície carvão translúcida, borda 1px verde garrafa, ícone em areia a 80%. Ganha terracota apenas na borda em hover, nunca no preenchimento.</p>
+<p><b>Antecedência.</b> A recomendação de 2–3 dias fica no parágrafo de abertura, antes da tabela de horários, para justificar o clique.</p>
+<p><b>Foto.</b> Só no desktop: mesa posta em ângulo baixo, sem prato em close, ocupando 52% da largura e sangrando até a borda esquerda. O mobile é texto puro.</p>
+</div>
+</div>
+</section>
+
+<section>
+<div class="caption"><span class="eyebrow">Reserva · 390</span><h2>Mobile</h2><p>Sem foto: título, antecedência, horários e CTA em largura total. O FAB do WhatsApp permanece fixo acima da dobra inferior sem cobrir o botão principal.</p></div>
+<div class="row">
+<div class="phone"><div class="resM">
+<div class="copy">
+<span class="eyebrow">Reservas</span>
+<h2>Reservar uma mesa</h2>
+<p class="lead">Trinta e dois lugares. Reserve com dois a três dias de antecedência — sextas e sábados fecham antes.</p>
+<dl class="hours">
+<div class="r"><dt>Ter — sáb</dt><dd>19h — 00h</dd></div>
+<div class="r"><dt>Domingo</dt><dd>12h — 16h</dd></div>
+<div class="r off"><dt>Segunda</dt><dd>Fechado</dd></div>
+</dl>
+<p style="margin:10px 0 0;font-size:12px;line-height:1.6;color:var(--text-faint)">Cozinha até 23h · domingo até 15h</p>
+<div class="act">
+<a class="cta" href="#"><span>Reservar no Get In</span><span class="arw">→</span></a>
+<span class="sub" style="text-align:center">Confirmação imediata · sem taxa</span>
+</div>
+</div>
+<a class="fab" href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.85 9.85 0 0 0 12.04 2Zm5.8 14.1c-.24.68-1.4 1.3-1.93 1.35-.53.05-1.03.07-1.6-.1a12.9 12.9 0 0 1-4.44-2.64 10.6 10.6 0 0 1-2.2-3.16c-.23-.6-.24-1.12-.16-1.53.08-.4.6-1.02.83-1.23.23-.2.42-.22.6-.21.18.01.38.02.55.4.17.4.6 1.48.65 1.59.05.11.08.24.01.38-.07.14-.35.5-.5.68-.14.17-.2.24-.09.44.11.2.51.86 1.1 1.4.75.7 1.38.93 1.58 1.03.2.1.32.09.44-.04.13-.14.53-.6.67-.8.14-.2.28-.16.47-.09.19.07 1.2.6 1.4.71.2.11.33.16.38.25.05.05.05.53-.19 1.2Z"></path></svg><b>WhatsApp</b></a>
+</div></div>
+<div class="note">
+<p><b>Ordem de leitura.</b> Título → antecedência → horários → CTA. O FAB entra depois, sem competir: menor, neutro e ancorado ao canto.</p>
+<p><b>Padding inferior.</b> 116px na copy reservam espaço para o FAB flutuar sem sobrepor o botão de reserva.</p>
+</div>
+</div>
+</section>
+
+</div></body></html>
