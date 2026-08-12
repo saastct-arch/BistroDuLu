@@ -1,0 +1,435 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#17120F"><meta name="description" content="Bistrô du Lú — cozinha, sabor e afeto. Rua Jequitibá, 910, Horto, Ipatinga MG."><title>Bistrô du Lú — Ipatinga MG</title><style>@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..700;1,400..600&family=Jost:ital,wght@0,300..600;1,300..500&display=swap");
+/* Webfonts are loaded from Google Fonts (no original brand font files were provided).
+   Playfair Display stands in for the Didone-ish wordmark serif of the logo lockup.
+   Jost is the neutral geometric sans for body copy. Replace with licensed brand files if they exist. */
+
+:root{
+/* ---- Brand core (given palette, verbatim) ---- */
+--vinho-arroxeado:#4E1517;
+--carvao:#17120F;
+--verde-garrafa:#1F3327;
+--terracota-suave:#B06A55;
+--areia-quente:#D9C9B3;
+
+/* ---- Derived steps (only for gradients, hovers, hairlines) ---- */
+--vinho-900:#350E10;
+--vinho-700:#4E1517;
+--vinho-500:#63201F;
+--carvao-900:#0F0C0A;
+--carvao-700:#17120F;
+--carvao-500:#241C18;
+--verde-700:#16241B;
+--verde-500:#1F3327;
+--verde-300:#2C4736;
+--terracota-600:#96543F;
+--terracota-500:#B06A55;
+--terracota-300:#C4866F;
+--areia-500:#D9C9B3;
+--areia-400:#C4B49E;
+--areia-300:#A9977E;
+
+/* ---- Alphas (transparency / blur layers) ---- */
+--areia-a80:rgba(217,201,179,.80);
+--areia-a60:rgba(217,201,179,.60);
+--areia-a38:rgba(217,201,179,.38);
+--areia-a14:rgba(217,201,179,.14);
+--areia-a08:rgba(217,201,179,.08);
+--carvao-a90:rgba(23,18,15,.90);
+--carvao-a72:rgba(23,18,15,.72);
+--vinho-a70:rgba(78,21,23,.70);
+--verde-a55:rgba(31,51,39,.55);
+
+/* ---- Semantic surfaces ---- */
+--surface-vinho:var(--vinho-arroxeado);
+--surface-carvao:var(--carvao);
+--surface-areia:var(--areia-quente);
+--surface-card:var(--carvao-500);
+--surface-card-light:#E7DCCB;
+--surface-sticky:var(--carvao-a72);       /* translucent header */
+--surface-overlay:var(--carvao-a90);
+
+/* Section gradients — never one flat colour across a whole page */
+--grad-vinho-carvao:linear-gradient(178deg,var(--vinho-arroxeado) 0%,var(--vinho-900) 46%,var(--carvao) 100%);
+--grad-carvao-vinho:linear-gradient(2deg,var(--vinho-arroxeado) 0%,var(--carvao) 72%);
+--grad-carvao-deep:linear-gradient(180deg,var(--carvao) 0%,var(--carvao-900) 100%);
+--grad-protection:linear-gradient(180deg,rgba(23,18,15,0) 0%,rgba(23,18,15,.78) 62%,var(--carvao) 100%);
+
+/* ---- Semantic text ---- */
+--text-body:var(--areia-quente);
+--text-strong:#EDE3D5;
+--text-muted:var(--areia-a60);
+--text-faint:var(--areia-a38);
+--text-on-light:var(--vinho-arroxeado);
+--text-on-light-muted:rgba(78,21,23,.66);
+--text-accent:var(--terracota-suave);
+
+/* ---- Lines & accents ---- */
+--line-hairline:var(--verde-garrafa);       /* the brand's divider colour */
+--line-soft:var(--areia-a14);
+--line-strong:var(--verde-300);
+
+/* ---- Interactive ---- */
+--cta-bg:var(--terracota-suave);
+--cta-bg-hover:var(--terracota-600);
+--cta-fg:#1B0C13;
+--focus-ring:var(--terracota-300);
+}
+
+:root{
+--font-serif-display:"Playfair Display",'Iowan Old Style',Georgia,serif;
+--font-sans-body:"Jost",'Avenir Next','Helvetica Neue',sans-serif;
+--font-body:var(--font-sans-body);
+--font-heading:var(--font-serif-display);
+
+/* weights — headings sit at medium, never light, never black */
+--w-heading:500; /* @kind font */
+--w-heading-strong:600; /* @kind font */
+--w-body:300; /* @kind font */
+--w-body-strong:500; /* @kind font */
+
+/* type scale (1.25 major third, 16px base) */
+--fs-display:clamp(44px,6vw,84px); /* @kind font */
+--fs-h1:clamp(36px,4.4vw,60px); /* @kind font */
+--fs-h2:clamp(28px,3vw,40px); /* @kind font */
+--fs-h3:24px;
+--fs-lead:19px;
+--fs-body:16px;
+--fs-small:14px;
+--fs-eyebrow:12px;
+
+--lh-display:1.04; /* @kind font */
+--lh-heading:1.14; /* @kind font */
+--lh-body:1.68; /* @kind font */
+
+/* letter-spacing — the wordmark language: wide caps, tight display */
+--ls-display:-.01em; /* @kind font */
+--ls-heading:0; /* @kind font */
+--ls-body:.005em; /* @kind font */
+--ls-eyebrow:.26em; /* @kind font */   /* ". COZINHA . SABOR . AFETO ." */
+--ls-wordmark:.18em; /* @kind font */
+}
+
+:root{
+--s-1:4px;--s-2:8px;--s-3:12px;--s-4:16px;--s-5:24px;--s-6:32px;
+--s-7:48px;--s-8:64px;--s-9:96px;--s-10:128px;--s-11:160px;
+
+--gutter-mobile:20px;
+--gutter-desktop:56px;
+--max-content:1280px;
+--max-prose:62ch;
+
+/* generous vertical rhythm — breathing room is the luxury signal */
+--section-y-mobile:var(--s-8);
+--section-y-desktop:var(--s-10);
+--header-h-mobile:64px;
+--header-h-desktop:84px;
+}
+
+:root{
+/* small radii only; pill is rationed to 1-2 elements per screen */
+--r-xs:4px;
+--r-sm:6px;
+--r-md:8px;
+--r-pill:999px;
+
+--bw-hairline:1px; /* @kind spacing */
+--bw-thick:2px; /* @kind spacing */
+
+--border-hairline:1px solid var(--verde-garrafa);
+--border-soft:1px solid var(--areia-a14);
+--border-light:1px solid rgba(78,21,23,.14); /* @kind other */
+
+/* elevation = hairline, not diffuse shadow. Shadows only for true overlays. */
+--elev-card:none;
+--elev-overlay:0 18px 48px rgba(15,12,10,.55);
+--blur-sticky:saturate(1.05) blur(14px); /* @kind other */
+}
+
+:root{
+--ease-out:cubic-bezier(.22,.61,.36,1); /* @kind other */
+--ease-in-out:cubic-bezier(.4,0,.2,1); /* @kind other */
+--dur-fast:140ms; /* @kind other */
+--dur-base:240ms; /* @kind other */
+--dur-slow:520ms; /* @kind other */
+--t-color:color var(--dur-fast) var(--ease-out),background-color var(--dur-fast) var(--ease-out),border-color var(--dur-fast) var(--ease-out);
+--t-reveal:opacity var(--dur-slow) var(--ease-out),transform var(--dur-slow) var(--ease-out);
+}
+
+
+*{box-sizing:border-box}
+html,body{height:100%}body{margin:0;background:var(--carvao-900);font-family:var(--font-sans-body);font-weight:var(--w-body);color:var(--text-body)}
+a{color:var(--areia-quente);text-decoration:none}a:hover{color:var(--terracota-suave)}
+
+
+
+
+.eyebrow{font-size:11px;font-weight:500;letter-spacing:var(--ls-eyebrow);text-transform:uppercase;color:var(--text-muted)}
+
+
+
+
+
+/* ---------- telefone com scroll interno ---------- */
+.phone{position:relative;width:100%;max-width:430px;height:100dvh;margin:0 auto;overflow:hidden;background:var(--carvao)}
+@media(min-width:431px){.phone{border-left:1px solid var(--verde-garrafa);border-right:1px solid var(--verde-garrafa)}}
+/* ---------- aba lateral ---------- */
+.drawer{position:absolute;inset:0;z-index:20;pointer-events:none}
+.drawer .scrim{position:absolute;inset:0;background:var(--carvao-a90);opacity:0;transition:opacity .28s var(--ease-out,ease)}
+.drawer .panel{position:absolute;left:0;top:0;bottom:0;width:296px;background:var(--carvao-900);border-right:1px solid var(--verde-garrafa);transform:translateX(-100%);transition:transform .3s var(--ease-out,ease);display:grid;grid-template-rows:auto 1fr auto;padding:20px 0 24px}
+.drawer.open{pointer-events:auto}
+.drawer.open .scrim{opacity:1}
+.drawer.open .panel{transform:translateX(0)}
+.drawer .top{display:flex;align-items:center;justify-content:space-between;padding:0 22px 22px;border-bottom:1px solid var(--verde-garrafa)}
+.drawer .top img{height:34px;width:auto;display:block}
+.drawer .close{width:34px;height:34px;display:grid;place-items:center;border:1px solid var(--verde-garrafa);border-radius:var(--r-xs);background:none;cursor:pointer;padding:0;transition:var(--t-color)}
+.drawer .close:hover{border-color:var(--terracota-suave)}
+.drawer nav{display:grid;align-content:start;padding:8px 0}
+.drawer nav a{font-family:var(--font-serif-display);font-weight:var(--w-heading);font-size:22px;color:var(--areia-quente);padding:18px 22px;border-bottom:1px solid var(--verde-a55);transition:var(--t-color)}
+.drawer nav a:hover{color:var(--terracota-suave);background:var(--areia-a08)}
+.drawer .foot{padding:20px 22px 0;border-top:1px solid var(--verde-garrafa);display:grid;gap:12px}
+.drawer .foot span{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--areia-a38)}
+.drawer .foot address{font-style:normal;font-size:13.5px;line-height:1.65;color:var(--areia-a60)}
+/* ---------- cardápio (seção-irmã) ---------- */
+.menuM{background:linear-gradient(180deg,var(--vinho-arroxeado) 0%,var(--carvao) 20%,var(--carvao) 100%);padding:38px var(--gutter-mobile) 42px;border-top:1px solid var(--verde-garrafa);display:grid;justify-items:start;gap:0}
+.menuM h2{margin:14px 0 12px;font-family:var(--font-serif-display);font-weight:var(--w-heading);font-size:29px;line-height:1.1;color:var(--text-strong)}
+.menuM p{margin:0 0 24px;font-size:15px;line-height:1.66;color:var(--areia-a80)}
+.scroll{height:100%;overflow-y:auto;scrollbar-width:none;position:relative}
+.scroll::-webkit-scrollbar{display:none}
+/* header sticky (variação B) */
+.hd-m{position:sticky;top:0;z-index:9;height:var(--header-h-mobile);padding:0 var(--gutter-mobile);background:var(--surface-sticky);backdrop-filter:var(--blur-sticky);-webkit-backdrop-filter:var(--blur-sticky);border-bottom:1px solid var(--verde-a55);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;margin-bottom:calc(-1 * var(--header-h-mobile))}
+.hd-m img.mark{height:34px;width:auto;display:block;justify-self:center}
+.hd-m .cta{justify-self:end}
+.hd-m .burger{justify-self:start}
+.hd-m .burger{width:34px;height:34px;display:inline-flex;align-items:center;justify-content:center}
+.icon-areia{filter:invert(85%) sepia(18%) saturate(310%) hue-rotate(348deg) brightness(96%)}
+.cta{display:inline-flex;align-items:center;gap:10px;background:var(--cta-bg);color:var(--cta-fg);font-weight:500;letter-spacing:.1em;text-transform:uppercase;border-radius:var(--r-xs);line-height:1;transition:var(--t-color);white-space:nowrap}
+.cta:hover{background:var(--cta-bg-hover);color:var(--cta-fg)}
+.hd-m .cta{padding:10px 15px;font-size:12px}
+/* ---------- hero ---------- */
+.heroM{position:relative;height:720px;overflow:hidden}
+.heroM .photo{position:absolute;inset:0}
+.heroM .grad{position:absolute;inset:0;z-index:2;background:linear-gradient(180deg,rgba(23,18,15,.58) 0%,rgba(78,21,23,.14) 22%,rgba(53,14,16,.76) 56%,var(--carvao) 100%)}
+.heroM .copy{position:absolute;left:var(--gutter-mobile);right:var(--gutter-mobile);bottom:36px;z-index:3;display:grid;gap:22px;justify-items:start}
+.heroM .wordmark{width:252px;height:auto;display:block;margin:0 auto 4px;justify-self:center}
+.heroM h1{margin:6px 0 0;font-family:var(--font-serif-display);font-weight:var(--w-heading);font-size:46px;line-height:1.02;letter-spacing:-.01em;color:var(--text-strong)}
+.heroM .pos{margin:0;font-size:15px;line-height:1.66;color:var(--areia-a80)}
+.heroM .cta{width:100%;justify-content:center;padding:18px 20px;font-size:14px}
+.heroM .meta{display:flex;gap:10px;align-items:center;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-faint)}
+.heroM .meta span.sep{width:1px;height:11px;background:var(--verde-300)}
+/* ---------- sobre ---------- */
+.abM{background:var(--carvao)}
+.abM .shot{position:relative;height:420px;overflow:hidden;border-bottom:1px solid var(--verde-garrafa)}
+.abM .shot .tint{position:absolute;inset:0;z-index:2;background:linear-gradient(180deg,rgba(23,18,15,.34) 0%,rgba(23,18,15,0) 40%,rgba(23,18,15,.55) 100%)}
+.abM .copy{padding:36px var(--gutter-mobile) 44px}
+.abM h2{margin:14px 0 20px;font-family:var(--font-serif-display);font-weight:var(--w-heading);font-size:33px;line-height:1.1;color:var(--text-strong)}
+.abM p{margin:0 0 18px;font-size:15px;line-height:1.72;color:var(--areia-a80)}
+.abM .em{color:var(--text-strong)}
+.people{margin-top:30px;display:grid;border-top:1px solid var(--verde-garrafa)}
+.people .p{display:grid;gap:12px;padding:22px 0;border-bottom:1px solid var(--verde-garrafa)}
+.people .p:last-child{border-bottom:0}
+.people .name{font-family:var(--font-serif-display);font-weight:var(--w-heading);font-size:22px;line-height:1;color:var(--text-strong)}
+.people .bio{margin:0;font-size:14px;line-height:1.7;color:var(--areia-a60)}
+/* ---------- galeria ---------- */
+.galM{background:linear-gradient(180deg,var(--carvao) 0%,var(--vinho-arroxeado) 20%,var(--vinho-arroxeado) 100%);padding:40px 0 44px}
+.galM .head{padding:0 var(--gutter-mobile);margin-bottom:26px}
+.galM h2{margin:14px 0 12px;font-family:var(--font-serif-display);font-weight:var(--w-heading);font-size:31px;line-height:1.1;color:var(--text-strong)}
+.galM .head p{margin:0;font-size:14px;line-height:1.7;color:var(--areia-a60)}
+.rail{display:flex;gap:12px;overflow-x:auto;padding:0 var(--gutter-mobile) 4px;scrollbar-width:none}
+.rail::-webkit-scrollbar{display:none}
+.shot-g{position:relative;overflow:hidden;border:1px solid var(--verde-garrafa);flex:0 0 auto}
+.shot-g image-slot{display:block;width:100%;height:100%}
+.shot-g .tint{position:absolute;inset:0;z-index:2;background:linear-gradient(184deg,rgba(78,21,23,.12) 0%,rgba(23,18,15,.34) 100%)}
+.shot-g .cap{position:absolute;left:12px;bottom:10px;z-index:3;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--areia-a60)}
+.w-a{width:214px;height:286px}.w-b{width:150px;height:230px;align-self:flex-end}.w-c{width:186px;height:262px}
+.galM .foot{padding:0 var(--gutter-mobile);margin-top:22px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--verde-garrafa);padding-top:16px}
+.galM .foot span{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--areia-a38)}
+.galM .foot a{font-size:13px;border-bottom:1px solid var(--verde-300);padding-bottom:1px}
+/* ---------- reservas ---------- */
+.resM{position:relative;background:linear-gradient(180deg,var(--carvao) 0%,var(--vinho-arroxeado) 20%,var(--vinho-arroxeado) 100%)}
+.resM .shot{position:relative;height:300px}
+.resM .shot .edge{position:absolute;inset:0;z-index:2;background:linear-gradient(180deg,rgba(23,18,15,0) 46%,rgba(78,21,23,.55) 100%);border-bottom:1px solid var(--verde-garrafa)}
+.resM .copy{padding:40px var(--gutter-mobile) 116px}
+.resM h2{margin:16px 0 18px;font-family:var(--font-serif-display);font-weight:var(--w-heading);font-size:38px;line-height:1.05;color:var(--text-strong)}
+.resM p.lead{margin:0 0 30px;font-size:15px;line-height:1.66;color:var(--areia-a80)}
+.hours{display:grid;gap:14px;border-top:1px solid var(--verde-garrafa);padding-top:22px;margin:0 0 32px}
+.hours .r{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:baseline}
+.hours .r dt{color:var(--areia-a60);text-transform:uppercase;letter-spacing:.14em;font-size:12px}
+.hours .r dd{margin:0;font-size:14px;color:var(--text-strong);font-variant-numeric:tabular-nums}
+.hours .r.off dd{color:var(--text-faint)}
+.act{display:grid;gap:16px}
+.resM .cta{width:100%;justify-content:center;padding:20px;font-size:14px}
+.sub{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-faint);text-align:center}
+.fab{position:absolute;right:18px;bottom:22px;z-index:6;display:inline-flex;align-items:center;gap:11px;background:var(--carvao-a90);border:1px solid var(--verde-300);color:var(--areia-quente);border-radius:var(--r-xs);padding:12px 16px;font-size:13px;backdrop-filter:var(--blur-sticky);-webkit-backdrop-filter:var(--blur-sticky);transition:var(--t-color)}
+.fab:hover{border-color:var(--terracota-suave)}
+.fab svg{width:19px;height:19px;display:block;fill:var(--areia-a80)}
+.fab b{font-weight:500;color:var(--text-strong)}
+/* ---------- peça em casa ---------- */
+.delM{background:linear-gradient(180deg,var(--vinho-arroxeado) 0%,var(--carvao) 20%,var(--carvao) 100%);border-top:1px solid var(--verde-garrafa);padding:36px var(--gutter-mobile) 40px}
+.delM h2{margin:14px 0 14px;font-family:var(--font-serif-display);font-weight:var(--w-heading);font-size:29px;line-height:1.1;color:var(--text-strong)}
+.delM p.lead{margin:0 0 22px;font-size:15px;line-height:1.66;color:var(--areia-a80)}
+.delM .shot{position:relative;height:170px;border:1px solid var(--verde-garrafa);border-radius:var(--r-xs);overflow:hidden;margin-bottom:24px}
+.delM .shot .tint{position:absolute;inset:0;z-index:2;background:linear-gradient(184deg,rgba(78,21,23,.10) 0%,rgba(23,18,15,.42) 100%)}
+.facts{display:grid;gap:16px;margin:0 0 24px;border-top:1px solid var(--verde-garrafa);padding-top:18px}
+.facts dt{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--areia-a38);margin-bottom:6px}
+.facts dd{margin:0;font-size:14px;color:var(--areia-a80);font-variant-numeric:tabular-nums}
+.btn2{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:var(--verde-500);border:1px solid var(--verde-300);color:var(--text-strong);font-size:13px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:16px 18px;border-radius:var(--r-xs);line-height:1;transition:var(--t-color)}
+.btn2:hover{background:var(--verde-300);border-color:var(--terracota-suave);color:var(--text-strong)}
+.btn2 .arw{color:var(--areia-a60)}
+/* ---------- contato ---------- */
+.ctM{background:linear-gradient(180deg,var(--carvao) 0%,var(--vinho-arroxeado) 20%,var(--vinho-arroxeado) 100%)}
+.ctM .map{position:relative;height:260px;overflow:hidden;border-top:1px solid var(--verde-garrafa);border-bottom:1px solid var(--verde-garrafa)}
+.ctM .map iframe{display:block;width:100%;height:100%;border:0}
+.ctM .map .veil{position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(180deg,rgba(23,18,15,.20) 0%,rgba(23,18,15,.44) 72%,rgba(23,18,15,0) 100%)}
+.ctM .info{padding:34px var(--gutter-mobile) 42px}
+.ctM h2{margin:14px 0 24px;font-family:var(--font-serif-display);font-weight:var(--w-heading);font-size:30px;line-height:1.1;color:var(--text-strong)}
+.blk{display:grid;gap:8px;padding:20px 0;border-top:1px solid var(--verde-garrafa)}
+.blk:last-of-type{border-bottom:1px solid var(--verde-garrafa)}
+.blk .lbl{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--areia-a38)}
+.blk .addr{margin:0;font-size:17px;line-height:1.6;color:var(--text-strong)}
+.blk .addr span{display:block;color:var(--areia-a80);font-size:15px}
+.blk a.dir{justify-self:start;margin-top:6px;font-size:13px;border-bottom:1px solid var(--verde-300);padding-bottom:1px}
+.icons{display:flex;gap:14px;margin-top:26px}
+.icons a{width:48px;height:48px;display:grid;place-items:center;background:var(--carvao);border:1px solid var(--verde-garrafa);border-radius:var(--r-xs);transition:var(--t-color)}
+.icons a:hover{border-color:var(--terracota-suave)}
+.icons svg{width:22px;height:22px;display:block;fill:var(--areia-quente)}
+/* ---------- rodapé ---------- */
+.ft{background:linear-gradient(180deg,var(--vinho-arroxeado) 0%,var(--carvao) 20%,var(--carvao) 100%);border-top:1px solid var(--verde-garrafa);padding:40px var(--gutter-mobile) 30px;display:grid;gap:24px}
+.ft img.mark{height:80px;width:auto;justify-self:start}
+.ft .cols{display:grid;gap:22px}
+.ft .lbl{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--areia-a38);margin-bottom:8px;display:block}
+.ft address{font-style:normal;font-size:15px;line-height:1.7;color:var(--text-muted)}
+.ft .legal{border-top:1px solid var(--areia-a08);padding-top:16px;display:grid;gap:6px;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-faint)}
+/* ---------- diagnóstico de ritmo ---------- */
+
+
+
+
+
+
+
+.ph{display:block;width:100%;height:100%;object-fit:cover}
+.ph--empty{display:grid;place-items:center;width:100%;height:100%;padding:12px;text-align:center;background:repeating-linear-gradient(135deg,var(--areia-a08) 0 8px,transparent 8px 16px);border:1px dashed var(--verde-300)}
+.ph--empty span{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--areia-a38)}
+</style></head><body><div class="phone"><div class="drawer" id="drawer">
+<div class="scrim" data-close></div>
+<aside class="panel">
+<div class="top"><img src="./img/logo.png" alt="Bistrô du Lú"><button class="close" type="button" data-close aria-label="Fechar menu"><img src="https://cdn.jsdelivr.net/npm/lucide-static@0.428.0/icons/x.svg" width="18" height="18" alt="" class="icon-areia"></button></div>
+<nav>
+<a href="#sobre" data-close>Sobre nós</a>
+<a href="#ambientes" data-close>Ambientes</a>
+<a href="#cardapio" data-close>Cardápio</a>
+<a href="#peca-em-casa" data-close>Peça em casa</a>
+<a href="#como-chegar" data-close>Como chegar</a>
+<a href="#contato" data-close>Contato</a>
+</nav>
+<div class="foot"><span>Onde estamos</span><address>Rua Jequitibá, 910 — Horto<br>Ipatinga · MG</address></div>
+</aside>
+</div>
+<div class="scroll">
+
+<header class="hd-m">
+<button class="burger" type="button" id="burger" aria-label="Abrir menu" style="background:none;border:0;padding:0;cursor:pointer"><img src="https://cdn.jsdelivr.net/npm/lucide-static@0.428.0/icons/menu.svg" width="20" height="20" alt="" class="icon-areia"></button>
+<img class="mark" src="./img/logo.png" alt="Bistrô du Lú" data-comment-anchor="f7a1aa0e4a-img">
+<a class="cta" href="#reservas" data-comment-anchor="84e452b160-a">Reservar</a>
+</header>
+
+<section class="heroM" data-screen-label="Hero">
+<div class="photo"><img class="ph" src="./img/hero.jpg" alt="Foto do ambiente — salão à noite" loading="lazy"></div>
+<div class="grad"></div>
+<div class="copy">
+<img class="wordmark" src="../../assets/logo-topo.png" alt="Bistrô du Lú — Cozinha &amp; Afeto · Desde 2017" data-comment-anchor="c4c4794895-img">
+<a class="cta" href="#reservas">Reservar uma mesa</a>
+<div class="meta"><span class="sep"></span><span>Ter — dom</span></div>
+</div>
+</section>
+
+<section class="abM" id="sobre" data-screen-label="Sobre nós">
+<div class="shot"><img class="ph" src="./img/sobre.jpg" alt="Retrato — Lu e Raquel no salão" loading="lazy"><div class="tint"></div></div>
+<div class="copy">
+<span class="eyebrow">Família</span>
+<h2>Sobre nós</h2>
+<p>Somos, antes de tudo, <span class="em" style="font-style:italic;font-weight:500">uma família</span> que decidiu trilhar novos caminhos e abrir um bistrô. Um lugar aconchegante, familiar, romântico e reservado.</p>
+<div class="people">
+<div class="p"><span class="name">Lu</span><p class="bio">A <span style="color:var(--text-strong);font-weight:500">paixão</span> do Lu pela gastronomia o transformou num chef dedicado.</p></div>
+<div class="p"><span class="name">Raquel</span><p class="bio">A <span style="color:var(--text-strong);font-weight:500">admiração</span> pelos vinhos transformou Raquel em sommelier e o amor uniu toda família levando os filhos a trabalharem juntos.</p></div>
+</div>
+</div>
+</section>
+
+<section class="galM" id="ambientes" data-screen-label="Ambientes">
+<div class="head"><span class="eyebrow">Especial | Romântico | Familiar</span><h2>Ambientes</h2><p>Fotografias do salão feitas em serviço, sem produção.</p></div>
+<div class="rail">
+<div class="shot-g w-a"><img class="ph" src="./img/gal1.jpg" alt="Salão em perspectiva" loading="lazy"><div class="tint"></div><span class="cap">Salão</span></div>
+<div class="shot-g w-b"><img class="ph" src="./img/gal2.jpg" alt="Detalhe da mesa" loading="lazy"><div class="tint"></div></div>
+<div class="shot-g w-c"><div class="ph--empty"><span>Canto reservado para dois</span></div><div class="tint"></div><span class="cap">Mesa dos dois</span></div>
+<div class="shot-g w-b"><div class="ph--empty"><span>Adega</span></div><div class="tint"></div></div>
+<div class="shot-g w-a"><div class="ph--empty"><span>Fachada à noite</span></div><div class="tint"></div><span class="cap">Fachada</span></div>
+</div>
+<div class="foot"><span>12 fotos</span><a href="#">Instagram →</a></div>
+</section>
+
+<section class="menuM" id="cardapio" data-screen-label="Cardápio">
+<span class="eyebrow">Menu da casa</span>
+<h2>Cardápio</h2>
+<p data-comment-anchor="ce62596b63-p">O que sua ocasião pedir: entradas, pratos principais, sobremesas, bebidas e drinks.</p>
+<a class="btn2" href="#"><span>Ver o cardápio</span><span class="arw">→</span></a>
+</section>
+
+<section class="resM" id="reservas" data-screen-label="Reservar uma mesa">
+<div class="copy">
+<span class="eyebrow">Reservas</span>
+<h2>Reservar uma mesa</h2>
+<p class="lead" data-comment-anchor="26eae9ef75-p">O ambiente ideal para o casal, amigos ou família.</p>
+<dl class="hours">
+<div class="r"><dt>Ter — sáb</dt><dd>19h — 00h</dd></div>
+<div class="r"><dt>Domingo</dt><dd>12h — 16h</dd></div>
+<div class="r off"><dt>Segunda</dt><dd>Fechado</dd></div>
+</dl>
+<p style="margin:10px 0 0;font-size:12px;line-height:1.6;color:var(--text-faint)">Cozinha até 23h · domingo até 15h</p>
+<div class="act">
+<a class="cta" href="#"><span>Reservar no Get In</span><span>→</span></a>
+<span class="sub">Confirmação imediata · sem taxa</span>
+</div>
+</div>
+<a class="fab" href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.85 9.85 0 0 0 12.04 2Zm5.8 14.1c-.24.68-1.4 1.3-1.93 1.35-.53.05-1.03.07-1.6-.1a12.9 12.9 0 0 1-4.44-2.64 10.6 10.6 0 0 1-2.2-3.16c-.23-.6-.24-1.12-.16-1.53.08-.4.6-1.02.83-1.23.23-.2.42-.22.6-.21.18.01.38.02.55.4.17.4.6 1.48.65 1.59.05.11.08.24.01.38-.07.14-.35.5-.5.68-.14.17-.2.24-.09.44.11.2.51.86 1.1 1.4.75.7 1.38.93 1.58 1.03.2.1.32.09.44-.04.13-.14.53-.6.67-.8.14-.2.28-.16.47-.09.19.07 1.2.6 1.4.71.2.11.33.16.38.25.05.05.05.53-.19 1.2Z"></path></svg><b>WhatsApp</b></a>
+</section>
+
+<section class="delM" id="peca-em-casa" data-screen-label="Peça em casa">
+<span class="eyebrow">Também para levar</span>
+<h2>Peça em casa</h2>
+<p class="lead">Um recorte do menu sai para viagem.</p>
+<dl class="facts"><div><dt>Retirada</dt><dd>Ter — Sáb, 19h00 às 23h00<br>Dom, 12h00 às 15h00</dd></div></dl>
+<a class="btn2" href="#"><span>Ver menu para viagem</span><span class="arw">→</span></a>
+</section>
+
+<section class="ctM" id="como-chegar" data-screen-label="Mapa e contato">
+<div class="map"><iframe id="fs-map" src="https://www.google.com/maps?q=Bistro+Du+Lu,+Rua+Jequitiba,+910+-+Horto,+Ipatinga+-+MG,+35160-306&t=k&z=18&hl=pt-BR&output=embed" title="Mapa de satélite — Bistrô du Lú, Rua Jequitibá, 910, Horto, Ipatinga MG" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe><div class="veil"></div></div>
+<div class="info">
+<span class="eyebrow">Onde estamos</span>
+<h2>Como chegar</h2>
+<div class="blk"><span class="lbl">Endereço</span><p class="addr">Rua Jequitibá, 910 — Horto<span>Ipatinga · MG, 35160-306</span></p><a class="dir" href="https://www.google.com/maps/search/?api=1&query=Rua+Jequitiba%2C+910+-+Horto%2C+Ipatinga+-+MG%2C+35160-306" target="_blank" rel="noopener">Abrir no Google Maps →</a></div>
+<div class="blk"><span class="lbl">Funcionamento</span>
+<dl class="hours" style="border-top:0;padding-top:0;margin:0">
+<div class="r"><dt>Ter — sáb</dt><dd>19h — 00h</dd></div>
+<div class="r"><dt>Domingo</dt><dd>12h — 16h</dd></div>
+<div class="r off"><dt>Segunda</dt><dd>Fechado</dd></div>
+</dl>
+<p style="margin:10px 0 0;font-size:12px;line-height:1.6;color:var(--text-faint)">Cozinha até 23h · domingo até 15h</p>
+</div>
+<div class="icons">
+<a href="#" aria-label="WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.85 9.85 0 0 0 12.04 2Zm5.8 14.1c-.24.68-1.4 1.3-1.93 1.35-.53.05-1.03.07-1.6-.1a12.9 12.9 0 0 1-4.44-2.64 10.6 10.6 0 0 1-2.2-3.16c-.23-.6-.24-1.12-.16-1.53.08-.4.6-1.02.83-1.23.23-.2.42-.22.6-.21.18.01.38.02.55.4.17.4.6 1.48.65 1.59.05.11.08.24.01.38-.07.14-.35.5-.5.68-.14.17-.2.24-.09.44.11.2.51.86 1.1 1.4.75.7 1.38.93 1.58 1.03.2.1.32.09.44-.04.13-.14.53-.6.67-.8.14-.2.28-.16.47-.09.19.07 1.2.6 1.4.71.2.11.33.16.38.25.05.05.05.53-.19 1.2Z"></path></svg></a>
+<a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.96.24 2.65.51.72.28 1.33.65 1.94 1.26.61.61.98 1.22 1.26 1.94.27.69.46 1.48.51 2.65.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.24 1.96-.51 2.65-.28.72-.65 1.33-1.26 1.94-.61.61-1.22.98-1.94 1.26-.69.27-1.48.46-2.65.51-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.96-.24-2.65-.51a5.36 5.36 0 0 1-1.94-1.26 5.36 5.36 0 0 1-1.26-1.94c-.27-.69-.46-1.48-.51-2.65C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.24-1.96.51-2.65.28-.72.65-1.33 1.26-1.94A5.36 5.36 0 0 1 5.94 1.3c.69-.27 1.48-.46 2.65-.51C9.86 2.17 10.24 2.16 12 2.16Zm0 1.98c-3.15 0-3.5.01-4.73.07-.94.04-1.45.2-1.79.33-.45.17-.77.38-1.11.72-.34.34-.55.66-.72 1.11-.13.34-.29.85-.33 1.79-.06 1.23-.07 1.58-.07 4.73s.01 3.5.07 4.73c.04.94.2 1.45.33 1.79.17.45.38.77.72 1.11.34.34.66.55 1.11.72.34.13.85.29 1.79.33 1.23.06 1.58.07 4.73.07s3.5-.01 4.73-.07c.94-.04 1.45-.2 1.79-.33.45-.17.77-.38 1.11-.72.34-.34.55-.66.72-1.11.13-.34.29-.85.33-1.79.06-1.23.07-1.58.07-4.73s-.01-3.5-.07-4.73c-.04-.94-.2-1.45-.33-1.79a2.98 2.98 0 0 0-.72-1.11 2.98 2.98 0 0 0-1.11-.72c-.34-.13-.85-.29-1.79-.33-1.23-.06-1.58-.07-4.73-.07Zm0 3.37a4.49 4.49 0 1 1 0 8.98 4.49 4.49 0 0 1 0-8.98Zm0 1.98a2.51 2.51 0 1 0 0 5.02 2.51 2.51 0 0 0 0-5.02Zm5.72-2.2a1.05 1.05 0 1 1-2.1 0 1.05 1.05 0 0 1 2.1 0Z"></path></svg></a>
+</div>
+</div>
+</section>
+
+<footer class="ft" id="contato" data-screen-label="Rodapé">
+<img class="mark" src="./img/logo.png" alt="Bistrô du Lú">
+<div class="cols">
+<div><span class="lbl">Onde estamos</span><address>Rua Jequitibá, 910 — Horto<br>Ipatinga · MG, 35160-306</address></div>
+<div><span class="lbl">Reservas</span><address data-comment-anchor="8ad3a01b16-address">Get In · confirmação imediata<br>WhatsApp para dúvidas</address></div>
+</div>
+<div class="legal"><span data-comment-anchor="9112e14f11-span">© 2026 Bistrô du Lú</span><span>Cozinha · Sabor · Afeto</span></div>
+</footer>
+
+</div></div><script>(function(){var d=document.getElementById("drawer"),b=document.getElementById("burger");if(!d||!b)return;b.addEventListener("click",function(){d.classList.add("open")});d.addEventListener("click",function(e){if(e.target.closest("[data-close]"))d.classList.remove("open")});document.addEventListener("keydown",function(e){if(e.key==="Escape")d.classList.remove("open")});})();</script></body></html>
