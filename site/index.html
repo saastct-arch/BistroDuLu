@@ -240,7 +240,10 @@ body.menu-open{overflow:hidden}
 .shot-g{position:relative;overflow:hidden;border:1px solid var(--verde-garrafa);flex:0 0 auto}
 
 .shot-g .tint{position:absolute;inset:0;z-index:2;background:linear-gradient(184deg,rgba(78,21,23,.12) 0%,rgba(23,18,15,.34) 100%)}
-.shot-g .cap{position:absolute;left:12px;bottom:10px;z-index:3;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--areia-a60)}
+/* título do ambiente sobre véu que escurece só o pé da foto */
+.shot-g .cap{position:absolute;left:0;right:0;bottom:0;z-index:3;padding:30px 14px 12px;
+  font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--areia-quente);
+  background:linear-gradient(180deg,rgba(23,18,15,0) 0%,rgba(23,18,15,.55) 45%,rgba(23,18,15,.86) 100%)}
 .w-a{width:214px;height:286px}.w-b{width:150px;height:230px;align-self:flex-end}.w-c{width:186px;height:262px}
 /* padding-top do fio + padding-bottom da seção se equivalem: o link fica centrado entre os dois fios */
 .galM .foot{padding:33px var(--gutter-mobile) 0;margin-top:24px;display:grid;place-items:center;border-top:1px solid var(--verde-garrafa)}
@@ -432,6 +435,8 @@ html{scroll-behavior:smooth}
 
 /* ---- hero: a única sequência elaborada do site ---- */
 .heroM .photo .ph{animation:m-fade 900ms var(--m-ease) both,m-drift 9s var(--m-ease-micro) both}
+/* com vídeo não há deriva: o movimento já está na imagem */
+.heroM .photo video.ph{animation:m-fade 900ms var(--m-ease) both}
 .heroM .copy>*{animation:m-rise var(--m-enter) var(--m-ease) both}
 .heroM .wordmark{animation-delay:300ms}
 .heroM .cta{animation-delay:460ms}
@@ -517,7 +522,7 @@ html.js .rv,html.js .rv-ph{opacity:1;transform:none}
 </header>
 
 <section class="heroM" data-screen-label="Hero">
-<div class="photo"><img class="ph" src="./img/hero.jpg" alt="Foto do ambiente — salão à noite" loading="lazy"></div>
+<div class="photo"><video class="ph" poster="./img/hero-poster.jpg" autoplay muted loop playsinline preload="auto" aria-label="Salão do Bistrô du Lú"><source src="./img/hero.webm" type="video/webm"><source src="./img/hero.mp4" type="video/mp4"></video></div>
 <div class="grad"></div>
 <div class="copy">
 <img class="wordmark" src="./img/logo-topo.png" alt="Bistrô du Lú — Cozinha &amp; Afeto · Desde 2017" data-comment-anchor="c4c4794895-img">
@@ -651,6 +656,10 @@ else{
     if(s.getBoundingClientRect().top < innerHeight*.85) s.classList.add('in'); else io.observe(s);
   });
 }
+
+/* quem pediu menos movimento fica no poster, não no vídeo */
+var vid=document.querySelector('.heroM video');
+if(vid&&calm){vid.autoplay=false;vid.pause();vid.currentTime=0;vid.removeAttribute('autoplay');}
 
 /* header ganha fundo sólido depois que o hero sai */
 var hd=document.querySelector('.hd-m'),hero=document.querySelector('.heroM');

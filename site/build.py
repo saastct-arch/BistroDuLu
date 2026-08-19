@@ -151,6 +151,8 @@ html{scroll-behavior:smooth}
 
 /* ---- hero: a única sequência elaborada do site ---- */
 .heroM .photo .ph{animation:m-fade 900ms var(--m-ease) both,m-drift 9s var(--m-ease-micro) both}
+/* com vídeo não há deriva: o movimento já está na imagem */
+.heroM .photo video.ph{animation:m-fade 900ms var(--m-ease) both}
 .heroM .copy>*{animation:m-rise var(--m-enter) var(--m-ease) both}
 .heroM .wordmark{animation-delay:300ms}
 .heroM .cta{animation-delay:460ms}
@@ -255,6 +257,10 @@ else{
     if(s.getBoundingClientRect().top < innerHeight*.85) s.classList.add('in'); else io.observe(s);
   });
 }
+
+/* quem pediu menos movimento fica no poster, não no vídeo */
+var vid=document.querySelector('.heroM video');
+if(vid&&calm){vid.autoplay=false;vid.pause();vid.currentTime=0;vid.removeAttribute('autoplay');}
 
 /* header ganha fundo sólido depois que o hero sai */
 var hd=document.querySelector('.hd-m'),hero=document.querySelector('.heroM');
@@ -633,6 +639,16 @@ def build_html():
     # 4. ícones do menu embutidos — no mobile o botão é a única navegação
     site = re.sub(r'<img src="https://cdn\.jsdelivr\.net/npm/lucide-static@[^"]*/icons/menu\.svg"[^>]*>', MENU_SVG, site)
     site = re.sub(r'<img src="https://cdn\.jsdelivr\.net/npm/lucide-static@[^"]*/icons/x\.svg"[^>]*>', CLOSE_SVG, site)
+
+    # 4b. o hero da home recebe o vídeo; o do cardápio segue com a foto.
+    #     O poster é um quadro do próprio vídeo, então não há salto ao começar a tocar,
+    #     e sem JS (ou sem suporte ao codec) o poster é o que fica.
+    site = re.sub(
+        r'<img class="ph" src="\./img/hero\.jpg"[^>]*>',
+        '<video class="ph" poster="./img/hero-poster.jpg" autoplay muted loop playsinline '
+        'preload="auto" aria-label="Salão do Bistrô du Lú">'
+        '<source src="./img/hero.webm" type="video/webm">'
+        '<source src="./img/hero.mp4" type="video/mp4"></video>', site, count=1)
 
     # 5. navegação horizontal do desktop (no mobile o menu é a gaveta)
     site = re.sub(r'<a class="cta" href="#reservas"[^>]*>Reservar</a>',

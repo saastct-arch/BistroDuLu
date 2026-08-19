@@ -240,7 +240,10 @@ body.menu-open{overflow:hidden}
 .shot-g{position:relative;overflow:hidden;border:1px solid var(--verde-garrafa);flex:0 0 auto}
 
 .shot-g .tint{position:absolute;inset:0;z-index:2;background:linear-gradient(184deg,rgba(78,21,23,.12) 0%,rgba(23,18,15,.34) 100%)}
-.shot-g .cap{position:absolute;left:12px;bottom:10px;z-index:3;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--areia-a60)}
+/* título do ambiente sobre véu que escurece só o pé da foto */
+.shot-g .cap{position:absolute;left:0;right:0;bottom:0;z-index:3;padding:30px 14px 12px;
+  font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--areia-quente);
+  background:linear-gradient(180deg,rgba(23,18,15,0) 0%,rgba(23,18,15,.55) 45%,rgba(23,18,15,.86) 100%)}
 .w-a{width:214px;height:286px}.w-b{width:150px;height:230px;align-self:flex-end}.w-c{width:186px;height:262px}
 /* padding-top do fio + padding-bottom da seção se equivalem: o link fica centrado entre os dois fios */
 .galM .foot{padding:33px var(--gutter-mobile) 0;margin-top:24px;display:grid;place-items:center;border-top:1px solid var(--verde-garrafa)}
@@ -432,6 +435,8 @@ html{scroll-behavior:smooth}
 
 /* ---- hero: a única sequência elaborada do site ---- */
 .heroM .photo .ph{animation:m-fade 900ms var(--m-ease) both,m-drift 9s var(--m-ease-micro) both}
+/* com vídeo não há deriva: o movimento já está na imagem */
+.heroM .photo video.ph{animation:m-fade 900ms var(--m-ease) both}
 .heroM .copy>*{animation:m-rise var(--m-enter) var(--m-ease) both}
 .heroM .wordmark{animation-delay:300ms}
 .heroM .cta{animation-delay:460ms}
