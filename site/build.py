@@ -46,7 +46,7 @@ DESKTOP_CSS = """
 .hd-m .cta{padding:14px 26px;font-size:12.5px}
 /* hero — foto full-bleed, texto sobre a metade inferior */
 .heroM{height:760px}
-.heroM .copy{left:var(--gutter-desktop);right:var(--gutter-desktop);bottom:64px;gap:30px}
+.heroM .copy{left:var(--gutter-desktop);right:var(--gutter-desktop);bottom:72px;gap:30px}
 .heroM .wordmark{width:360px;margin:0;justify-self:start}
 .heroM .cta{width:auto;padding:19px 34px;font-size:15px}
 .heroM .meta{font-size:12px}
@@ -58,48 +58,60 @@ DESKTOP_CSS = """
 .abM p{font-size:17px;max-width:56ch}
 .people{grid-template-columns:1fr 1fr;column-gap:44px;margin-top:44px}
 .people .p{border-bottom:0}
-/* ambientes — mosaico editorial de alturas desiguais */
+/* ambientes — mosaico de três colunas, como no mockup de 1180 */
 .galM{padding:104px 0 68px}
-.galM .head{padding:0 var(--gutter-desktop);max-width:760px;margin-bottom:44px}
-.galM h2{font-size:44px}
-.galM .head p{font-size:16px}
-/* colunas em vez de grid: as peças empilham sem o vão que o alinhamento de linha deixaria */
-.rail{display:block;column-count:3;column-gap:20px;padding:0 var(--gutter-desktop);overflow:visible}
-.shot-g{width:auto;height:auto;display:block;break-inside:avoid;margin-bottom:20px}
-.rail>*:nth-child(1){height:520px}
-.rail>*:nth-child(2){height:400px}
-.rail>*:nth-child(3){height:300px}
-.rail>*:nth-child(4){height:300px}
-.rail>*:nth-child(5){height:420px}
-.rail>*:nth-child(6){height:360px}
+.galM .head{padding:0 var(--gutter-desktop);max-width:none;margin-bottom:48px;
+  display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:60px;align-items:end}
+.galM .head .eyebrow{grid-column:1;grid-row:1}
+.galM h2{grid-column:1;grid-row:2;font-size:44px;margin:16px 0 0;max-width:20ch}
+.galM .head p{grid-column:2;grid-row:2;justify-self:end;max-width:34ch;font-size:15px;padding-bottom:6px}
+/* três colunas de larguras desiguais; os invólucros .col são display:contents no mobile */
+.rail{display:grid;grid-template-columns:1.35fr 1fr 1.05fr;gap:20px;align-items:start;
+  padding:0 var(--gutter-desktop);overflow:visible}
+.rail>.col{display:grid;gap:20px}
+.rail>.col.b{padding-top:56px}   /* o degrau entre colunas evita o quadriculado */
+.rail>.col.c{padding-top:24px}
+.shot-g{width:auto;height:auto;display:block}
+/* alturas escolhidas para as três colunas terminarem quase no mesmo fio */
+.col.a>*:nth-child(1){height:500px}
+.col.a>*:nth-child(2){height:400px}
+.col.b>*:nth-child(1){height:340px}
+.col.b>*:nth-child(2){height:500px}
+.col.c>*:nth-child(1){height:420px}
+.col.c>*:nth-child(2){height:450px}
 .shot-g .cap{font-size:12px;left:16px;bottom:14px}
-.galM .foot{padding:68px var(--gutter-desktop) 0;margin-top:44px}
+.galM .foot{padding:56px var(--gutter-desktop) 0;margin-top:48px}
 .galM .foot a{font-size:17px;padding-bottom:9px}
-/* cardápio — pausa tipográfica */
-.menuM{padding:104px var(--gutter-desktop) 108px}
+/* cardápio — pausa tipográfica, centrada para não deixar meia tela vazia */
+.menuM{padding:104px var(--gutter-desktop) 108px;justify-items:center;text-align:center}
 .menuM h2{font-size:44px;margin:18px 0 18px}
 .menuM p{font-size:17px;max-width:52ch;margin-bottom:34px}
 .menuM .btn2{padding:18px 30px}
 /* reservas — copy à esquerda, horários e CTA à direita */
-.resM .copy{max-width:1180px;margin:0 auto;padding:104px var(--gutter-desktop) 116px;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);column-gap:88px;align-items:start}
-.res-l h2{font-size:56px;margin:18px 0 22px}
+.resM .copy{padding:104px var(--gutter-desktop) 108px;display:grid;
+  grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);column-gap:88px;align-items:start}
+.res-l h2{font-size:56px;margin:18px 0 22px;max-width:15ch}
 .res-l p.lead{font-size:18px;max-width:44ch;margin:0}
-.res-r{display:grid;align-content:start}
-.hours{margin-top:0;padding-top:0;border-top:0}
+.res-r{display:grid;align-content:start;justify-items:start}
+.hours{margin-top:0;padding-top:0;border-top:0;width:100%;max-width:none}
 .resM .cta{width:auto;justify-self:start;padding:22px 40px;font-size:15px}
 .sub{text-align:left}
-.fab{left:var(--gutter-desktop);right:auto;bottom:34px;padding:13px 18px}
-/* peça em casa — hierarquia secundária, faixa baixa e larga */
-.delM{padding:84px var(--gutter-desktop) 88px}
-.delM h2{font-size:40px}
-.delM p.lead{font-size:17px;max-width:52ch}
-.facts{display:flex;gap:64px;margin-bottom:34px}
-.delM .btn2{padding:17px 30px}
+/* o botão flutuante não tem foto para pousar aqui: entra na coluna, sob o CTA */
+.resM .fab{position:static;margin-top:24px;padding:13px 18px}
+/* peça em casa — copy à esquerda, retirada como nota lateral */
+.delM{padding:84px var(--gutter-desktop) 88px;display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,340px);column-gap:80px;align-items:start}
+.delM .eyebrow{grid-column:1;grid-row:1}
+.delM h2{grid-column:1;grid-row:2;font-size:40px}
+.delM p.lead{grid-column:1;grid-row:3;font-size:17px;max-width:52ch;margin-bottom:30px}
+.delM .btn2{grid-column:1;grid-row:4;justify-self:start;padding:17px 30px}
+.facts{grid-column:2;grid-row:1/5;margin:0;align-self:start}
 /* como chegar — informações à esquerda, mapa sangrando à direita */
-.ctM{display:grid;grid-template-columns:minmax(0,520px) minmax(0,1fr);align-items:stretch}
-.ctM .map{order:2;height:auto;min-height:620px;border-top:0;border-left:1px solid var(--verde-garrafa)}
+.ctM{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,600px);align-items:stretch}
+.ctM .map{order:2;height:auto;min-height:520px;border-top:0;border-left:1px solid var(--verde-garrafa)}
 .ctM .map .veil{background:linear-gradient(268deg,rgba(23,18,15,0) 62%,rgba(23,18,15,.62) 100%)}
-.ctM .info{order:1;padding:100px var(--s-7) 100px var(--gutter-desktop);align-self:center}
+.ctM .info{order:1;padding:88px var(--s-7) 88px var(--gutter-desktop);align-self:center}
+.ctM .info>*{max-width:620px}   /* a coluna cresceu; a medida de leitura não */
 .ctM h2{font-size:44px;margin:16px 0 30px}
 /* rodapé */
 .ft{padding:84px var(--gutter-desktop) 40px;grid-template-columns:auto minmax(0,1fr);column-gap:96px;align-items:start}
@@ -110,6 +122,8 @@ DESKTOP_CSS = """
 /* acima de 1400px o conteúdo para de crescer e centraliza */
 @media(min-width:1400px){
 .abM .copy,.ctM .info{padding-left:calc((100vw - 1400px)/2 + var(--gutter-desktop))}
+/* o mapa mede 600px dentro do quadro de 1400 e só a sangria cresce com a tela */
+.ctM{grid-template-columns:minmax(0,1fr) minmax(0,calc(600px + (100vw - 1400px)/2))}
 .heroM .copy,.galM .head,.rail,.galM .foot,.menuM,.resM .copy,.delM,.ft{padding-left:calc((100vw - 1400px)/2 + var(--gutter-desktop));padding-right:calc((100vw - 1400px)/2 + var(--gutter-desktop))}
 .heroM .copy{left:calc((100vw - 1400px)/2 + var(--gutter-desktop));right:calc((100vw - 1400px)/2 + var(--gutter-desktop));padding:0}
 .hd-m{padding:0 calc((100vw - 1400px)/2 + var(--gutter-desktop))}
@@ -304,10 +318,14 @@ def build_html():
     sheet = sheet.replace(".hd-m{position:sticky;top:0;z-index:9;", ".hd-m{position:sticky;top:0;z-index:30;")
 
     sheet += ("\n.ph{display:block;width:100%;height:100%;object-fit:cover}\n"
-              ".ph--empty{display:grid;place-items:center;width:100%;height:100%;padding:12px;text-align:center;"
-              "background:repeating-linear-gradient(135deg,var(--areia-a08) 0 8px,transparent 8px 16px);"
-              "border:1px dashed var(--verde-300)}\n"
-              ".ph--empty span{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--areia-a38)}\n"
+              # painel calmo em carvão: a hachura tracejada gritava 'foto faltando'
+              ".ph--empty{display:grid;place-items:center;width:100%;height:100%;padding:16px;text-align:center;"
+              "background:linear-gradient(160deg,var(--carvao-900) 0%,var(--carvao) 100%)}\n"
+              ".ph--empty span{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--areia-a38)}\n"
+              # o mosaico do desktop agrupa as peças em colunas; no mobile o carrossel volta a ser plano
+              ".rail>.col{display:contents}\n"
+              # a régua só separa dois dados: sozinha na frente vira um traço solto
+              ".heroM .meta span.sep:first-child{display:none}\n"
               ".nav-d{display:none}\n"
               ".hd-m .burger,.drawer .close{color:var(--areia-quente)}\n"
               ".drawer .close:hover{color:var(--terracota-suave)}\n")
@@ -342,6 +360,23 @@ def build_html():
                   '<p class="lead">O ambiente ideal para o casal, amigos ou família.</p></div><div class="res-r">', site)
     site = site.replace('<span class="sub">Confirmação imediata · sem taxa</span>\n</div>',
                         '<span class="sub">Confirmação imediata · sem taxa</span>\n</div></div>')
+
+    # 7. o WhatsApp entra na coluna da direita: no desktop não há foto sob a qual flutuar.
+    #    No mobile ele continua absoluto em relação a .resM, que é o ancestral posicionado.
+    fab = re.search(r'<a class="fab".*?</a>\n', site, re.S).group(0)
+    anchor = '<span class="sub">Confirmação imediata · sem taxa</span>\n</div>'
+    site = site.replace(fab, "").replace(anchor, anchor + fab, 1)
+
+    # 8. mosaico do desktop: as seis peças passam a viver em três colunas
+    head, rest = site.split('<div class="rail">\n', 1)
+    items, tail = rest.split('\n</div>\n<div class="foot">', 1)
+    items = items.split("\n")
+    assert len(items) == 6, f"o mosaico espera 6 peças, encontrei {len(items)}"
+    # foto e marcador alternados em cada coluna; a ordem preserva o ritmo de larguras do carrossel
+    order, cols = [0, 3, 2, 1, 4, 5], "abc"
+    rail = "".join(f'<div class="col {c}">{items[order[2 * i]]}{items[order[2 * i + 1]]}</div>'
+                   for i, c in enumerate(cols))
+    site = f'{head}<div class="rail">{rail}</div>\n<div class="foot">{tail}'
 
     tokens = "".join(open(f"tokens/{f}", encoding="utf-8").read() + "\n" for f in TOKENS)
     html = ('<!doctype html><html lang="pt-BR"><head><meta charset="utf-8">'
