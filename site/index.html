@@ -231,7 +231,7 @@ body.menu-open{overflow:hidden}
 .people .name{font-family:var(--font-serif-display);font-weight:var(--w-heading);font-size:22px;line-height:1;color:var(--text-strong)}
 .people .bio{margin:0;font-size:14px;line-height:1.7;color:var(--areia-a60)}
 /* ---------- galeria ---------- */
-.galM{background:linear-gradient(180deg,var(--carvao) 0%,var(--vinho-arroxeado) 20%,var(--vinho-arroxeado) 100%);padding:40px 0 44px}
+.galM{background:linear-gradient(180deg,var(--carvao) 0%,var(--vinho-arroxeado) 20%,var(--vinho-arroxeado) 100%);padding:40px 0 33px}
 .galM .head{padding:0 var(--gutter-mobile);margin-bottom:26px}
 .galM h2{margin:14px 0 12px;font-family:var(--font-serif-display);font-weight:var(--w-heading);font-size:31px;line-height:1.1;color:var(--text-strong)}
 .galM .head p{margin:0;font-size:14px;line-height:1.7;color:var(--areia-a60)}
@@ -242,7 +242,8 @@ body.menu-open{overflow:hidden}
 .shot-g .tint{position:absolute;inset:0;z-index:2;background:linear-gradient(184deg,rgba(78,21,23,.12) 0%,rgba(23,18,15,.34) 100%)}
 .shot-g .cap{position:absolute;left:12px;bottom:10px;z-index:3;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--areia-a60)}
 .w-a{width:214px;height:286px}.w-b{width:150px;height:230px;align-self:flex-end}.w-c{width:186px;height:262px}
-.galM .foot{padding:0 var(--gutter-mobile);margin-top:24px;display:grid;place-items:center;border-top:1px solid var(--verde-garrafa);padding-top:22px}
+/* padding-top do fio + padding-bottom da seção se equivalem: o link fica centrado entre os dois fios */
+.galM .foot{padding:33px var(--gutter-mobile) 0;margin-top:24px;display:grid;place-items:center;border-top:1px solid var(--verde-garrafa)}
 .galM .foot a{font-size:15px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--areia-quente);border-bottom:1px solid var(--verde-300);padding-bottom:7px;transition:var(--t-color)}
 .galM .foot a:hover{color:var(--terracota-suave);border-bottom-color:var(--terracota-suave)}
 /* ---------- reservas ---------- */
@@ -340,7 +341,7 @@ body.menu-open{overflow:hidden}
 .people{grid-template-columns:1fr 1fr;column-gap:44px;margin-top:44px}
 .people .p{border-bottom:0}
 /* ambientes — mosaico editorial de alturas desiguais */
-.galM{padding:104px 0 108px}
+.galM{padding:104px 0 68px}
 .galM .head{padding:0 var(--gutter-desktop);max-width:760px;margin-bottom:44px}
 .galM h2{font-size:44px}
 .galM .head p{font-size:16px}
@@ -354,7 +355,7 @@ body.menu-open{overflow:hidden}
 .rail>*:nth-child(5){height:420px}
 .rail>*:nth-child(6){height:360px}
 .shot-g .cap{font-size:12px;left:16px;bottom:14px}
-.galM .foot{padding:0 var(--gutter-desktop);margin-top:44px;padding-top:26px}
+.galM .foot{padding:68px var(--gutter-desktop) 0;margin-top:44px}
 .galM .foot a{font-size:17px;padding-bottom:9px}
 /* cardápio — pausa tipográfica */
 .menuM{padding:104px var(--gutter-desktop) 108px}

@@ -59,7 +59,7 @@ DESKTOP_CSS = """
 .people{grid-template-columns:1fr 1fr;column-gap:44px;margin-top:44px}
 .people .p{border-bottom:0}
 /* ambientes — mosaico editorial de alturas desiguais */
-.galM{padding:104px 0 108px}
+.galM{padding:104px 0 68px}
 .galM .head{padding:0 var(--gutter-desktop);max-width:760px;margin-bottom:44px}
 .galM h2{font-size:44px}
 .galM .head p{font-size:16px}
@@ -73,7 +73,7 @@ DESKTOP_CSS = """
 .rail>*:nth-child(5){height:420px}
 .rail>*:nth-child(6){height:360px}
 .shot-g .cap{font-size:12px;left:16px;bottom:14px}
-.galM .foot{padding:0 var(--gutter-desktop);margin-top:44px;padding-top:26px}
+.galM .foot{padding:68px var(--gutter-desktop) 0;margin-top:44px}
 .galM .foot a{font-size:17px;padding-bottom:9px}
 /* cardápio — pausa tipográfica */
 .menuM{padding:104px var(--gutter-desktop) 108px}
