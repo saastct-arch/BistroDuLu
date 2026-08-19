@@ -266,7 +266,20 @@ else{
 }
 
 /* quem pediu menos movimento fica no poster, não no vídeo */
+/* responsivo: desktop usa landscape 1920x1080, mobile usa portrait 1080x1920 */
 var vid=document.querySelector('.heroM video');
+if(vid){
+  var setVideoSrc=function(){
+    var isDesktop=window.innerWidth>=1024;
+    var fmt=isDesktop?'desktop':'mobile';
+    document.querySelector('.heroM .v-webm').src='./img/hero-'+fmt+'.webm';
+    document.querySelector('.heroM .v-mp4').src='./img/hero-'+fmt+'.mp4';
+    vid.load();
+    if(!calm){vid.play();}
+  };
+  setVideoSrc();
+  window.addEventListener('resize',setVideoSrc,{passive:true});
+}
 if(vid&&calm){vid.autoplay=false;vid.pause();vid.currentTime=0;vid.removeAttribute('autoplay');}
 
 /* header ganha fundo sólido depois que o hero sai */
@@ -650,12 +663,13 @@ def build_html():
     # 4b. o hero da home recebe o vídeo; o do cardápio segue com a foto.
     #     O poster é um quadro do próprio vídeo, então não há salto ao começar a tocar,
     #     e sem JS (ou sem suporte ao codec) o poster é o que fica.
+    #     Desktop (1024+) usa landscape 1920x1080; mobile usa portrait 1080x1920.
     site = re.sub(
         r'<img class="ph" src="\./img/hero\.jpg"[^>]*>',
         '<video class="ph" poster="./img/hero-poster.jpg" autoplay muted loop playsinline '
         'preload="auto" aria-label="Salão do Bistrô du Lú">'
-        '<source src="./img/hero.webm" type="video/webm">'
-        '<source src="./img/hero.mp4" type="video/mp4"></video>', site, count=1)
+        '<source class="v-webm" type="video/webm">'
+        '<source class="v-mp4" type="video/mp4"></video>', site, count=1)
 
     # 5. navegação horizontal do desktop (no mobile o menu é a gaveta)
     site = re.sub(r'<a class="cta" href="#reservas"[^>]*>Reservar</a>',
