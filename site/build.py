@@ -332,6 +332,8 @@ GETIN = "https://www.getin.app/ipatinga/bistro-du-lu"
 MAPS = ("https://www.google.com/maps/search/?api=1&query="
         "Rua+Jequitiba%2C+910+-+Horto%2C+Ipatinga+-+MG%2C+35160-306")
 TEL = "+5531988600512"
+# 19°30'29.3"S 42°34'27.4"W, do pino do Google Maps — convertidas para decimal
+GEO = (-19.508139, -42.574278)
 
 # ---------------------------------------------------------------------------
 # BUSCA
@@ -866,8 +868,9 @@ def horarios():
 
 def restaurante_ld():
     """A ficha da casa em linguagem de robô: é o que alimenta o painel lateral do
-    Google e as buscas por "restaurante perto de mim". Sem coordenadas — elas não
-    foram fornecidas, e chutar um ponto no mapa é pior que não ter nenhum."""
+    Google e as buscas por "restaurante perto de mim". Coordenadas fornecidas
+    pelo restaurante em graus/minutos/segundos (19°30'29.3"S 42°34'27.4"W) e
+    convertidas para decimal em GEO abaixo."""
     # a faixa é a dos pratos principais, não a do cardápio inteiro: sem o filtro de
     # sub-grupo o adicional de risoto (R$ 35) puxaria o piso para baixo.
     # E os preços são strings ("92"): sem int() o min/max sairia alfabético.
@@ -889,6 +892,7 @@ def restaurante_ld():
                     "addressLocality": "Ipatinga", "addressRegion": "MG",
                     "postalCode": "35160-306", "addressCountry": "BR"},
         "hasMap": MAPS,
+        "geo": {"@type": "GeoCoordinates", "latitude": GEO[0], "longitude": GEO[1]},
         "openingHoursSpecification": horarios(),
         "servesCuisine": CUISINE,
         "priceRange": f"R$ {min(principais)}–{max(principais)}",
