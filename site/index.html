@@ -157,7 +157,7 @@
 
 
 *{box-sizing:border-box}
-html,body{height:100%}body{margin:0;background:var(--carvao-900);font-family:var(--font-sans-body);font-weight:var(--w-body);color:var(--text-body)}
+body{margin:0;background:var(--carvao);font-family:var(--font-sans-body);font-weight:var(--w-body);color:var(--text-body)}
 a{color:var(--areia-quente);text-decoration:none}a:hover{color:var(--terracota-suave)}
 
 
@@ -170,11 +170,12 @@ a{color:var(--areia-quente);text-decoration:none}a:hover{color:var(--terracota-s
 
 
 /* ---------- telefone com scroll interno ---------- */
-.phone{position:relative;width:100%;max-width:430px;height:100dvh;margin:0 auto;overflow:hidden;background:var(--carvao)}
-@media(min-width:431px){.phone{border-left:1px solid var(--verde-garrafa);border-right:1px solid var(--verde-garrafa)}}
+.phone{position:relative;width:100%;max-width:430px;margin:0 auto;background:var(--carvao);overflow-x:clip}
+@media(min-width:431px) and (max-width:1023px){.phone{border-left:1px solid var(--verde-garrafa);border-right:1px solid var(--verde-garrafa)}}
 /* ---------- aba lateral ---------- */
-.drawer{position:absolute;inset:0;z-index:20;pointer-events:none}
+.drawer{position:fixed;inset:0;z-index:40;pointer-events:none}
 .drawer .scrim{position:absolute;inset:0;background:var(--carvao-a90);opacity:0;transition:opacity .28s var(--ease-out,ease)}
+body.menu-open{overflow:hidden}
 .drawer .panel{position:absolute;left:0;top:0;bottom:0;width:296px;background:var(--carvao-900);border-right:1px solid var(--verde-garrafa);transform:translateX(-100%);transition:transform .3s var(--ease-out,ease);display:grid;grid-template-rows:auto 1fr auto;padding:20px 0 24px}
 .drawer.open{pointer-events:auto}
 .drawer.open .scrim{opacity:1}
@@ -193,10 +194,10 @@ a{color:var(--areia-quente);text-decoration:none}a:hover{color:var(--terracota-s
 .menuM{background:linear-gradient(180deg,var(--vinho-arroxeado) 0%,var(--carvao) 20%,var(--carvao) 100%);padding:38px var(--gutter-mobile) 42px;border-top:1px solid var(--verde-garrafa);display:grid;justify-items:start;gap:0}
 .menuM h2{margin:14px 0 12px;font-family:var(--font-serif-display);font-weight:var(--w-heading);font-size:29px;line-height:1.1;color:var(--text-strong)}
 .menuM p{margin:0 0 24px;font-size:15px;line-height:1.66;color:var(--areia-a80)}
-.scroll{height:100%;overflow-y:auto;scrollbar-width:none;position:relative}
-.scroll::-webkit-scrollbar{display:none}
+.scroll{position:relative}
+
 /* header sticky (variação B) */
-.hd-m{position:sticky;top:0;z-index:9;height:var(--header-h-mobile);padding:0 var(--gutter-mobile);background:var(--surface-sticky);backdrop-filter:var(--blur-sticky);-webkit-backdrop-filter:var(--blur-sticky);border-bottom:1px solid var(--verde-a55);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;margin-bottom:calc(-1 * var(--header-h-mobile))}
+.hd-m{position:sticky;top:0;z-index:30;height:var(--header-h-mobile);padding:0 var(--gutter-mobile);background:var(--surface-sticky);backdrop-filter:var(--blur-sticky);-webkit-backdrop-filter:var(--blur-sticky);border-bottom:1px solid var(--verde-a55);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px}
 .hd-m img.mark{height:34px;width:auto;display:block;justify-self:center}
 .hd-m .cta{justify-self:end}
 .hd-m .burger{justify-self:start}
@@ -310,10 +311,90 @@ a{color:var(--areia-quente);text-decoration:none}a:hover{color:var(--terracota-s
 .ph{display:block;width:100%;height:100%;object-fit:cover}
 .ph--empty{display:grid;place-items:center;width:100%;height:100%;padding:12px;text-align:center;background:repeating-linear-gradient(135deg,var(--areia-a08) 0 8px,transparent 8px 16px);border:1px dashed var(--verde-300)}
 .ph--empty span{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--areia-a38)}
+.nav-d{display:none}
+
+/* ============ DESKTOP (composições aprovadas nos mockups 1180px) ============ */
+@media(min-width:1024px){
+.phone{max-width:none}
+.hd-m{height:var(--header-h-desktop);padding:0 var(--gutter-desktop);grid-template-columns:auto 1fr auto;gap:40px}
+.hd-m .burger{display:none}
+.hd-m img.mark{height:46px;justify-self:start}
+.nav-d{display:flex;gap:34px;align-items:center;justify-self:end}
+.nav-d a{font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--areia-a80);transition:var(--t-color)}
+.nav-d a:hover{color:var(--terracota-suave)}
+.hd-m .cta{padding:14px 26px;font-size:12.5px}
+/* hero — foto full-bleed, texto sobre a metade inferior */
+.heroM{height:760px}
+.heroM .copy{left:var(--gutter-desktop);right:var(--gutter-desktop);bottom:64px;gap:30px}
+.heroM .wordmark{width:360px;margin:0;justify-self:start}
+.heroM .cta{width:auto;padding:19px 34px;font-size:15px}
+.heroM .meta{font-size:12px}
+/* sobre — texto à esquerda, retrato sangrando à direita */
+.abM{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,44%);align-items:stretch}
+.abM .shot{order:2;height:auto;min-height:640px;border-bottom:0;border-left:1px solid var(--verde-garrafa)}
+.abM .copy{order:1;align-self:center;padding:100px var(--s-7) 100px var(--gutter-desktop)}
+.abM h2{font-size:52px;margin:18px 0 26px}
+.abM p{font-size:17px;max-width:56ch}
+.people{grid-template-columns:1fr 1fr;column-gap:44px;margin-top:44px}
+.people .p{border-bottom:0}
+/* ambientes — mosaico editorial de alturas desiguais */
+.galM{padding:104px 0 108px}
+.galM .head{padding:0 var(--gutter-desktop);max-width:760px;margin-bottom:44px}
+.galM h2{font-size:44px}
+.galM .head p{font-size:16px}
+.rail{display:grid;grid-template-columns:1.35fr 1fr 1.05fr;gap:20px;padding:0 var(--gutter-desktop);align-items:start;overflow:visible}
+.shot-g{width:auto;height:auto}
+.rail>*:nth-child(1){height:520px}
+.rail>*:nth-child(2){height:400px}
+.rail>*:nth-child(3){height:300px}
+.rail>*:nth-child(4){height:300px}
+.rail>*:nth-child(5){height:420px}
+.shot-g .cap{font-size:12px;left:16px;bottom:14px}
+.galM .foot{padding:0 var(--gutter-desktop);margin-top:40px;padding-top:18px}
+/* cardápio — pausa tipográfica, coluna estreita alinhada à esquerda */
+.menuM{padding:104px var(--gutter-desktop) 108px}
+.menuM h2{font-size:44px;margin:18px 0 18px}
+.menuM p{font-size:17px;max-width:52ch;margin-bottom:34px}
+.menuM .btn2{padding:18px 30px}
+/* reservas — copy à esquerda, horários e CTA à direita */
+.resM .copy{max-width:1180px;margin:0 auto;padding:104px var(--gutter-desktop) 116px;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);column-gap:88px;align-items:start}
+.res-l h2{font-size:56px;margin:18px 0 22px}
+.res-l p.lead{font-size:18px;max-width:44ch;margin:0}
+.res-r{display:grid;align-content:start}
+.hours{margin-top:0;padding-top:0;border-top:0}
+.resM .cta{width:auto;justify-self:start;padding:22px 40px;font-size:15px}
+.sub{text-align:left}
+.fab{left:var(--gutter-desktop);right:auto;bottom:34px;padding:13px 18px}
+/* peça em casa — hierarquia secundária, faixa baixa e larga */
+.delM{padding:84px var(--gutter-desktop) 88px}
+.delM h2{font-size:40px}
+.delM p.lead{font-size:17px;max-width:52ch}
+.facts{display:flex;gap:64px;margin-bottom:34px}
+.delM .btn2{padding:17px 30px}
+/* como chegar — informações à esquerda, mapa sangrando à direita */
+.ctM{display:grid;grid-template-columns:minmax(0,520px) minmax(0,1fr);align-items:stretch}
+.ctM .map{order:2;height:auto;min-height:620px;border-top:0;border-left:1px solid var(--verde-garrafa)}
+.ctM .map .veil{background:linear-gradient(268deg,rgba(23,18,15,0) 62%,rgba(23,18,15,.62) 100%)}
+.ctM .info{order:1;padding:100px var(--s-7) 100px var(--gutter-desktop);align-self:center}
+.ctM h2{font-size:44px;margin:16px 0 30px}
+/* rodapé */
+.ft{padding:84px var(--gutter-desktop) 40px;grid-template-columns:auto minmax(0,1fr);column-gap:96px;align-items:start}
+.ft img.mark{grid-row:1/3;height:96px}
+.ft .cols{grid-template-columns:1fr 1fr;gap:56px}
+.ft .legal{grid-column:1/-1;display:flex;justify-content:space-between;gap:24px;margin-top:16px}
+}
+@media(min-width:1400px){
+.abM .copy,.ctM .info{padding-left:calc((100vw - 1400px)/2 + var(--gutter-desktop))}
+.heroM .copy,.galM .head,.rail,.galM .foot,.menuM,.resM .copy,.delM,.ft{padding-left:calc((100vw - 1400px)/2 + var(--gutter-desktop));padding-right:calc((100vw - 1400px)/2 + var(--gutter-desktop))}
+.heroM .copy{left:calc((100vw - 1400px)/2 + var(--gutter-desktop));right:calc((100vw - 1400px)/2 + var(--gutter-desktop));padding:0}
+.hd-m{padding:0 calc((100vw - 1400px)/2 + var(--gutter-desktop))}
+}
+.hd-m .burger,.drawer .close{color:var(--areia-quente)}
+.drawer .close:hover{color:var(--terracota-suave)}
 </style></head><body><div class="phone"><div class="drawer" id="drawer">
 <div class="scrim" data-close></div>
 <aside class="panel">
-<div class="top"><img src="./img/logo.png" alt="Bistrô du Lú"><button class="close" type="button" data-close aria-label="Fechar menu"><img src="https://cdn.jsdelivr.net/npm/lucide-static@0.428.0/icons/x.svg" width="18" height="18" alt="" class="icon-areia"></button></div>
+<div class="top"><img src="./img/logo.png" alt="Bistrô du Lú"><button class="close" type="button" data-close aria-label="Fechar menu"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>
 <nav>
 <a href="#sobre" data-close>Sobre nós</a>
 <a href="#ambientes" data-close>Ambientes</a>
@@ -328,16 +409,17 @@ a{color:var(--areia-quente);text-decoration:none}a:hover{color:var(--terracota-s
 <div class="scroll">
 
 <header class="hd-m">
-<button class="burger" type="button" id="burger" aria-label="Abrir menu" style="background:none;border:0;padding:0;cursor:pointer"><img src="https://cdn.jsdelivr.net/npm/lucide-static@0.428.0/icons/menu.svg" width="20" height="20" alt="" class="icon-areia"></button>
+<button class="burger" type="button" id="burger" aria-label="Abrir menu" style="background:none;border:0;padding:0;cursor:pointer"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
 <img class="mark" src="./img/logo.png" alt="Bistrô du Lú" data-comment-anchor="f7a1aa0e4a-img">
-<a class="cta" href="#reservas" data-comment-anchor="84e452b160-a">Reservar</a>
+<nav class="nav-d"><a href="#sobre">A casa</a><a href="#ambientes">Ambientes</a><a href="#cardapio">Cardápio</a><a href="#peca-em-casa">Peça em casa</a><a href="#como-chegar">Como chegar</a></nav>
+<a class="cta" href="#reservas">Reservar</a>
 </header>
 
 <section class="heroM" data-screen-label="Hero">
 <div class="photo"><img class="ph" src="./img/hero.jpg" alt="Foto do ambiente — salão à noite" loading="lazy"></div>
 <div class="grad"></div>
 <div class="copy">
-<img class="wordmark" src="../../assets/logo-topo.png" alt="Bistrô du Lú — Cozinha &amp; Afeto · Desde 2017" data-comment-anchor="c4c4794895-img">
+<img class="wordmark" src="./img/logo-topo.png" alt="Bistrô du Lú — Cozinha &amp; Afeto · Desde 2017" data-comment-anchor="c4c4794895-img">
 <a class="cta" href="#reservas">Reservar uma mesa</a>
 <div class="meta"><span class="sep"></span><span>Ter — dom</span></div>
 </div>
@@ -377,9 +459,9 @@ a{color:var(--areia-quente);text-decoration:none}a:hover{color:var(--terracota-s
 
 <section class="resM" id="reservas" data-screen-label="Reservar uma mesa">
 <div class="copy">
-<span class="eyebrow">Reservas</span>
+<div class="res-l"><span class="eyebrow">Reservas</span>
 <h2>Reservar uma mesa</h2>
-<p class="lead" data-comment-anchor="26eae9ef75-p">O ambiente ideal para o casal, amigos ou família.</p>
+<p class="lead">O ambiente ideal para o casal, amigos ou família.</p></div><div class="res-r">
 <dl class="hours">
 <div class="r"><dt>Ter — sáb</dt><dd>19h — 00h</dd></div>
 <div class="r"><dt>Domingo</dt><dd>12h — 16h</dd></div>
@@ -389,7 +471,7 @@ a{color:var(--areia-quente);text-decoration:none}a:hover{color:var(--terracota-s
 <div class="act">
 <a class="cta" href="#"><span>Reservar no Get In</span><span>→</span></a>
 <span class="sub">Confirmação imediata · sem taxa</span>
-</div>
+</div></div>
 </div>
 <a class="fab" href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.85 9.85 0 0 0 12.04 2Zm5.8 14.1c-.24.68-1.4 1.3-1.93 1.35-.53.05-1.03.07-1.6-.1a12.9 12.9 0 0 1-4.44-2.64 10.6 10.6 0 0 1-2.2-3.16c-.23-.6-.24-1.12-.16-1.53.08-.4.6-1.02.83-1.23.23-.2.42-.22.6-.21.18.01.38.02.55.4.17.4.6 1.48.65 1.59.05.11.08.24.01.38-.07.14-.35.5-.5.68-.14.17-.2.24-.09.44.11.2.51.86 1.1 1.4.75.7 1.38.93 1.58 1.03.2.1.32.09.44-.04.13-.14.53-.6.67-.8.14-.2.28-.16.47-.09.19.07 1.2.6 1.4.71.2.11.33.16.38.25.05.05.05.53-.19 1.2Z"></path></svg><b>WhatsApp</b></a>
 </section>
@@ -432,4 +514,4 @@ a{color:var(--areia-quente);text-decoration:none}a:hover{color:var(--terracota-s
 <div class="legal"><span data-comment-anchor="9112e14f11-span">© 2026 Bistrô du Lú</span><span>Cozinha · Sabor · Afeto</span></div>
 </footer>
 
-</div></div><script>(function(){var d=document.getElementById("drawer"),b=document.getElementById("burger");if(!d||!b)return;b.addEventListener("click",function(){d.classList.add("open")});d.addEventListener("click",function(e){if(e.target.closest("[data-close]"))d.classList.remove("open")});document.addEventListener("keydown",function(e){if(e.key==="Escape")d.classList.remove("open")});})();</script></body></html>
+</div></div><script>(function(){var d=document.getElementById("drawer"),b=document.getElementById("burger");if(!d||!b)return;function close(){d.classList.remove("open");document.body.classList.remove("menu-open")}b.addEventListener("click",function(){d.classList.add("open");document.body.classList.add("menu-open")});d.addEventListener("click",function(e){if(e.target.closest("[data-close]"))close()});document.addEventListener("keydown",function(e){if(e.key==="Escape")close()});})();</script></body></html>
