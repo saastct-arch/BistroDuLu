@@ -238,13 +238,13 @@ body.menu-open{overflow:hidden}
 .rail{display:flex;gap:12px;overflow-x:auto;padding:0 var(--gutter-mobile) 4px;scrollbar-width:none}
 .rail::-webkit-scrollbar{display:none}
 .shot-g{position:relative;overflow:hidden;border:1px solid var(--verde-garrafa);flex:0 0 auto}
-.shot-g image-slot{display:block;width:100%;height:100%}
+
 .shot-g .tint{position:absolute;inset:0;z-index:2;background:linear-gradient(184deg,rgba(78,21,23,.12) 0%,rgba(23,18,15,.34) 100%)}
 .shot-g .cap{position:absolute;left:12px;bottom:10px;z-index:3;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--areia-a60)}
 .w-a{width:214px;height:286px}.w-b{width:150px;height:230px;align-self:flex-end}.w-c{width:186px;height:262px}
-.galM .foot{padding:0 var(--gutter-mobile);margin-top:22px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--verde-garrafa);padding-top:16px}
-.galM .foot span{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--areia-a38)}
-.galM .foot a{font-size:13px;border-bottom:1px solid var(--verde-300);padding-bottom:1px}
+.galM .foot{padding:0 var(--gutter-mobile);margin-top:24px;display:grid;place-items:center;border-top:1px solid var(--verde-garrafa);padding-top:22px}
+.galM .foot a{font-size:15px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--areia-quente);border-bottom:1px solid var(--verde-300);padding-bottom:7px;transition:var(--t-color)}
+.galM .foot a:hover{color:var(--terracota-suave);border-bottom-color:var(--terracota-suave)}
 /* ---------- reservas ---------- */
 .resM{position:relative;background:linear-gradient(180deg,var(--carvao) 0%,var(--vinho-arroxeado) 20%,var(--vinho-arroxeado) 100%)}
 .resM .shot{position:relative;height:300px}
@@ -312,8 +312,10 @@ body.menu-open{overflow:hidden}
 .ph--empty{display:grid;place-items:center;width:100%;height:100%;padding:12px;text-align:center;background:repeating-linear-gradient(135deg,var(--areia-a08) 0 8px,transparent 8px 16px);border:1px dashed var(--verde-300)}
 .ph--empty span{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--areia-a38)}
 .nav-d{display:none}
+.hd-m .burger,.drawer .close{color:var(--areia-quente)}
+.drawer .close:hover{color:var(--terracota-suave)}
 
-/* ============ DESKTOP (composições aprovadas nos mockups 1180px) ============ */
+/* ============ DESKTOP — composições aprovadas nos mockups de 1180px ============ */
 @media(min-width:1024px){
 .phone{max-width:none}
 .hd-m{height:var(--header-h-desktop);padding:0 var(--gutter-desktop);grid-template-columns:auto 1fr auto;gap:40px}
@@ -342,16 +344,19 @@ body.menu-open{overflow:hidden}
 .galM .head{padding:0 var(--gutter-desktop);max-width:760px;margin-bottom:44px}
 .galM h2{font-size:44px}
 .galM .head p{font-size:16px}
-.rail{display:grid;grid-template-columns:1.35fr 1fr 1.05fr;gap:20px;padding:0 var(--gutter-desktop);align-items:start;overflow:visible}
-.shot-g{width:auto;height:auto}
+/* colunas em vez de grid: as peças empilham sem o vão que o alinhamento de linha deixaria */
+.rail{display:block;column-count:3;column-gap:20px;padding:0 var(--gutter-desktop);overflow:visible}
+.shot-g{width:auto;height:auto;display:block;break-inside:avoid;margin-bottom:20px}
 .rail>*:nth-child(1){height:520px}
 .rail>*:nth-child(2){height:400px}
 .rail>*:nth-child(3){height:300px}
 .rail>*:nth-child(4){height:300px}
 .rail>*:nth-child(5){height:420px}
+.rail>*:nth-child(6){height:360px}
 .shot-g .cap{font-size:12px;left:16px;bottom:14px}
-.galM .foot{padding:0 var(--gutter-desktop);margin-top:40px;padding-top:18px}
-/* cardápio — pausa tipográfica, coluna estreita alinhada à esquerda */
+.galM .foot{padding:0 var(--gutter-desktop);margin-top:44px;padding-top:26px}
+.galM .foot a{font-size:17px;padding-bottom:9px}
+/* cardápio — pausa tipográfica */
 .menuM{padding:104px var(--gutter-desktop) 108px}
 .menuM h2{font-size:44px;margin:18px 0 18px}
 .menuM p{font-size:17px;max-width:52ch;margin-bottom:34px}
@@ -383,14 +388,13 @@ body.menu-open{overflow:hidden}
 .ft .cols{grid-template-columns:1fr 1fr;gap:56px}
 .ft .legal{grid-column:1/-1;display:flex;justify-content:space-between;gap:24px;margin-top:16px}
 }
+/* acima de 1400px o conteúdo para de crescer e centraliza */
 @media(min-width:1400px){
 .abM .copy,.ctM .info{padding-left:calc((100vw - 1400px)/2 + var(--gutter-desktop))}
 .heroM .copy,.galM .head,.rail,.galM .foot,.menuM,.resM .copy,.delM,.ft{padding-left:calc((100vw - 1400px)/2 + var(--gutter-desktop));padding-right:calc((100vw - 1400px)/2 + var(--gutter-desktop))}
 .heroM .copy{left:calc((100vw - 1400px)/2 + var(--gutter-desktop));right:calc((100vw - 1400px)/2 + var(--gutter-desktop));padding:0}
 .hd-m{padding:0 calc((100vw - 1400px)/2 + var(--gutter-desktop))}
 }
-.hd-m .burger,.drawer .close{color:var(--areia-quente)}
-.drawer .close:hover{color:var(--terracota-suave)}
 </style></head><body><div class="phone"><div class="drawer" id="drawer">
 <div class="scrim" data-close></div>
 <aside class="panel">
@@ -446,8 +450,9 @@ body.menu-open{overflow:hidden}
 <div class="shot-g w-c"><div class="ph--empty"><span>Canto reservado para dois</span></div><div class="tint"></div><span class="cap">Mesa dos dois</span></div>
 <div class="shot-g w-b"><div class="ph--empty"><span>Adega</span></div><div class="tint"></div></div>
 <div class="shot-g w-a"><div class="ph--empty"><span>Fachada à noite</span></div><div class="tint"></div><span class="cap">Fachada</span></div>
+<div class="shot-g w-c"><img class="ph" src="./img/gal3.jpg" alt="Prato do dia" loading="lazy"><div class="tint"></div><span class="cap">Da cozinha</span></div>
 </div>
-<div class="foot"><span>12 fotos</span><a href="#">Instagram →</a></div>
+<div class="foot"><a href="#">Ver no Instagram →</a></div>
 </section>
 
 <section class="menuM" id="cardapio" data-screen-label="Cardápio">
