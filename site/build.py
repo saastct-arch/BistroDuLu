@@ -267,6 +267,291 @@ if(hd&&hero){
 """
 
 
+WA = "https://api.whatsapp.com/send?phone=5531988600512"
+IG = "https://www.instagram.com/bistrodulu/"
+PEDIDOS = "https://pedidobistrodulu.ccmpedidoonline.com.br/"
+SITE_URL = "https://bistro-du-lu.vercel.app"
+
+# ---------------------------------------------------------------------------
+# CARDÁPIO — conteúdo fornecido pelo restaurante, transcrito sem acréscimos.
+# Item sem descrição fica só com nome e preço: descrição inventada seria pior
+# que descrição nenhuma. (nome, descrição|None, preço)
+# ---------------------------------------------------------------------------
+MENU = [
+ {"id": "entradas", "nav": "Entradas", "title": "Entradas", "tone": "a",
+  "lead": "Para abrir a mesa e dividir.",
+  "groups": [{"items": [
+    ("Bife Ancho de Angus c/ Farofinha Crocante e Molho Pesto", None, "136"),
+    ("Bife de Chorizo de Angus c/ Batatas ao Murro", None, "126"),
+    ("Burrata com Tomates Confitados", None, "52"),
+    ("Burrata Crocante com Parma e Panko", None, "76"),
+    ("Bruschetta Tradicional", None, "39"),
+    ("Bruschetta Parma Especial", "4 unidades", "59"),
+    ("Camarão VG na Crosta de Coco", "5 unidades", "116"),
+    ("Carpaccio Bovino", None, "59"),
+    ("Carré de Cordeiro com Batatas ao Murro e Tomatinhos Tostados", None, "142"),
+    ("Ceviche de Tilápia com Toque de Leite de Coco e Chips de Batata Doce", None, "58"),
+    ("Coxinha de Costela c/ Queijo do Serro e Barbecue de Goiabada", "6 unidades", "39"),
+    ("Dados de Queijo Coalho c/ Bacon Caramelizado", "6 unidades", "49"),
+    ("Fritas na Páprica c/ Maionese de Bacon e Catchup de Picles", None, "29"),
+    ("Pastelzinho de Queijo do Serro e Melado de Cachaça", "6 unidades", "39"),
+    ("Picanha em Tiras c/ Batatas na Páprica e Molho de Mostarda", None, "136"),
+    # REVISAR: R$ 3 veio assim na fonte. Destoa da faixa da seção (R$ 29–142) e
+    # parece faltar um dígito. Mantido como recebido — corrigir exige confirmação.
+    ("Salada Pesto", None, "3"),
+    ("Tábua de Frios", None, "75"),
+    ("Tartare de Salmão, Manga e Chips de Batata Doce", None, "78"),
+  ]}]},
+
+ {"id": "principais", "nav": "Principais", "title": "Pratos principais", "tone": "b",
+  "lead": "O prato da ocasião.",
+  "groups": [
+    {"items": [
+      ("Bife Ancho ao Alho Doce com Espaguete na Manteiga de Sálvia", None, "92"),
+      ("Bife de Chorizo c/ Risoto de Pêra e Gorgonzola", None, "85"),
+      ("Camarões VG Flambados na Absolut com Risoto de Abacaxi e Parma", None, "128"),
+      ("Carré de Cordeiro com Risoto à Pomodoro", None, "142"),
+      ("Filé Mignon ao Molho de Melado com Risoto de Queijo Coalho", None, "82"),
+      ("Filé Mignon ao Molho de Mostarda c/ Risoto de Brie e Damasco", None, "82"),
+      ("Lagosta no Abacaxi", None, "169"),
+      ("Papardelle ao Molho de Queijos e Camarões VG", None, "116"),
+      ("Penne ao Molho de Gorgonzola e Filé Mignon em Tiras", None, "64"),
+      ("Risoto de Camarão", None, "84"),
+      ("Risoto de Filé Mignon c/ Funghi", None, "64"),
+      ("Salmão com Legumes Salteados", None, "98"),
+      ("Stinco de Suíno c/ Polenta Cremosa", None, "71"),
+      ("Talharim ao Pesto", None, "56"),
+      ("Tilápia ao Molho de Alcaparras e Purê de Baroa", None, "69"),
+    ]},
+    {"sub": "Adicionais", "items": [
+      ("Adicional de Risoto", None, "35"),
+      ("Adicional de Risoto de Abacaxi e Parma", None, "48"),
+    ], "opts": ("Sabores do adicional de risoto",
+                ["Limão siciliano", "Funghi", "Pêra e gorgonzola", "Brie e damasco", "Parmesão"])},
+    {"sub": "Especial Kids", "items": [
+      ("Especial Kids", "Arroz, filé picadinho e fritas.", "39"),
+    ]},
+  ]},
+
+ {"id": "sobremesas", "nav": "Sobremesas", "title": "Sobremesas", "tone": "a",
+  "lead": "Para fechar sem pressa.",
+  "groups": [
+    {"items": [
+      ("Cocada de Forno c/ Sorvete de Doce de Leite", None, "29"),
+      ("Sorvete de Doce de Leite c/ Crocante de Amêndoas e Caramelo Salgado", None, "18"),
+      ("Brownie Perfeito", "Creme de chocolate amargo, farofa de nozes e cookies.", "39"),
+    ]},
+    {"sub": "No potinho pra levar ♥", "items": [
+      ("Sorvete de Doce de Leite Tradicional", "Feito por nós.", "15"),
+      ("Sorvete de Doce de Leite c/ Crocante de Amêndoas e Caramelo Salgado", None, "18"),
+      ("Cocada de Forno", None, "20"),
+    ]},
+  ]},
+
+ {"id": "bebidas", "nav": "Bebidas", "title": "Bebidas", "tone": "b",
+  "lead": "Sucos, águas e café.",
+  "groups": [
+    {"sub": "Sucos", "items": [
+      ("Suco de Polpa de Maracujá", None, "10"),
+      ("Suco Lata Del Valle", None, "7"),
+      ("Suco de Uva Tinto Integral", "Casa Madeira, 250 ml.", "13"),
+      ("Suco Natural de Abacaxi c/ Hortelã", None, "12"),
+      ("Limonada c/ Água de Coco", None, "12"),
+      ("Água de Coco", None, "12"),
+    ]},
+    {"sub": "Águas e refrigerantes", "items": [
+      ("Água sem Gás", None, "4"),
+      ("Água com Gás", None, "5"),
+      ("Água Tônica", None, "5"),
+      ("Energético", None, "13"),
+      ("Refrigerante Lata", None, "6"),
+    ]},
+    {"sub": "Café", "items": [
+      ("Café Expresso", None, "6"),
+    ]},
+  ]},
+]
+
+MENU_CSS = """
+/* ============ CARDÁPIO ============ */
+.mHero{position:relative;min-height:380px;display:grid;align-items:end;overflow:hidden}
+.mHero .photo{position:absolute;inset:0}
+.mHero .grad{position:absolute;inset:0;z-index:2;
+  background:linear-gradient(180deg,rgba(23,18,15,.62) 0%,rgba(78,21,23,.22) 34%,rgba(53,14,16,.80) 72%,var(--carvao) 100%)}
+.mHero .copy{position:relative;z-index:3;padding:64px var(--gutter-mobile) 34px;display:grid;gap:14px;justify-items:start}
+.mHero h1{margin:0;font-family:var(--font-serif-display);font-weight:var(--w-heading);font-size:42px;line-height:1.04;color:var(--text-strong)}
+.mHero .sub{margin:0;font-family:var(--font-serif-display);font-size:19px;line-height:1.3;color:var(--areia-a80)}
+.mHero .lead{margin:0;font-size:15px;line-height:1.68;color:var(--areia-a60);max-width:52ch}
+
+/* barra de categorias — encosta logo abaixo do header */
+.mcat{position:sticky;top:var(--header-h-mobile);z-index:20;background:var(--carvao-a90);
+  backdrop-filter:var(--blur-sticky);-webkit-backdrop-filter:var(--blur-sticky);
+  border-top:1px solid var(--verde-garrafa);border-bottom:1px solid var(--verde-garrafa)}
+.mcat ul{margin:0;padding:0 var(--gutter-mobile);list-style:none;display:flex;gap:26px;
+  overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.mcat ul::-webkit-scrollbar{display:none}
+.mcat a{display:block;padding:15px 0;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--areia-a60);white-space:nowrap;position:relative;transition:var(--t-color)}
+.mcat a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--terracota-suave);
+  transform:scaleX(0);transform-origin:left;transition:transform 260ms var(--m-ease-micro)}
+.mcat a.on{color:var(--text-strong)}
+.mcat a.on::after{transform:scaleX(1)}
+
+/* a âncora precisa limpar o header E a barra de categorias, que é sticky logo abaixo */
+.mSec{padding:52px var(--gutter-mobile) 56px;scroll-margin-top:calc(var(--header-h-mobile) + 44px + 8px)}
+.mSec.a{background:var(--carvao)}
+.mSec.b{background:linear-gradient(180deg,var(--carvao) 0%,var(--vinho-arroxeado) 18%,var(--vinho-arroxeado) 100%)}
+.mSec.a+.mSec.a{border-top:1px solid var(--verde-garrafa)}
+.mSec.after-b{background:linear-gradient(180deg,var(--vinho-arroxeado) 0%,var(--carvao) 18%,var(--carvao) 100%)}
+.mSec>.head{margin-bottom:30px}
+.mSec h2{margin:12px 0 8px;font-family:var(--font-serif-display);font-weight:var(--w-heading);
+  font-size:33px;line-height:1.1;color:var(--text-strong)}
+.mSec .head p{margin:0;font-size:14.5px;line-height:1.7;color:var(--areia-a60)}
+.mSub{margin:38px 0 20px;padding-top:20px;border-top:1px solid var(--verde-garrafa);
+  font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--areia-a38)}
+.mGrid{display:grid;gap:12px}
+.mItem{border:1px solid var(--verde-garrafa);border-radius:var(--r-xs);padding:18px 18px 19px;
+  background:var(--areia-a08);display:grid;gap:7px;
+  transition:transform var(--m-micro) var(--m-ease-micro),border-color var(--m-micro) var(--m-ease-micro)}
+.mItem .row{display:flex;align-items:baseline;justify-content:space-between;gap:16px}
+.mItem .n{font-family:var(--font-serif-display);font-weight:var(--w-heading);font-size:17.5px;
+  line-height:1.28;color:var(--text-strong)}
+.mItem .pr{flex:0 0 auto;font-size:14px;letter-spacing:.04em;color:var(--areia-quente);
+  font-variant-numeric:tabular-nums;white-space:nowrap}
+.mItem .d{margin:0;font-size:13.5px;line-height:1.62;color:var(--areia-a60)}
+.mOpts{margin:14px 0 0;padding:16px 18px;border:1px dashed var(--verde-300);border-radius:var(--r-xs)}
+.mOpts .lbl{display:block;font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--areia-a38);margin-bottom:10px}
+.mOpts ul{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:8px}
+.mOpts li{font-size:13px;color:var(--areia-a80);border:1px solid var(--verde-garrafa);
+  border-radius:var(--r-xs);padding:6px 12px}
+
+/* carta de bebidas adultas: estrutura pronta, sem conteúdo nesta implementação */
+.mCarta{padding:46px var(--gutter-mobile) 50px;
+  background:linear-gradient(180deg,var(--vinho-arroxeado) 0%,var(--carvao) 18%,var(--carvao) 100%)}
+.mCarta h2{margin:12px 0 10px;font-family:var(--font-serif-display);font-weight:var(--w-heading);
+  font-size:26px;line-height:1.15;color:var(--text-strong)}
+.mCarta p{margin:0;font-size:14px;line-height:1.7;color:var(--areia-a60);max-width:46ch}
+
+.mEnd{padding:56px var(--gutter-mobile) 60px;border-top:1px solid var(--verde-garrafa);
+  background:linear-gradient(180deg,var(--carvao) 0%,var(--vinho-arroxeado) 18%,var(--vinho-arroxeado) 100%)}
+.mEnd h2{margin:12px 0 10px;font-family:var(--font-serif-display);font-weight:var(--w-heading);
+  font-size:31px;line-height:1.1;color:var(--text-strong)}
+.mEnd p{margin:0 0 26px;font-size:15px;line-height:1.68;color:var(--areia-a80)}
+.mEnd .acts{display:grid;gap:12px}
+.mEnd .cta,.mEnd .btn2{width:100%;justify-content:center;padding:18px 20px;font-size:13.5px}
+.flinks{list-style:none;margin:0;padding:0;display:grid;gap:9px}
+.flinks a{font-size:15px;line-height:1.5;color:var(--text-muted);transition:var(--t-color)}
+.flinks a:hover{color:var(--terracota-suave)}
+.mNote{margin:0;padding:22px var(--gutter-mobile) 26px;background:var(--vinho-arroxeado);
+  font-size:12px;line-height:1.66;color:var(--text-faint);border-top:1px solid var(--verde-a55)}
+
+.totop{position:fixed;right:16px;bottom:16px;z-index:35;width:46px;height:46px;display:grid;place-items:center;
+  background:var(--carvao-a90);border:1px solid var(--verde-300);border-radius:var(--r-xs);color:var(--areia-quente);
+  cursor:pointer;padding:0;backdrop-filter:var(--blur-sticky);-webkit-backdrop-filter:var(--blur-sticky);
+  opacity:0;visibility:hidden;transform:translateY(8px);
+  transition:opacity var(--m-comp) var(--m-ease),transform var(--m-comp) var(--m-ease),
+    visibility var(--m-comp),border-color var(--m-micro) var(--m-ease-micro)}
+.totop.on{opacity:1;visibility:visible;transform:none}
+
+@media(hover:hover){
+.mcat a:hover{color:var(--text-strong)}
+.mItem:hover{transform:translateY(-2px);border-color:var(--terracota-suave)}
+.totop:hover{border-color:var(--terracota-suave)}
+}
+@media(min-width:768px){
+.mGrid{grid-template-columns:1fr 1fr;gap:14px}
+.mOpts{grid-column:1/-1}
+.mEnd .acts{display:flex;flex-wrap:wrap}
+.mEnd .cta,.mEnd .btn2{width:auto}
+}
+@media(min-width:1024px){
+.mcat{top:var(--header-h-desktop)}
+.mSec{scroll-margin-top:calc(var(--header-h-desktop) + 52px + 8px)}
+.mcat ul{padding:0 var(--gutter-desktop);gap:38px}
+.mcat a{padding:18px 0;font-size:12.5px}
+.mHero{min-height:440px}
+.mHero .copy{padding:100px var(--gutter-desktop) 56px;gap:16px}
+.mHero h1{font-size:64px}
+.mHero .sub{font-size:23px}
+.mHero .lead{font-size:16.5px}
+.mSec{padding:84px var(--gutter-desktop) 88px}
+.mSec h2{font-size:44px}
+.mSec>.head{margin-bottom:42px}
+.mItem{padding:22px 22px 23px}
+.mItem .n{font-size:19px}
+.mItem .pr{font-size:15px}
+.mCarta,.mEnd{padding-left:var(--gutter-desktop);padding-right:var(--gutter-desktop)}
+.ft .cols{grid-template-columns:repeat(3,minmax(0,1fr));gap:44px}
+.mNote{padding-left:var(--gutter-desktop);padding-right:var(--gutter-desktop)}
+.totop{right:28px;bottom:28px;width:52px;height:52px}
+}
+@media(min-width:1400px){
+.mcat ul,.mHero .copy,.mSec,.mCarta,.mEnd,.mNote{
+  padding-left:calc((100vw - 1400px)/2 + var(--gutter-desktop));
+  padding-right:calc((100vw - 1400px)/2 + var(--gutter-desktop))}
+}
+"""
+
+MENU_JS = """
+(function(){
+var bar=document.querySelector('.mcat'),top=document.querySelector('.totop');
+if(bar){
+  var links={},secs=[];
+  [].forEach.call(bar.querySelectorAll('a'),function(a){
+    var id=a.getAttribute('href').slice(1),s=document.getElementById(id);
+    if(s){links[id]=a;secs.push(s);}
+  });
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(!e.isIntersecting)return;
+      for(var k in links)links[k].classList.toggle('on',k===e.target.id);
+      /* mantém a categoria ativa à vista na barra rolável do celular */
+      var a=links[e.target.id];
+      if(a&&bar.scrollWidth>bar.clientWidth)a.scrollIntoView({block:'nearest',inline:'center'});
+    });
+  },{rootMargin:'-30% 0px -60% 0px'});
+  secs.forEach(function(s){io.observe(s)});
+}
+if(top){
+  top.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'})});
+  var io2=new IntersectionObserver(function(es){top.classList.toggle('on',!es[0].isIntersecting)},{threshold:0});
+  var h=document.querySelector('.mHero'); if(h)io2.observe(h);
+}
+})();
+"""
+
+
+def money(v):
+    return "R$&nbsp;" + v
+
+
+def menu_markup():
+    """Monta as seções do cardápio. Uma seção por categoria, subgrupos dentro."""
+    out = []
+    nav = "".join(f'<li><a href="#{s["id"]}">{s["nav"]}</a></li>' for s in MENU)
+    out.append(f'<nav class="mcat" aria-label="Categorias do cardápio"><ul>{nav}</ul></nav>')
+    for si, sec in enumerate(MENU):
+        tone = sec["tone"] + (" after-b" if si and MENU[si - 1]["tone"] == "b" and sec["tone"] == "a" else "")
+        body = [f'<div class="head"><span class="eyebrow">Cardápio</span><h2>{sec["title"]}</h2>'
+                f'<p>{sec["lead"]}</p></div>']
+        for g in sec["groups"]:
+            if g.get("sub"):
+                body.append(f'<h3 class="mSub">{g["sub"]}</h3>')
+            cards = []
+            for name, desc, price in g["items"]:
+                d = f'<p class="d">{desc}</p>' if desc else ""
+                cards.append(f'<article class="mItem"><div class="row"><span class="n">{name}</span>'
+                             f'<span class="pr">{money(price)}</span></div>{d}</article>')
+            if g.get("opts"):
+                lbl, opts = g["opts"]
+                lis = "".join(f"<li>{o}</li>" for o in opts)
+                cards.append(f'<div class="mOpts"><span class="lbl">{lbl}</span><ul>{lis}</ul></div>')
+            body.append(f'<div class="mGrid">{"".join(cards)}</div>')
+        out.append(f'<section class="mSec {tone}" id="{sec["id"]}">{"".join(body)}</section>')
+    return "".join(out)
+
+
 def build_images():
     from PIL import Image
     out = os.path.join(ROOT, "img")
@@ -350,8 +635,8 @@ def build_html():
 
     # 5. navegação horizontal do desktop (no mobile o menu é a gaveta)
     site = re.sub(r'<a class="cta" href="#reservas"[^>]*>Reservar</a>',
-                  '<nav class="nav-d"><a href="#sobre">A casa</a><a href="#ambientes">Ambientes</a>'
-                  '<a href="#cardapio">Cardápio</a><a href="#peca-em-casa">Peça em casa</a>'
+                  '<nav class="nav-d"><a href="#sobre">Sobre nós</a><a href="#ambientes">Ambientes</a>'
+                  '<a href="/cardapio">Cardápio</a><a href="#peca-em-casa">Peça em casa</a>'
                   '<a href="#como-chegar">Como chegar</a></nav>\n<a class="cta" href="#reservas">Reservar</a>', site)
 
     # 6. duas colunas em Reservas no desktop (texto | horários + CTA)
@@ -380,13 +665,9 @@ def build_html():
 
     tokens = "".join(open(f"tokens/{f}", encoding="utf-8").read() + "\n" for f in TOKENS)
     html = ('<!doctype html><html lang="pt-BR"><head><meta charset="utf-8">'
-            '<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">'
-            '<meta name="theme-color" content="#17120F">'
-            '<meta name="description" content="Bistrô du Lú — cozinha, sabor e afeto. '
-            'Rua Jequitibá, 910, Horto, Ipatinga MG.">'
-            '<title>Bistrô du Lú — Ipatinga MG</title>'
-            # marca antes da pintura: sem JS as revelações nem chegam a esconder nada
-            '<script>document.documentElement.className="js"</script>'
+            + head_meta("Bistrô du Lú — Ipatinga MG",
+                        "Bistrô du Lú — cozinha, sabor e afeto. Rua Jequitibá, 910, Horto, Ipatinga MG.",
+                        "/") +
             '<style>' + tokens + sheet + DESKTOP_CSS + MOTION_CSS +
             '</style></head><body>'
             '<div class="phone">' + site + '</div></div><script>'
@@ -398,6 +679,128 @@ def build_html():
             + MOTION_JS +
             '</script></body></html>')
     open(os.path.join(ROOT, "index.html"), "w", encoding="utf-8").write(html)
+    return html, sheet, site
+
+
+def head_meta(title, desc, path):
+    """<head> comum às duas páginas: SEO, Open Graph e canônica."""
+    url = SITE_URL + path
+    return ('<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">'
+            f'<meta name="theme-color" content="#17120F">'
+            f'<meta name="description" content="{desc}">'
+            f'<link rel="canonical" href="{url}">'
+            f'<meta property="og:type" content="website">'
+            f'<meta property="og:locale" content="pt_BR">'
+            f'<meta property="og:site_name" content="Bistrô du Lú">'
+            f'<meta property="og:title" content="{title}">'
+            f'<meta property="og:description" content="{desc}">'
+            f'<meta property="og:url" content="{url}">'
+            f'<meta property="og:image" content="{SITE_URL}/img/hero.jpg">'
+            f'<meta name="twitter:card" content="summary_large_image">'
+            f'<title>{title}</title>'
+            # marcada antes da pintura: sem JS as revelações nem chegam a esconder nada
+            '<script>document.documentElement.className="js"</script>')
+
+
+def build_menu(sheet, site):
+    """Página /cardapio, reaproveitando cabeçalho, gaveta e rodapé do site."""
+    def grab(pat):
+        m = re.search(pat, site, re.S)
+        assert m, f"não achei no site: {pat}"
+        return m.group(0)
+
+    drawer = grab(r'<div class="drawer".*?</aside>\n</div>')
+    header = grab(r'<header class="hd-m">.*?</header>')
+    footer = grab(r'<footer class="ft".*?</footer>')
+    # as âncoras do menu passam a apontar para a home; /cardapio e links externos ficam
+    drawer = drawer.replace('href="#', 'href="/#')
+    header = header.replace('href="#', 'href="/#')
+    # na página do cardápio, o item da própria página fica marcado
+    header = header.replace('<a href="/cardapio">Cardápio</a>', '<a href="/cardapio" aria-current="page">Cardápio</a>')
+
+    # o rodapé do site não tem links (os ícones sociais moram em "Como chegar");
+    # aqui ele ganha uma coluna de navegação, como pede a especificação da página
+    flinks = "".join(f'<li><a href="{u}"{e}>{t}</a></li>' for t, u, e in [
+        ("Cardápio", "/cardapio", ""),
+        ("Peça em casa", PEDIDOS, ' target="_blank" rel="noopener"'),
+        ("WhatsApp", WA, ' target="_blank" rel="noopener"'),
+        ("Instagram", IG, ' target="_blank" rel="noopener"'),
+        ("Como chegar", "/#como-chegar", ""),
+    ])
+    footer = footer.replace('</div>\n<div class="legal">',
+                            f'<div><span class="lbl">Navegue</span><ul class="flinks">{flinks}</ul></div>'
+                            '</div>\n<div class="legal">', 1)
+
+    hero = (
+        '<section class="mHero">'
+        '<div class="photo"><img class="ph" src="./img/hero.jpg" alt="Prato do Bistrô du Lú"></div>'
+        '<div class="grad"></div>'
+        '<div class="copy">'
+        '<span class="eyebrow">Bistrô du Lú</span>'
+        '<h1>Cardápio</h1>'
+        '<p class="sub">Sabores para cada ocasião.</p>'
+        '<p class="lead">Da cozinha do Bistrô du Lú para a sua mesa. Conheça nossas entradas, '
+        'pratos principais, sobremesas e bebidas.</p>'
+        '</div></section>')
+
+    # Estrutura pronta para a carta de bebidas adultas. O conteúdo não entra aqui:
+    # basta trocar o parágrafo abaixo por um bloco .mGrid quando o restaurante enviar.
+    carta = ('<section class="mCarta" id="carta">'
+             '<span class="eyebrow">Carta</span>'
+             '<h2>Vinhos e destilados</h2>'
+             '<p>Consulte a carta no restaurante — nossa equipe ajuda a escolher o acompanhamento '
+             'para o seu prato.</p></section>')
+
+    end = ('<section class="mEnd">'
+           '<span class="eyebrow">Próximo passo</span>'
+           '<h2>Gostou do que viu?</h2>'
+           '<p>Agora é só escolher a ocasião.</p>'
+           '<div class="acts">'
+           '<a class="cta" href="/#reservas"><span>Reservar uma mesa</span><span>→</span></a>'
+           f'<a class="btn2" href="{PEDIDOS}" target="_blank" rel="noopener">'
+           '<span>Pedir para levar</span><span class="arw">→</span></a>'
+           '</div></section>')
+
+    note = ('<p class="mNote">Os itens e valores podem sofrer alterações. '
+            'Consulte a disponibilidade no dia.</p>')
+
+    totop = ('<button class="totop" type="button" aria-label="Voltar ao topo">'
+             '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" '
+             'stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
+             '<path d="M12 19V5M5 12l7-7 7 7"/></svg></button>')
+
+    # dados estruturados: só o que o restaurante forneceu
+    ld = {
+        "@context": "https://schema.org", "@type": "Menu", "name": "Cardápio — Bistrô du Lú",
+        "inLanguage": "pt-BR", "url": SITE_URL + "/cardapio",
+        "hasMenuSection": [{
+            "@type": "MenuSection", "name": s["title"],
+            "hasMenuItem": [dict([("@type", "MenuItem"), ("name", n)]
+                                 + ([("description", d)] if d else [])
+                                 + [("offers", {"@type": "Offer", "price": p, "priceCurrency": "BRL"})])
+                            for g in s["groups"] for n, d, p in g["items"]]
+        } for s in MENU]}
+    import json
+    jsonld = '<script type="application/ld+json">' + json.dumps(ld, ensure_ascii=False) + '</script>'
+
+    tokens = "".join(open(f"tokens/{f}", encoding="utf-8").read() + "\n" for f in TOKENS)
+    html = ('<!doctype html><html lang="pt-BR"><head><meta charset="utf-8">'
+            + head_meta("Cardápio | Bistrô du Lú — Ipatinga MG",
+                        "Conheça o cardápio do Bistrô du Lú, em Ipatinga. Entradas, pratos principais, "
+                        "sobremesas e bebidas para tornar cada ocasião especial.", "/cardapio")
+            + jsonld
+            + '<style>' + tokens + sheet + DESKTOP_CSS + MOTION_CSS + MENU_CSS
+            + '</style></head><body>'
+            + '<div class="phone">' + drawer + '<div class="scroll">'
+            + header + hero + menu_markup() + carta + end + note + footer
+            + '</div></div>' + totop + '<script>'
+            '(function(){var d=document.getElementById("drawer"),b=document.getElementById("burger");if(!d||!b)return;'
+            'function close(){d.classList.remove("open");document.body.classList.remove("menu-open")}'
+            'b.addEventListener("click",function(){d.classList.add("open");document.body.classList.add("menu-open")});'
+            'd.addEventListener("click",function(e){if(e.target.closest("[data-close]"))close()});'
+            'document.addEventListener("keydown",function(e){if(e.key==="Escape")close()});})();'
+            + MENU_JS + '</script></body></html>')
+    open(os.path.join(ROOT, "cardapio.html"), "w", encoding="utf-8").write(html)
     return html
 
 
@@ -405,8 +808,13 @@ if __name__ == "__main__":
     if not os.path.exists(SRC):
         sys.exit(f"rode a partir de bistr-du-l-design-system/project/ (não encontrei {SRC})")
     build_images()
-    html = build_html()
-    assert "../../assets" not in html, "sobrou caminho relativo ao design system"
-    assert "cdn.jsdelivr.net" not in html, "sobrou ícone vindo de CDN"
-    assert "<image-slot" not in html, "sobrou <image-slot> sem converter"
+    html, sheet, site = build_html()
+    menu = build_menu(sheet, site)
+    for page, doc in (("index.html", html), ("cardapio.html", menu)):
+        assert "../../assets" not in doc, f"{page}: sobrou caminho relativo ao design system"
+        assert "cdn.jsdelivr.net" not in doc, f"{page}: sobrou ícone vindo de CDN"
+        assert "<image-slot" not in doc, f"{page}: sobrou <image-slot> sem converter"
+        assert "canva.site" not in doc, f"{page}: ainda aponta para o Canva"
+    itens = sum(len(g["items"]) for s in MENU for g in s["groups"])
     print(f"site/index.html — {len(html) // 1024} KB")
+    print(f"site/cardapio.html — {len(menu) // 1024} KB, {itens} itens em {len(MENU)} categorias")
