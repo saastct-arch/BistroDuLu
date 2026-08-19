@@ -271,6 +271,7 @@ WA = "https://api.whatsapp.com/send?phone=5531988600512"
 IG = "https://www.instagram.com/bistrodulu/"
 PEDIDOS = "https://pedidobistrodulu.ccmpedidoonline.com.br/"
 SITE_URL = "https://bistro-du-lu.vercel.app"
+GETIN = "https://www.getin.app/ipatinga/bistro-du-lu"
 
 # ---------------------------------------------------------------------------
 # CARDÁPIO — conteúdo fornecido pelo restaurante, transcrito sem acréscimos.
@@ -756,7 +757,10 @@ def build_menu(sheet, site):
            '<h2>Gostou do que viu?</h2>'
            '<p>Agora é só escolher a ocasião.</p>'
            '<div class="acts">'
-           '<a class="cta" href="/#reservas"><span>Reservar uma mesa</span><span>→</span></a>'
+           # os dois botões deste bloco agem direto: mandar para a seção de reservas
+           # da home seria um salto a mais, enquanto o vizinho já abre o sistema de pedidos
+           f'<a class="cta" href="{GETIN}" target="_blank" rel="noopener">'
+           '<span>Reservar uma mesa</span><span>→</span></a>'
            f'<a class="btn2" href="{PEDIDOS}" target="_blank" rel="noopener">'
            '<span>Pedir para levar</span><span class="arw">→</span></a>'
            '</div></section>')
