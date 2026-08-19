@@ -244,7 +244,7 @@ body.menu-open{overflow:hidden}
 .shot-g .cap{position:absolute;left:0;right:0;bottom:0;z-index:3;padding:30px 14px 12px;
   font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--areia-quente);
   background:linear-gradient(180deg,rgba(23,18,15,0) 0%,rgba(23,18,15,.55) 45%,rgba(23,18,15,.86) 100%)}
-.w-a{width:214px;height:286px}.w-b{width:150px;height:230px;align-self:flex-end}.w-c{width:186px;height:262px}
+.w-a{width:214px;height:286px}.w-b{width:150px;height:230px;align-self:flex-end}.w-c{width:186px;height:262px}.w-d{width:300px;height:270px}
 /* padding-top do fio + padding-bottom da seção se equivalem: o link fica centrado entre os dois fios */
 .galM .foot{padding:33px var(--gutter-mobile) 0;margin-top:24px;display:grid;place-items:center;border-top:1px solid var(--verde-garrafa)}
 .galM .foot a{font-size:15px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--areia-quente);border-bottom:1px solid var(--verde-300);padding-bottom:7px;transition:var(--t-color)}
@@ -359,13 +359,15 @@ body.menu-open{overflow:hidden}
 .rail>.col.b{padding-top:56px}   /* o degrau entre colunas evita o quadriculado */
 .rail>.col.c{padding-top:24px}
 .shot-g{width:auto;height:auto;display:block}
-/* alturas escolhidas para as três colunas terminarem quase no mesmo fio */
-.col.a>*:nth-child(1){height:500px}
-.col.a>*:nth-child(2){height:400px}
-.col.b>*:nth-child(1){height:340px}
-.col.b>*:nth-child(2){height:500px}
-.col.c>*:nth-child(1){height:420px}
-.col.c>*:nth-child(2){height:450px}
+/* alturas escolhidas para as três colunas somarem 1100px e para cada vaga
+   ficar perto da proporção da foto que recebe — cinco são retrato (~0,7),
+   só o Pergolado é quase quadrado (1,11) e vai para a vaga mais larga */
+.col.a>*:nth-child(1){height:620px}
+.col.a>*:nth-child(2){height:460px}
+.col.b>*:nth-child(1){height:520px}
+.col.b>*:nth-child(2){height:560px}
+.col.c>*:nth-child(1){height:540px}
+.col.c>*:nth-child(2){height:540px}
 .shot-g .cap{font-size:12px;left:16px;bottom:14px}
 .galM .foot{padding:56px var(--gutter-desktop) 0;margin-top:48px}
 .galM .foot a{font-size:17px;padding-bottom:9px}
@@ -546,7 +548,7 @@ html.js .rv,html.js .rv-ph{opacity:1;transform:none}
 
 <section class="galM" id="ambientes" data-screen-label="Ambientes">
 <div class="head"><span class="eyebrow">Especial | Romântico | Familiar</span><h2>Ambientes</h2><p>Fotografias do salão feitas em serviço, sem produção.</p></div>
-<div class="rail"><div class="col a"><div class="shot-g w-a"><img class="ph" src="./img/gal1.jpg" alt="Salão em perspectiva" loading="lazy"><div class="tint"></div><span class="cap">Salão</span></div><div class="shot-g w-b"><div class="ph--empty"><span>Adega</span></div><div class="tint"></div></div></div><div class="col b"><div class="shot-g w-c"><div class="ph--empty"><span>Canto reservado para dois</span></div><div class="tint"></div><span class="cap">Mesa dos dois</span></div><div class="shot-g w-b"><img class="ph" src="./img/gal2.jpg" alt="Detalhe da mesa" loading="lazy"><div class="tint"></div></div></div><div class="col c"><div class="shot-g w-a"><div class="ph--empty"><span>Fachada à noite</span></div><div class="tint"></div><span class="cap">Fachada</span></div><div class="shot-g w-c"><img class="ph" src="./img/gal3.jpg" alt="Prato do dia" loading="lazy"><div class="tint"></div><span class="cap">Da cozinha</span></div></div></div>
+<div class="rail"><div class="col a"><div class="shot-g w-a"><img class="ph" src="./img/amb-sala-vermelha.jpg" alt="Sala Vermelha" loading="lazy"><div class="tint"></div><span class="cap">Sala Vermelha</span></div><div class="shot-g w-d"><img class="ph" src="./img/amb-pergolado.jpg" alt="Pergolado (Externo)" loading="lazy"><div class="tint"></div><span class="cap">Pergolado (Externo)</span></div></div><div class="col b"><div class="shot-g w-c"><img class="ph" src="./img/amb-sala-do-lustre.jpg" alt="Sala do Lustre" loading="lazy"><div class="tint"></div><span class="cap">Sala do Lustre</span></div><div class="shot-g w-b"><img class="ph" src="./img/amb-sala-azul.jpg" alt="Sala Azul" loading="lazy"><div class="tint"></div><span class="cap">Sala Azul</span></div></div><div class="col c"><div class="shot-g w-a"><img class="ph" src="./img/amb-sala-dos-pratos.jpg" alt="Sala dos Pratos" loading="lazy"><div class="tint"></div><span class="cap">Sala dos Pratos</span></div><div class="shot-g w-c"><img class="ph" src="./img/amb-sala-labirinto.jpg" alt="Sala Labirinto" loading="lazy"><div class="tint"></div><span class="cap">Sala Labirinto</span></div></div></div>
 <div class="foot"><a href="https://www.instagram.com/bistrodulu/" target="_blank" rel="noopener">Ver no Instagram →</a></div>
 </section>
 

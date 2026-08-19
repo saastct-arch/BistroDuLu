@@ -20,11 +20,16 @@ TOKENS = ["fonts.css", "colors.css", "typography.css", "spacing.css", "borders.c
 
 # foto de origem -> (arquivo em site/img, largura máxima)
 PHOTOS = {
+    # hero da home (vídeo cobre) e hero do cardápio
     "465473846_18356323819184475_715987668432-msqcws7i-3w8b.jpg": ("hero.jpg", 1800),
     "whatsapp-image-2026-08-12-at-07-48-28-msqclhdg-j8en.jpeg": ("sobre.jpg", 1200),
-    "467206514_18358169875184475_752019178811-msqd1ao6-28da.jpg": ("gal1.jpg", 900),
-    "captura-de-tela-2026-08-12-143254-msqdb3mu-t9du.png": ("gal2.jpg", 700),
-    "472721185_18365296549184475_468369343161-msqd1lcm-nlj1.jpg": ("gal3.jpg", 900),
+    # Ambientes — seis salas, uma por vaga do mosaico
+    "amb-sala-vermelha.jpg": ("amb-sala-vermelha.jpg", 1100),
+    "amb-sala-azul.jpg": ("amb-sala-azul.jpg", 1100),
+    "amb-sala-do-lustre.jpg": ("amb-sala-do-lustre.jpg", 1100),
+    "amb-pergolado.jpg": ("amb-pergolado.jpg", 1300),
+    "amb-sala-dos-pratos.jpg": ("amb-sala-dos-pratos.jpg", 1100),
+    "amb-sala-labirinto.jpg": ("amb-sala-labirinto.jpg", 1100),
 }
 LOGOS = {"assets/logo-topo.png": ("logo-topo.png", 320), "assets/logo-monogram-areia.png": ("logo.png", 160)}
 
@@ -72,13 +77,15 @@ DESKTOP_CSS = """
 .rail>.col.b{padding-top:56px}   /* o degrau entre colunas evita o quadriculado */
 .rail>.col.c{padding-top:24px}
 .shot-g{width:auto;height:auto;display:block}
-/* alturas escolhidas para as três colunas terminarem quase no mesmo fio */
-.col.a>*:nth-child(1){height:500px}
-.col.a>*:nth-child(2){height:400px}
-.col.b>*:nth-child(1){height:340px}
-.col.b>*:nth-child(2){height:500px}
-.col.c>*:nth-child(1){height:420px}
-.col.c>*:nth-child(2){height:450px}
+/* alturas escolhidas para as três colunas somarem 1100px e para cada vaga
+   ficar perto da proporção da foto que recebe — cinco são retrato (~0,7),
+   só o Pergolado é quase quadrado (1,11) e vai para a vaga mais larga */
+.col.a>*:nth-child(1){height:620px}
+.col.a>*:nth-child(2){height:460px}
+.col.b>*:nth-child(1){height:520px}
+.col.b>*:nth-child(2){height:560px}
+.col.c>*:nth-child(1){height:540px}
+.col.c>*:nth-child(2){height:540px}
 .shot-g .cap{font-size:12px;left:16px;bottom:14px}
 .galM .foot{padding:56px var(--gutter-desktop) 0;margin-top:48px}
 .galM .foot a{font-size:17px;padding-bottom:9px}
