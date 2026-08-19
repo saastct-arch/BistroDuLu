@@ -36,6 +36,11 @@ LOGOS = {"assets/logo-topo.png": ("logo-topo.png", 320), "assets/logo-monogram-a
 # arquivo em site/img -> (largura, altura) já processadas; preenchido por build_images()
 SIZES = {}
 
+# capa dos links: 1200x630 é a proporção que WhatsApp, Facebook e X recortam sem cortar nada
+OG_IMG = "og-marca.jpg"
+OG_SIZE = (1200, 630)
+VINHO, VINHO_900 = (0x4E, 0x15, 0x17), (0x35, 0x0E, 0x10)
+
 
 def dims(name):
     """width/height nativos: o navegador reserva a vaga antes de a foto chegar."""
@@ -619,6 +624,33 @@ def build_images():
         if h < im.height:
             im = im.resize((int(im.width * h / im.height), h), Image.LANCZOS)
         im.save(f"{out}/{dst}", "PNG", optimize=True)
+    build_og_card()
+
+
+def build_og_card():
+    """Capa dos links (WhatsApp, Instagram, Google): o lockup vertical em areia
+    sobre vinho, como no guia de marca. Uma foto do salão vira um retângulo
+    escuro e ilegível na miniatura; a marca não."""
+    from PIL import Image
+    w, h = OG_SIZE
+    card = Image.new("RGB", (w, h), VINHO)
+    # o mesmo gradiente vinho→carvão das seções: cor chapada é o que o guia evita
+    grad = Image.new("RGB", (1, h))
+    for y in range(h):
+        t = y / (h - 1)
+        grad.putpixel((0, y), tuple(round(a + (b - a) * t) for a, b in zip(VINHO, VINHO_900)))
+    card.paste(grad.resize((w, h)), (0, 0))
+
+    mark = Image.open("assets/logo-vertical-areia.png").convert("RGBA")
+    # o PNG traz margens desiguais (114px sob a assinatura, 28px acima do monograma):
+    # centrar a tela inteira jogaria a marca para cima. Centramos o desenho.
+    mark = mark.crop(mark.getchannel("A").getbbox())
+    esc = min(h * 0.62 / mark.height, w * 0.42 / mark.width)   # respiro em volta, sem encostar
+    mark = mark.resize((round(mark.width * esc), round(mark.height * esc)), Image.LANCZOS)
+    card.paste(mark, ((w - mark.width) // 2, (h - mark.height) // 2), mark)
+
+    card.save(os.path.join(ROOT, "img", OG_IMG), "JPEG", quality=90, optimize=True, progressive=True)
+    SIZES[OG_IMG] = (w, h)
 
 
 def build_html():
@@ -765,7 +797,10 @@ def head_meta(title, desc, path):
             f'<meta property="og:title" content="{title}">'
             f'<meta property="og:description" content="{desc}">'
             f'<meta property="og:url" content="{url}">'
-            f'<meta property="og:image" content="{SITE_URL}/img/hero.jpg">'
+            f'<meta property="og:image" content="{SITE_URL}/img/{OG_IMG}">'
+            f'<meta property="og:image:width" content="{OG_SIZE[0]}">'
+            f'<meta property="og:image:height" content="{OG_SIZE[1]}">'
+            f'<meta property="og:image:alt" content="Bistrô du Lú — cozinha &amp; afeto, desde 2017">'
             f'<meta name="twitter:card" content="summary_large_image">'
             f'<title>{title}</title>'
             # marcada antes da pintura: sem JS as revelações nem chegam a esconder nada
