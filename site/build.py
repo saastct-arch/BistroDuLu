@@ -53,6 +53,15 @@ LOGOS = {"assets/logo-topo.png": ("logo-topo.png", 320), "assets/logo-monogram-a
 # arquivo em site/img -> (largura, altura) já processadas; preenchido por build_images()
 SIZES = {}
 
+# fotos que abrem ampliadas ao clique: as do mosaico de Ambientes e as dos pratos
+ZOOM_PREFIX = ("amb-", "dicas-")
+ZOOM_MAX = 1600          # lado maior da cópia ampliada
+
+
+def zoom_name(dst):
+    """Nome da cópia ampliada, ou None para quem não abre no lightbox."""
+    return dst[:-4] + "-full.jpg" if dst.startswith(ZOOM_PREFIX) else None
+
 # capa dos links: 1200x630 é a proporção que WhatsApp, Facebook e X recortam sem cortar nada
 OG_IMG = "og-marca.jpg"
 OG_SIZE = (1200, 630)
@@ -258,6 +267,125 @@ html{scroll-behavior:auto}
 html.js .rv,html.js .rv-ph{opacity:1;transform:none}
 .heroM .photo .ph,.heroM .copy>*{animation:none;opacity:1;transform:none}
 }
+"""
+
+LIGHTBOX_CSS = """
+/* ============ LIGHTBOX — as fotos do mosaico abrem ampliadas ============ */
+/* cada peça virou <button>: zera o desenho que o navegador dá de graça */
+.shot-g{appearance:none;-webkit-appearance:none;background:none;padding:0;margin:0;
+  font:inherit;color:inherit;text-align:left;cursor:zoom-in}
+.shot-g:focus-visible{outline:2px solid var(--terracota-suave);outline-offset:3px}
+
+.lbx{position:fixed;inset:0;z-index:60;display:none;place-items:center;
+  padding:clamp(14px,4vw,44px);background:rgba(23,18,15,.94)}
+.lbx.on{display:grid}
+body.lbx-open{overflow:hidden}
+.lbx figure{margin:0;display:grid;gap:16px;justify-items:center;min-width:0}
+/* a foto cabe inteira na tela: o que sobra de altura é a legenda mais o respiro */
+.lbx img{display:block;max-width:100%;max-height:calc(100vh - 150px);
+  width:auto;height:auto;border:1px solid var(--verde-garrafa)}
+.lbx figcaption{font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--areia-quente);text-align:center}
+.lbx .ct{font-size:11px;letter-spacing:.16em;color:var(--areia-a38)}
+.lbx button{position:absolute;appearance:none;-webkit-appearance:none;cursor:pointer;
+  width:44px;height:44px;display:grid;place-items:center;border-radius:50%;
+  background:var(--areia-a08);border:1px solid var(--verde-garrafa);color:var(--areia-quente);
+  transition:var(--t-color),background var(--m-micro) var(--m-ease-micro)}
+.lbx button:hover{color:var(--terracota-suave);background:var(--areia-a14)}
+.lbx button:focus-visible{outline:2px solid var(--terracota-suave);outline-offset:3px}
+.lbx .x{top:clamp(12px,3vw,28px);right:clamp(12px,3vw,28px)}
+.lbx .prev,.lbx .next{top:50%;transform:translateY(-50%)}
+.lbx .prev{left:clamp(8px,2vw,28px)}
+.lbx .next{right:clamp(8px,2vw,28px)}
+/* no celular as setas iriam por cima da foto: descem para o rodapé, lado a lado */
+@media(max-width:600px){
+.lbx .prev,.lbx .next{top:auto;bottom:16px;transform:none}
+.lbx .prev{left:calc(50% - 52px)}
+.lbx .next{right:calc(50% - 52px)}
+.lbx img{max-height:calc(100vh - 210px)}
+}
+html.js .lbx img{animation:m-zoom var(--m-comp) var(--m-ease) both}
+@keyframes m-zoom{from{opacity:0;transform:scale(.98)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){html.js .lbx img{animation:none}}
+"""
+
+LIGHTBOX_HTML = (
+    '<div class="lbx" id="lbx" role="dialog" aria-modal="true" aria-label="Foto ampliada">'
+    '<button type="button" class="x" data-lbx="close" aria-label="Fechar">'
+    '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" '
+    'stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>'
+    '<button type="button" class="prev" data-lbx="prev" aria-label="Foto anterior">'
+    '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" '
+    'stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
+    '<path d="m15 18-6-6 6-6"/></svg></button>'
+    '<button type="button" class="next" data-lbx="next" aria-label="Próxima foto">'
+    '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" '
+    'stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
+    '<path d="m9 18 6-6-6-6"/></svg></button>'
+    '<figure><img alt=""><figcaption><span class="t"></span> '
+    '<span class="ct"></span></figcaption></figure></div>')
+
+LIGHTBOX_JS = """
+(function(){
+var box=document.getElementById('lbx');if(!box)return;
+var img=box.querySelector('img'),ttl=box.querySelector('.t'),ct=box.querySelector('.ct'),
+    prev=box.querySelector('.prev'),next=box.querySelector('.next');
+/* cada mosaico é um grupo próprio: as setas andam dentro de Ambientes ou de
+   Dicas do Lú, nunca pulam de um para o outro */
+var groups=[],owner=new Map();
+[].forEach.call(document.querySelectorAll('.rail,.railD'),function(r){
+  var tiles=[].filter.call(r.querySelectorAll('.shot-g'),function(t){
+    return t.querySelector('img[data-full]');});
+  if(!tiles.length)return;
+  var g={tiles:tiles,i:0};groups.push(g);
+  tiles.forEach(function(t,i){owner.set(t,{g:g,i:i})});
+});
+if(!groups.length)return;
+var cur=null,last=null;
+
+function show(g,i){
+  cur=g;g.i=(i+g.tiles.length)%g.tiles.length;
+  var src=g.tiles[g.i].querySelector('img[data-full]');
+  img.src=src.getAttribute('data-full');
+  img.alt=src.alt;
+  ttl.textContent=src.alt;
+  ct.textContent=g.tiles.length>1?'('+(g.i+1)+'/'+g.tiles.length+')':'';
+  var solo=g.tiles.length<2;
+  prev.hidden=next.hidden=solo;
+  /* reinicia a entrada da foto a cada troca */
+  img.style.animation='none';img.offsetWidth;img.style.animation='';
+}
+function open(t){
+  var o=owner.get(t);if(!o)return;
+  last=t;
+  show(o.g,o.i);
+  box.classList.add('on');document.body.classList.add('lbx-open');
+  box.querySelector('.x').focus();
+}
+function close(){
+  box.classList.remove('on');document.body.classList.remove('lbx-open');
+  img.removeAttribute('src');
+  cur=null;
+  if(last){last.focus();last=null;}
+}
+function step(d){if(cur)show(cur,cur.i+d);}
+
+owner.forEach(function(o,t){t.addEventListener('click',function(){open(t)})});
+box.addEventListener('click',function(e){
+  var b=e.target.closest('[data-lbx]');
+  if(b){({close:close,prev:function(){step(-1)},next:function(){step(1)}})[b.dataset.lbx]();return;}
+  /* clicar no fundo (fora da foto) fecha */
+  if(!e.target.closest('figure'))close();
+});
+document.addEventListener('keydown',function(e){
+  if(!cur)return;
+  if(e.key==='Escape'){close();}
+  else if(e.key==='ArrowLeft'){step(-1);}
+  else if(e.key==='ArrowRight'){step(1);}
+  else return;
+  e.preventDefault();
+});
+})();
 """
 
 MOTION_JS = """
@@ -662,7 +790,17 @@ def build_images():
     out = os.path.join(ROOT, "img")
     os.makedirs(out, exist_ok=True)
     for src, (dst, w) in PHOTOS.items():
-        im = Image.open(f"ui_kits/website/{src}").convert("RGB")
+        full = Image.open(f"ui_kits/website/{src}").convert("RGB")
+        # as fotos do mosaico abrem ampliadas: uma segunda cópia, no tamanho
+        # nativo, fica reservada para o lightbox. O clique é raro comparado à
+        # rolagem, então ela só é baixada quando alguém realmente amplia.
+        if zoom_name(dst):
+            z = full
+            if ZOOM_MAX < max(z.size):
+                k = ZOOM_MAX / max(z.size)
+                z = z.resize((round(z.width * k), round(z.height * k)), Image.LANCZOS)
+            z.save(f"{out}/{zoom_name(dst)}", "JPEG", quality=82, optimize=True, progressive=True)
+        im = full
         if w < im.width:
             im = im.resize((w, int(im.height * w / im.width)), Image.LANCZOS)
         im.save(f"{out}/{dst}", "JPEG", quality=78, optimize=True, progressive=True)
@@ -763,8 +901,10 @@ def build_html():
             # salas chegavam depois da rolagem e o mosaico abria com vãos vazios.
             # Eager põe as seis na fila já no parse — fora da tela o próprio navegador
             # as baixa em prioridade baixa, então o vídeo do hero continua na frente.
+            z = zoom_name(name)
+            zoom = f' data-full="./img/{z}"' if z else ""
             return (f'<img class="ph" src="./img/{name}" alt="{ph}"{dims(name)} '
-                    f'loading="eager" decoding="async">')
+                    f'loading="eager" decoding="async"{zoom}>')
         return f'<div class="ph--empty"><span>{ph}</span></div>'
 
     site = re.sub(r'<image-slot\b[^>]*></image-slot>', slot, site)
@@ -777,6 +917,18 @@ def build_html():
     #     mexe em um pixel do hero.
     site, n = re.subn(r'<img class="wordmark"[^>]*>', r'<h1 class="wm">\g<0></h1>', site, count=1)
     assert n == 1, "não achei o wordmark do hero para envolver no <h1>"
+
+    # 3c. cada peça do mosaico abre a foto ampliada, então precisa ser um botão de
+    #     verdade: teclado e leitor de tela ganham o clique de graça. O rótulo
+    #     explícito evita o nome duplicado (alt da foto + legenda dizem o mesmo).
+    def tile(m):
+        cls, inner = m.group(1), m.group(2)
+        cap = re.search(r'<span class="cap">([^<]*)</span>', inner)
+        label = f' aria-label="Ampliar: {cap.group(1)}"' if cap else ""
+        return f'<button type="button" class="shot-g{cls}"{label}>{inner}</button>'
+
+    site, n = re.subn(r'^<div class="shot-g([^"]*)">(.*)</div>$', tile, site, flags=re.M)
+    assert n == 22, f"esperava 22 peças de mosaico para virar botão, converti {n}"
 
     # 4. ícones do menu embutidos — no mobile o botão é a única navegação
     site = re.sub(r'<img src="https://cdn\.jsdelivr\.net/npm/lucide-static@[^"]*/icons/menu\.svg"[^>]*>', MENU_SVG, site)
@@ -834,15 +986,15 @@ def build_html():
                         "Rua Jequitibá, 910.", "/")
             + '<script type="application/ld+json">'
             + json.dumps(restaurante_ld(), ensure_ascii=False) + '</script>' +
-            '<style>' + tokens + sheet + DESKTOP_CSS + MOTION_CSS +
+            '<style>' + tokens + sheet + DESKTOP_CSS + MOTION_CSS + LIGHTBOX_CSS +
             '</style></head><body>'
-            '<div class="phone">' + site + '</div></div><script>'
+            '<div class="phone">' + site + '</div></div>' + LIGHTBOX_HTML + '<script>'
             '(function(){var d=document.getElementById("drawer"),b=document.getElementById("burger");if(!d||!b)return;'
             'function close(){d.classList.remove("open");document.body.classList.remove("menu-open")}'
             'b.addEventListener("click",function(){d.classList.add("open");document.body.classList.add("menu-open")});'
             'd.addEventListener("click",function(e){if(e.target.closest("[data-close]"))close()});'
             'document.addEventListener("keydown",function(e){if(e.key==="Escape")close()});})();'
-            + MOTION_JS +
+            + MOTION_JS + LIGHTBOX_JS +
             '</script></body></html>')
     open(os.path.join(ROOT, "index.html"), "w", encoding="utf-8").write(html)
     return html, sheet, site
