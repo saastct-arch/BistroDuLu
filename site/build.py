@@ -66,7 +66,8 @@ DESKTOP_CSS = """
 /* hero — foto full-bleed, texto sobre a metade inferior */
 .heroM{height:760px}
 .heroM .copy{left:var(--gutter-desktop);right:var(--gutter-desktop);bottom:72px;gap:30px}
-.heroM .wordmark{width:360px;margin:0;justify-self:start}
+.heroM .wordmark{width:360px;margin:0}
+.heroM h1.wm{justify-self:start}
 .heroM .cta{width:auto;padding:19px 34px;font-size:15px}
 .heroM .meta{font-size:12px}
 /* sobre — texto à esquerda, retrato sangrando à direita */
@@ -328,6 +329,28 @@ IG = "https://www.instagram.com/bistrodulu/"
 PEDIDOS = "https://pedidobistrodulu.ccmpedidoonline.com.br/"
 SITE_URL = "https://bistro-du-lu.vercel.app"
 GETIN = "https://www.getin.app/ipatinga/bistro-du-lu"
+MAPS = ("https://www.google.com/maps/search/?api=1&query="
+        "Rua+Jequitiba%2C+910+-+Horto%2C+Ipatinga+-+MG%2C+35160-306")
+TEL = "+5531988600512"
+
+# ---------------------------------------------------------------------------
+# BUSCA
+# O Google ignora <meta name="keywords"> desde 2009 — só buscadores menores
+# ainda leem. Ele vale como custo zero, mas o que de fato posiciona a casa nas
+# buscas locais é o resto deste bloco: título e descrição com os termos que as
+# pessoas digitam, e o Restaurant/JSON-LD com endereço, telefone e horários.
+# Nada aqui é invenção: tudo já está no site, só que em linguagem de robô.
+# ---------------------------------------------------------------------------
+KEYWORDS = [
+    "Bistrô du Lú", "bistro du lu", "restaurante em Ipatinga", "bistrô em Ipatinga",
+    "restaurante Horto Ipatinga", "onde comer em Ipatinga", "restaurante Vale do Aço",
+    "jantar romântico Ipatinga", "restaurante para casais", "restaurante para família",
+    "massas e risotos", "carnes e frutos do mar", "reserva de mesa Ipatinga",
+    "restaurante Rua Jequitibá Ipatinga", "comida para viagem Ipatinga",
+]
+KEYWORDS_MENU = ["cardápio Bistrô du Lú", "cardápio de restaurante em Ipatinga",
+                 "entradas", "pratos principais", "sobremesas", "preços"]
+CUISINE = ["Bistrô", "Contemporânea", "Brasileira", "Italiana", "Frutos do mar"]
 
 # ---------------------------------------------------------------------------
 # CARDÁPIO — conteúdo fornecido pelo restaurante, transcrito sem acréscimos.
@@ -698,7 +721,10 @@ def build_html():
               ".heroM .meta span.sep:first-child{display:none}\n"
               ".nav-d{display:none}\n"
               ".hd-m .burger,.drawer .close{color:var(--areia-quente)}\n"
-              ".drawer .close:hover{color:var(--terracota-suave)}\n")
+              ".drawer .close:hover{color:var(--terracota-suave)}\n"
+              # o wordmark virou <h1>: quem passa a ser item do grid é o título,
+              # então o alinhamento e o atraso da entrada migram da imagem para ele
+              ".heroM h1.wm{margin:0;justify-self:center;animation-delay:300ms}\n")
 
     # 3. <image-slot> vira <img>; slot sem foto vira marcador tracejado
     def slot(m):
@@ -719,6 +745,13 @@ def build_html():
     site = re.sub(r'<image-slot\b[^>]*></image-slot>', slot, site)
     site = site.replace('src="../../assets/logo-monogram-areia.png"', 'src="./img/logo.png"')
     site = site.replace('src="../../assets/logo-topo.png"', 'src="./img/logo-topo.png"')
+
+    # 3b. o wordmark do hero é o título da home, e a home não tinha <h1> nenhum —
+    #     o Google lê o h1 como o assunto da página. Envolver a imagem, em vez de
+    #     esconder um texto atrás dela, mantém o alt como o texto do título e não
+    #     mexe em um pixel do hero.
+    site, n = re.subn(r'<img class="wordmark"[^>]*>', r'<h1 class="wm">\g<0></h1>', site, count=1)
+    assert n == 1, "não achei o wordmark do hero para envolver no <h1>"
 
     # 4. ícones do menu embutidos — no mobile o botão é a única navegação
     site = re.sub(r'<img src="https://cdn\.jsdelivr\.net/npm/lucide-static@[^"]*/icons/menu\.svg"[^>]*>', MENU_SVG, site)
@@ -766,10 +799,16 @@ def build_html():
     site = f'{head}<div class="rail">{rail}</div>\n<div class="foot">{tail}'
 
     tokens = "".join(open(f"tokens/{f}", encoding="utf-8").read() + "\n" for f in TOKENS)
+    import json
     html = ('<!doctype html><html lang="pt-BR"><head><meta charset="utf-8">'
-            + head_meta("Bistrô du Lú — Ipatinga MG",
-                        "Bistrô du Lú — cozinha, sabor e afeto. Rua Jequitibá, 910, Horto, Ipatinga MG.",
-                        "/") +
+            # o título e a descrição são a isca da busca: quem procura não digita
+            # "Bistrô du Lú", digita "restaurante em Ipatinga"
+            + head_meta("Bistrô du Lú — Restaurante e Bistrô em Ipatinga MG",
+                        "Restaurante e bistrô em Ipatinga, no Horto: massas, risotos, carnes e "
+                        "frutos do mar em um ambiente romântico e familiar. Reserve sua mesa — "
+                        "Rua Jequitibá, 910.", "/")
+            + '<script type="application/ld+json">'
+            + json.dumps(restaurante_ld(), ensure_ascii=False) + '</script>' +
             '<style>' + tokens + sheet + DESKTOP_CSS + MOTION_CSS +
             '</style></head><body>'
             '<div class="phone">' + site + '</div></div><script>'
@@ -784,12 +823,18 @@ def build_html():
     return html, sheet, site
 
 
-def head_meta(title, desc, path):
+def head_meta(title, desc, path, keywords=()):
     """<head> comum às duas páginas: SEO, Open Graph e canônica."""
     url = SITE_URL + path
+    termos = ", ".join(KEYWORDS + list(keywords))
     return ('<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">'
             f'<meta name="theme-color" content="#17120F">'
             f'<meta name="description" content="{desc}">'
+            f'<meta name="keywords" content="{termos}">'
+            # max-image-preview:large libera a miniatura grande no resultado de busca
+            f'<meta name="robots" content="index,follow,max-image-preview:large,'
+            f'max-snippet:-1,max-video-preview:-1">'
+            f'<meta name="author" content="Bistrô du Lú">'
             f'<link rel="canonical" href="{url}">'
             f'<meta property="og:type" content="website">'
             f'<meta property="og:locale" content="pt_BR">'
@@ -805,6 +850,69 @@ def head_meta(title, desc, path):
             f'<title>{title}</title>'
             # marcada antes da pintura: sem JS as revelações nem chegam a esconder nada
             '<script>document.documentElement.className="js"</script>')
+
+
+def horarios():
+    """openingHoursSpecification: o que o Google lê para dizer "aberto agora".
+    Meia-noite vira 23:59 — "00:00" no fecha seria lido como fechado o dia todo."""
+    return ([{"@type": "OpeningHoursSpecification", "dayOfWeek": d,
+              "opens": "19:00", "closes": "23:59"}
+             for d in ["Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]]
+            + [{"@type": "OpeningHoursSpecification", "dayOfWeek": "Sunday",
+                "opens": "12:00", "closes": "16:00"},
+               {"@type": "OpeningHoursSpecification", "dayOfWeek": "Monday",
+                "opens": "00:00", "closes": "00:00"}])
+
+
+def restaurante_ld():
+    """A ficha da casa em linguagem de robô: é o que alimenta o painel lateral do
+    Google e as buscas por "restaurante perto de mim". Sem coordenadas — elas não
+    foram fornecidas, e chutar um ponto no mapa é pior que não ter nenhum."""
+    # a faixa é a dos pratos principais, não a do cardápio inteiro: sem o filtro de
+    # sub-grupo o adicional de risoto (R$ 35) puxaria o piso para baixo.
+    # E os preços são strings ("92"): sem int() o min/max sairia alfabético.
+    principais = [int(p) for s in MENU if s["id"] == "principais"
+                  for g in s["groups"] if not g.get("sub") for _, _, p in g["items"]]
+    return {
+        "@context": "https://schema.org",
+        "@type": "Restaurant",
+        "@id": SITE_URL + "/#restaurante",
+        "name": "Bistrô du Lú",
+        "description": "Bistrô em Ipatinga, no bairro Horto. Cozinha de família em um "
+                       "ambiente aconchegante, romântico e reservado, desde 2017.",
+        "url": SITE_URL + "/",
+        "image": [f"{SITE_URL}/img/{OG_IMG}", f"{SITE_URL}/img/hero.jpg",
+                  f"{SITE_URL}/img/amb-pergolado.jpg"],
+        "logo": f"{SITE_URL}/img/logo.png",
+        "telephone": TEL,
+        "address": {"@type": "PostalAddress", "streetAddress": "Rua Jequitibá, 910",
+                    "addressLocality": "Ipatinga", "addressRegion": "MG",
+                    "postalCode": "35160-306", "addressCountry": "BR"},
+        "hasMap": MAPS,
+        "openingHoursSpecification": horarios(),
+        "servesCuisine": CUISINE,
+        "priceRange": f"R$ {min(principais)}–{max(principais)}",
+        "currenciesAccepted": "BRL",
+        "acceptsReservations": GETIN,
+        "hasMenu": {"@id": SITE_URL + "/cardapio#menu"},
+        "foundingDate": "2017",
+        "sameAs": [IG],
+        "potentialAction": [
+            {"@type": "ReserveAction", "target": GETIN},
+            {"@type": "OrderAction", "target": PEDIDOS, "deliveryMethod": "http://purl.org/goodrelations/v1#PickUp"},
+        ],
+    }
+
+
+def build_seo_files():
+    """robots.txt e sitemap.xml: sem eles o Google descobre as páginas por acaso."""
+    open(os.path.join(ROOT, "robots.txt"), "w", encoding="utf-8").write(
+        "User-agent: *\nAllow: /\n\nSitemap: " + SITE_URL + "/sitemap.xml\n")
+    urls = "".join(f"<url><loc>{SITE_URL}{p}</loc><priority>{pr}</priority></url>"
+                   for p, pr in (("/", "1.0"), ("/cardapio", "0.8")))
+    open(os.path.join(ROOT, "sitemap.xml"), "w", encoding="utf-8").write(
+        '<?xml version="1.0" encoding="UTF-8"?>'
+        f'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{urls}</urlset>\n')
 
 
 def build_menu(sheet, site):
@@ -882,6 +990,9 @@ def build_menu(sheet, site):
     # dados estruturados: só o que o restaurante forneceu
     ld = {
         "@context": "https://schema.org", "@type": "Menu", "name": "Cardápio — Bistrô du Lú",
+        # o mesmo @id que o Restaurant da home aponta em hasMenu: para o Google as
+        # duas páginas descrevem uma casa só, não dois estabelecimentos
+        "@id": SITE_URL + "/cardapio#menu",
         "inLanguage": "pt-BR", "url": SITE_URL + "/cardapio",
         "hasMenuSection": [{
             "@type": "MenuSection", "name": s["title"],
@@ -895,9 +1006,10 @@ def build_menu(sheet, site):
 
     tokens = "".join(open(f"tokens/{f}", encoding="utf-8").read() + "\n" for f in TOKENS)
     html = ('<!doctype html><html lang="pt-BR"><head><meta charset="utf-8">'
-            + head_meta("Cardápio | Bistrô du Lú — Ipatinga MG",
-                        "Conheça o cardápio do Bistrô du Lú, em Ipatinga. Entradas, pratos principais, "
-                        "sobremesas e bebidas para tornar cada ocasião especial.", "/cardapio")
+            + head_meta("Cardápio e preços | Bistrô du Lú — Restaurante em Ipatinga MG",
+                        "Cardápio completo do Bistrô du Lú, em Ipatinga: entradas, massas, risotos, "
+                        "carnes, frutos do mar, sobremesas e bebidas, com preços atualizados.",
+                        "/cardapio", KEYWORDS_MENU)
             + jsonld
             + '<style>' + tokens + sheet + DESKTOP_CSS + MOTION_CSS + MENU_CSS
             + '</style></head><body>'
@@ -918,6 +1030,7 @@ if __name__ == "__main__":
     if not os.path.exists(SRC):
         sys.exit(f"rode a partir de bistr-du-l-design-system/project/ (não encontrei {SRC})")
     build_images()
+    build_seo_files()
     html, sheet, site = build_html()
     menu = build_menu(sheet, site)
     for page, doc in (("index.html", html), ("cardapio.html", menu)):
