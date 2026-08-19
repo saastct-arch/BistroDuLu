@@ -30,6 +30,23 @@ PHOTOS = {
     "amb-pergolado.jpg": ("amb-pergolado.jpg", 1300),
     "amb-sala-dos-pratos.jpg": ("amb-sala-dos-pratos.jpg", 1100),
     "amb-sala-labirinto.jpg": ("amb-sala-labirinto.jpg", 1100),
+    # Dicas do Lú — pratos da casa, mosaico dentro da seção Cardápio
+    "dicas-bolinho-de-cupim.jpg": ("dicas-bolinho-de-cupim.jpg", 640),
+    "dicas-bolo-de-cenoura.jpg": ("dicas-bolo-de-cenoura.jpg", 640),
+    "dicas-brownie-perfeito.jpg": ("dicas-brownie-perfeito.jpg", 640),
+    "dicas-carre-de-cordeiro.jpg": ("dicas-carre-de-cordeiro.jpg", 640),
+    "dicas-ceviche-de-peixe-branco.jpg": ("dicas-ceviche-de-peixe-branco.jpg", 640),
+    "dicas-coxinha-de-costela.jpg": ("dicas-coxinha-de-costela.jpg", 640),
+    "dicas-dadinhos-de-queijo-coalho.jpg": ("dicas-dadinhos-de-queijo-coalho.jpg", 640),
+    "dicas-fritas-na-paprica.jpg": ("dicas-fritas-na-paprica.jpg", 640),
+    "dicas-parpardelle.jpg": ("dicas-parpardelle.jpg", 640),
+    "dicas-pastelzinho-de-queijo-do-serro.jpg": ("dicas-pastelzinho-de-queijo-do-serro.jpg", 640),
+    "dicas-risoto-de-camarao.jpg": ("dicas-risoto-de-camarao.jpg", 640),
+    "dicas-risoto-de-pera-gorgonzola.jpg": ("dicas-risoto-de-pera-gorgonzola.jpg", 640),
+    "dicas-spaghetti-manteiga-de-salvia.jpg": ("dicas-spaghetti-manteiga-de-salvia.jpg", 640),
+    "dicas-tal-do-pudim.jpg": ("dicas-tal-do-pudim.jpg", 640),
+    "dicas-tartare-de-salmao.jpg": ("dicas-tartare-de-salmao.jpg", 640),
+    "dicas-torresmo-de-barriga.jpg": ("dicas-torresmo-de-barriga.jpg", 640),
 }
 LOGOS = {"assets/logo-topo.png": ("logo-topo.png", 320), "assets/logo-monogram-areia.png": ("logo.png", 160)}
 
@@ -109,6 +126,12 @@ DESKTOP_CSS = """
 .menuM h2{font-size:44px;margin:18px 0 18px}
 .menuM p{font-size:17px;max-width:52ch;margin-bottom:34px}
 .menuM .btn2{padding:18px 30px}
+/* dicas do lú — mosaico de oito colunas, tudo na mesma proporção 4:3 */
+.dicas{justify-self:stretch;width:100%;max-width:1180px;margin:0 auto 40px}
+.dicas h3{font-size:26px;margin:12px 0 30px}
+.railD{display:grid;grid-template-columns:repeat(8,1fr);gap:16px}
+.railD .shot-g{width:auto;height:auto;aspect-ratio:4/3}
+.railD .shot-g .cap{font-size:10.5px;padding:24px 12px 10px}
 /* reservas — copy à esquerda, horários e CTA à direita */
 .resM .copy{padding:104px var(--gutter-desktop) 108px;display:grid;
   grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);column-gap:88px;align-items:start}
@@ -247,7 +270,7 @@ var calm=matchMedia('(prefers-reduced-motion: reduce)').matches;
 var GROUPS=[
  ['#sobre',       '.copy>.eyebrow,.copy>h2,.copy>p,.people .p', '.shot .ph,.shot .ph--empty'],
  ['#ambientes',   '.head>*,.foot',                              '.shot-g'],
- ['#cardapio',    '.eyebrow,h2,p,.btn2',                        ''],
+ ['#cardapio',    '.eyebrow,h2,h3,p,.btn2',                     '.shot-g'],
  ['#reservas',    '.res-l>*,.res-r>*,.fab',                     ''],
  ['#peca-em-casa','.eyebrow,h2,.lead,.facts,.btn2',             ''],
  ['#como-chegar', '.info>*',                                    '.map'],

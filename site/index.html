@@ -191,9 +191,17 @@ body.menu-open{overflow:hidden}
 .drawer .foot span{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--areia-a38)}
 .drawer .foot address{font-style:normal;font-size:13.5px;line-height:1.65;color:var(--areia-a60)}
 /* ---------- cardápio (seção-irmã) ---------- */
-.menuM{background:linear-gradient(180deg,var(--vinho-arroxeado) 0%,var(--carvao) 20%,var(--carvao) 100%);padding:38px var(--gutter-mobile) 42px;border-top:1px solid var(--verde-garrafa);display:grid;justify-items:start;gap:0}
+.menuM{background:linear-gradient(180deg,var(--vinho-arroxeado) 0%,var(--carvao) 20%,var(--carvao) 100%);padding:38px var(--gutter-mobile) 42px;border-top:1px solid var(--verde-garrafa);display:grid;grid-template-columns:minmax(0,1fr);justify-items:start;gap:0}
 .menuM h2{margin:14px 0 12px;font-family:var(--font-serif-display);font-weight:var(--w-heading);font-size:29px;line-height:1.1;color:var(--text-strong)}
 .menuM p{margin:0 0 24px;font-size:15px;line-height:1.66;color:var(--areia-a80)}
+/* dicas do lú — carrossel de pratos, mesmo tratamento do mosaico de ambientes */
+.dicas{width:100%;margin:4px 0 28px}
+.dicas>.eyebrow{display:block;margin-bottom:8px}
+.dicas h3{margin:0 0 16px;font-family:var(--font-serif-display);font-weight:var(--w-heading);font-size:20px;line-height:1.15;color:var(--text-strong)}
+.railD{display:flex;gap:12px;overflow-x:auto;scrollbar-width:none;
+  margin:0 calc(-1 * var(--gutter-mobile));padding:0 var(--gutter-mobile) 4px}
+.railD::-webkit-scrollbar{display:none}
+.w-e{width:168px;height:126px}
 .scroll{position:relative}
 
 /* header sticky (variação B) */
@@ -378,6 +386,12 @@ body.menu-open{overflow:hidden}
 .menuM h2{font-size:44px;margin:18px 0 18px}
 .menuM p{font-size:17px;max-width:52ch;margin-bottom:34px}
 .menuM .btn2{padding:18px 30px}
+/* dicas do lú — mosaico de oito colunas, tudo na mesma proporção 4:3 */
+.dicas{justify-self:stretch;width:100%;max-width:1180px;margin:0 auto 40px}
+.dicas h3{font-size:26px;margin:12px 0 30px}
+.railD{display:grid;grid-template-columns:repeat(8,1fr);gap:16px}
+.railD .shot-g{width:auto;height:auto;aspect-ratio:4/3}
+.railD .shot-g .cap{font-size:10.5px;padding:24px 12px 10px}
 /* reservas — copy à esquerda, horários e CTA à direita */
 .resM .copy{padding:104px var(--gutter-desktop) 108px;display:grid;
   grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);column-gap:88px;align-items:start}
@@ -558,6 +572,28 @@ html.js .rv,html.js .rv-ph{opacity:1;transform:none}
 <span class="eyebrow">Menu da casa</span>
 <h2>Cardápio</h2>
 <p data-comment-anchor="ce62596b63-p">O que sua ocasião pedir: entradas, pratos principais, sobremesas, bebidas e drinks.</p>
+<div class="dicas">
+<span class="eyebrow">Dicas do Lú</span>
+<h3>Os favoritos da casa</h3>
+<div class="railD">
+<div class="shot-g w-e"><img class="ph" src="./img/dicas-bolinho-de-cupim.jpg" alt="Bolinho de Cupim" width="640" height="480" loading="eager" decoding="async"><div class="tint"></div><span class="cap">Bolinho de Cupim</span></div>
+<div class="shot-g w-e"><img class="ph" src="./img/dicas-coxinha-de-costela.jpg" alt="Coxinha de Costela" width="640" height="480" loading="eager" decoding="async"><div class="tint"></div><span class="cap">Coxinha de Costela</span></div>
+<div class="shot-g w-e"><img class="ph" src="./img/dicas-dadinhos-de-queijo-coalho.jpg" alt="Dadinhos de Queijo Coalho" width="640" height="480" loading="eager" decoding="async"><div class="tint"></div><span class="cap">Dadinhos de Queijo Coalho</span></div>
+<div class="shot-g w-e"><img class="ph" src="./img/dicas-pastelzinho-de-queijo-do-serro.jpg" alt="Pastelzinho de Queijo do Serro" width="640" height="480" loading="eager" decoding="async"><div class="tint"></div><span class="cap">Pastelzinho de Queijo do Serro</span></div>
+<div class="shot-g w-e"><img class="ph" src="./img/dicas-fritas-na-paprica.jpg" alt="Fritas na Páprica" width="640" height="480" loading="eager" decoding="async"><div class="tint"></div><span class="cap">Fritas na Páprica</span></div>
+<div class="shot-g w-e"><img class="ph" src="./img/dicas-torresmo-de-barriga.jpg" alt="Torresmo de Barriga" width="640" height="480" loading="eager" decoding="async"><div class="tint"></div><span class="cap">Torresmo de Barriga</span></div>
+<div class="shot-g w-e"><img class="ph" src="./img/dicas-ceviche-de-peixe-branco.jpg" alt="Ceviche de Peixe Branco" width="640" height="480" loading="eager" decoding="async"><div class="tint"></div><span class="cap">Ceviche de Peixe Branco</span></div>
+<div class="shot-g w-e"><img class="ph" src="./img/dicas-tartare-de-salmao.jpg" alt="Tartare de Salmão" width="640" height="480" loading="eager" decoding="async"><div class="tint"></div><span class="cap">Tartare de Salmão</span></div>
+<div class="shot-g w-e"><img class="ph" src="./img/dicas-carre-de-cordeiro.jpg" alt="Carré de Cordeiro" width="640" height="480" loading="eager" decoding="async"><div class="tint"></div><span class="cap">Carré de Cordeiro</span></div>
+<div class="shot-g w-e"><img class="ph" src="./img/dicas-risoto-de-camarao.jpg" alt="Risoto de Camarão" width="640" height="480" loading="eager" decoding="async"><div class="tint"></div><span class="cap">Risoto de Camarão</span></div>
+<div class="shot-g w-e"><img class="ph" src="./img/dicas-risoto-de-pera-gorgonzola.jpg" alt="Risoto de Pêra e Gorgonzola" width="640" height="480" loading="eager" decoding="async"><div class="tint"></div><span class="cap">Risoto de Pêra e Gorgonzola</span></div>
+<div class="shot-g w-e"><img class="ph" src="./img/dicas-parpardelle.jpg" alt="Parpardelle" width="640" height="480" loading="eager" decoding="async"><div class="tint"></div><span class="cap">Parpardelle</span></div>
+<div class="shot-g w-e"><img class="ph" src="./img/dicas-spaghetti-manteiga-de-salvia.jpg" alt="Spaghetti na Manteiga de Sálvia" width="640" height="480" loading="eager" decoding="async"><div class="tint"></div><span class="cap">Spaghetti na Manteiga de Sálvia</span></div>
+<div class="shot-g w-e"><img class="ph" src="./img/dicas-bolo-de-cenoura.jpg" alt="Bolo de Cenoura" width="640" height="480" loading="eager" decoding="async"><div class="tint"></div><span class="cap">Bolo de Cenoura</span></div>
+<div class="shot-g w-e"><img class="ph" src="./img/dicas-brownie-perfeito.jpg" alt="Brownie Perfeito" width="640" height="480" loading="eager" decoding="async"><div class="tint"></div><span class="cap">Brownie Perfeito</span></div>
+<div class="shot-g w-e"><img class="ph" src="./img/dicas-tal-do-pudim.jpg" alt="Tal do Pudim" width="640" height="480" loading="eager" decoding="async"><div class="tint"></div><span class="cap">Tal do Pudim</span></div>
+</div>
+</div>
 <a class="btn2" href="/cardapio"><span>Ver o cardápio</span><span class="arw">→</span></a>
 </section>
 
@@ -628,7 +664,7 @@ var calm=matchMedia('(prefers-reduced-motion: reduce)').matches;
 var GROUPS=[
  ['#sobre',       '.copy>.eyebrow,.copy>h2,.copy>p,.people .p', '.shot .ph,.shot .ph--empty'],
  ['#ambientes',   '.head>*,.foot',                              '.shot-g'],
- ['#cardapio',    '.eyebrow,h2,p,.btn2',                        ''],
+ ['#cardapio',    '.eyebrow,h2,h3,p,.btn2',                     '.shot-g'],
  ['#reservas',    '.res-l>*,.res-r>*,.fab',                     ''],
  ['#peca-em-casa','.eyebrow,h2,.lead,.facts,.btn2',             ''],
  ['#como-chegar', '.info>*',                                    '.map'],
