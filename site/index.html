@@ -534,7 +534,7 @@ html.js .rv,html.js .rv-ph{opacity:1;transform:none}
 </section>
 
 <section class="abM" id="sobre" data-screen-label="Sobre nós">
-<div class="shot"><img class="ph" src="./img/sobre.jpg" alt="Retrato — Lu e Raquel no salão" loading="lazy"><div class="tint"></div></div>
+<div class="shot"><img class="ph" src="./img/sobre.jpg" alt="Retrato — Lu e Raquel no salão" width="866" height="899" loading="eager" decoding="async"><div class="tint"></div></div>
 <div class="copy">
 <span class="eyebrow">Família</span>
 <h2>Sobre nós</h2>
@@ -548,7 +548,7 @@ html.js .rv,html.js .rv-ph{opacity:1;transform:none}
 
 <section class="galM" id="ambientes" data-screen-label="Ambientes">
 <div class="head"><span class="eyebrow">Especial | Romântico | Familiar</span><h2>Ambientes</h2><p>Fotografias do salão feitas em serviço, sem produção.</p></div>
-<div class="rail"><div class="col a"><div class="shot-g w-a"><img class="ph" src="./img/amb-sala-vermelha.jpg" alt="Sala Vermelha" loading="lazy"><div class="tint"></div><span class="cap">Sala Vermelha</span></div><div class="shot-g w-d"><img class="ph" src="./img/amb-pergolado.jpg" alt="Pergolado (Externo)" loading="lazy"><div class="tint"></div><span class="cap">Pergolado (Externo)</span></div></div><div class="col b"><div class="shot-g w-c"><img class="ph" src="./img/amb-sala-do-lustre.jpg" alt="Sala do Lustre" loading="lazy"><div class="tint"></div><span class="cap">Sala do Lustre</span></div><div class="shot-g w-b"><img class="ph" src="./img/amb-sala-azul.jpg" alt="Sala Azul" loading="lazy"><div class="tint"></div><span class="cap">Sala Azul</span></div></div><div class="col c"><div class="shot-g w-a"><img class="ph" src="./img/amb-sala-dos-pratos.jpg" alt="Sala dos Pratos" loading="lazy"><div class="tint"></div><span class="cap">Sala dos Pratos</span></div><div class="shot-g w-c"><img class="ph" src="./img/amb-sala-labirinto.jpg" alt="Sala Labirinto" loading="lazy"><div class="tint"></div><span class="cap">Sala Labirinto</span></div></div></div>
+<div class="rail"><div class="col a"><div class="shot-g w-a"><img class="ph" src="./img/amb-sala-vermelha.jpg" alt="Sala Vermelha" width="1100" height="1467" loading="eager" decoding="async"><div class="tint"></div><span class="cap">Sala Vermelha</span></div><div class="shot-g w-d"><img class="ph" src="./img/amb-pergolado.jpg" alt="Pergolado (Externo)" width="1300" height="1170" loading="eager" decoding="async"><div class="tint"></div><span class="cap">Pergolado (Externo)</span></div></div><div class="col b"><div class="shot-g w-c"><img class="ph" src="./img/amb-sala-do-lustre.jpg" alt="Sala do Lustre" width="1100" height="1495" loading="eager" decoding="async"><div class="tint"></div><span class="cap">Sala do Lustre</span></div><div class="shot-g w-b"><img class="ph" src="./img/amb-sala-azul.jpg" alt="Sala Azul" width="1046" height="1600" loading="eager" decoding="async"><div class="tint"></div><span class="cap">Sala Azul</span></div></div><div class="col c"><div class="shot-g w-a"><img class="ph" src="./img/amb-sala-dos-pratos.jpg" alt="Sala dos Pratos" width="1063" height="1600" loading="eager" decoding="async"><div class="tint"></div><span class="cap">Sala dos Pratos</span></div><div class="shot-g w-c"><img class="ph" src="./img/amb-sala-labirinto.jpg" alt="Sala Labirinto" width="1088" height="1600" loading="eager" decoding="async"><div class="tint"></div><span class="cap">Sala Labirinto</span></div></div></div>
 <div class="foot"><a href="https://www.instagram.com/bistrodulu/" target="_blank" rel="noopener">Ver no Instagram →</a></div>
 </section>
 
@@ -652,7 +652,10 @@ if(calm){ sections.forEach(function(s){s.classList.add('in')}); }
 else{
   var io=new IntersectionObserver(function(es){
     es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
-  },{threshold:.2,rootMargin:'0px 0px -5% 0px'});
+  /* limiar por área punia as seções altas — o mosaico de ambientes só acendia
+     depois de meio rolar. Agora vale a mesma régua do primeiro quadro: a seção
+     entra assim que o topo dela cruza 85% da altura da tela. */
+  },{threshold:0,rootMargin:'0px 0px -15% 0px'});
   sections.forEach(function(s){
     /* já visível no primeiro quadro: entra sem esperar o scroll */
     if(s.getBoundingClientRect().top < innerHeight*.85) s.classList.add('in'); else io.observe(s);
@@ -662,19 +665,32 @@ else{
 /* quem pediu menos movimento fica no poster, não no vídeo */
 /* responsivo: desktop usa landscape 1920x1080, mobile usa portrait 1080x1920 */
 var vid=document.querySelector('.heroM video');
-if(vid){
+if(vid&&calm){vid.autoplay=false;vid.pause();vid.currentTime=0;vid.removeAttribute('autoplay');}
+else if(vid){
+  var onscreen=true,fmt='';
+  function play(){var p=vid.play();if(p&&p.catch)p.catch(function(){});}
   var setVideoSrc=function(){
-    var isDesktop=window.innerWidth>=1024;
-    var fmt=isDesktop?'desktop':'mobile';
+    var next=innerWidth>=1024?'desktop':'mobile';
+    /* rolar no celular esconde a barra de endereço e dispara resize: sem esta
+       guarda o vídeo recarregava e voltava ao início no meio da reprodução */
+    if(next===fmt)return;
+    fmt=next;
     document.querySelector('.heroM .v-webm').src='./img/hero-'+fmt+'.webm';
     document.querySelector('.heroM .v-mp4').src='./img/hero-'+fmt+'.mp4';
     vid.load();
-    if(!calm){vid.play();}
+    if(onscreen)play();
   };
   setVideoSrc();
-  window.addEventListener('resize',setVideoSrc,{passive:true});
+  addEventListener('resize',setVideoSrc,{passive:true});
+  /* o vídeo só para quando sai inteiro da tela; ao reaparecer continua de onde parou */
+  new IntersectionObserver(function(es){
+    onscreen=es[0].isIntersecting;
+    if(onscreen)play();else vid.pause();
+  },{threshold:0}).observe(vid);
+  /* pausa vinda de fora (modo de baixo consumo do iOS, por exemplo): se ainda
+     está na tela, volta a tocar */
+  vid.addEventListener('pause',function(){if(onscreen)play()});
 }
-if(vid&&calm){vid.autoplay=false;vid.pause();vid.currentTime=0;vid.removeAttribute('autoplay');}
 
 /* header ganha fundo sólido depois que o hero sai */
 var hd=document.querySelector('.hd-m'),hero=document.querySelector('.heroM');

@@ -33,6 +33,15 @@ PHOTOS = {
 }
 LOGOS = {"assets/logo-topo.png": ("logo-topo.png", 320), "assets/logo-monogram-areia.png": ("logo.png", 160)}
 
+# arquivo em site/img -> (largura, altura) já processadas; preenchido por build_images()
+SIZES = {}
+
+
+def dims(name):
+    """width/height nativos: o navegador reserva a vaga antes de a foto chegar."""
+    w, h = SIZES.get(name, (0, 0))
+    return f' width="{w}" height="{h}"' if w else ""
+
 MENU_SVG = ('<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" '
             'stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>')
 CLOSE_SVG = ('<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" '
@@ -258,7 +267,10 @@ if(calm){ sections.forEach(function(s){s.classList.add('in')}); }
 else{
   var io=new IntersectionObserver(function(es){
     es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
-  },{threshold:.2,rootMargin:'0px 0px -5% 0px'});
+  /* limiar por área punia as seções altas — o mosaico de ambientes só acendia
+     depois de meio rolar. Agora vale a mesma régua do primeiro quadro: a seção
+     entra assim que o topo dela cruza 85% da altura da tela. */
+  },{threshold:0,rootMargin:'0px 0px -15% 0px'});
   sections.forEach(function(s){
     /* já visível no primeiro quadro: entra sem esperar o scroll */
     if(s.getBoundingClientRect().top < innerHeight*.85) s.classList.add('in'); else io.observe(s);
@@ -268,19 +280,32 @@ else{
 /* quem pediu menos movimento fica no poster, não no vídeo */
 /* responsivo: desktop usa landscape 1920x1080, mobile usa portrait 1080x1920 */
 var vid=document.querySelector('.heroM video');
-if(vid){
+if(vid&&calm){vid.autoplay=false;vid.pause();vid.currentTime=0;vid.removeAttribute('autoplay');}
+else if(vid){
+  var onscreen=true,fmt='';
+  function play(){var p=vid.play();if(p&&p.catch)p.catch(function(){});}
   var setVideoSrc=function(){
-    var isDesktop=window.innerWidth>=1024;
-    var fmt=isDesktop?'desktop':'mobile';
+    var next=innerWidth>=1024?'desktop':'mobile';
+    /* rolar no celular esconde a barra de endereço e dispara resize: sem esta
+       guarda o vídeo recarregava e voltava ao início no meio da reprodução */
+    if(next===fmt)return;
+    fmt=next;
     document.querySelector('.heroM .v-webm').src='./img/hero-'+fmt+'.webm';
     document.querySelector('.heroM .v-mp4').src='./img/hero-'+fmt+'.mp4';
     vid.load();
-    if(!calm){vid.play();}
+    if(onscreen)play();
   };
   setVideoSrc();
-  window.addEventListener('resize',setVideoSrc,{passive:true});
+  addEventListener('resize',setVideoSrc,{passive:true});
+  /* o vídeo só para quando sai inteiro da tela; ao reaparecer continua de onde parou */
+  new IntersectionObserver(function(es){
+    onscreen=es[0].isIntersecting;
+    if(onscreen)play();else vid.pause();
+  },{threshold:0}).observe(vid);
+  /* pausa vinda de fora (modo de baixo consumo do iOS, por exemplo): se ainda
+     está na tela, volta a tocar */
+  vid.addEventListener('pause',function(){if(onscreen)play()});
 }
-if(vid&&calm){vid.autoplay=false;vid.pause();vid.currentTime=0;vid.removeAttribute('autoplay');}
 
 /* header ganha fundo sólido depois que o hero sai */
 var hd=document.querySelector('.hd-m'),hero=document.querySelector('.heroM');
@@ -588,6 +613,7 @@ def build_images():
         if w < im.width:
             im = im.resize((w, int(im.height * w / im.width)), Image.LANCZOS)
         im.save(f"{out}/{dst}", "JPEG", quality=78, optimize=True, progressive=True)
+        SIZES[dst] = im.size
     for src, (dst, h) in LOGOS.items():
         im = Image.open(src)          # mantém o canal alpha
         if h < im.height:
@@ -649,7 +675,13 @@ def build_html():
         ph = ph.group(1) if ph else "Foto"
         src = re.search(r'src="\./([^"]+)"', tag)
         if src:
-            return f'<img class="ph" src="./img/{PHOTOS[src.group(1)][0]}" alt="{ph}" loading="lazy">'
+            name = PHOTOS[src.group(1)][0]
+            # loading="lazy" adiava o pedido até a foto quase entrar na tela: as seis
+            # salas chegavam depois da rolagem e o mosaico abria com vãos vazios.
+            # Eager põe as seis na fila já no parse — fora da tela o próprio navegador
+            # as baixa em prioridade baixa, então o vídeo do hero continua na frente.
+            return (f'<img class="ph" src="./img/{name}" alt="{ph}"{dims(name)} '
+                    f'loading="eager" decoding="async">')
         return f'<div class="ph--empty"><span>{ph}</span></div>'
 
     site = re.sub(r'<image-slot\b[^>]*></image-slot>', slot, site)
@@ -771,7 +803,9 @@ def build_menu(sheet, site):
 
     hero = (
         '<section class="mHero">'
-        '<div class="photo"><img class="ph" src="./img/hero.jpg" alt="Prato do Bistrô du Lú"></div>'
+        # é a maior peça acima da dobra da página: pede prioridade máxima na fila
+        '<div class="photo"><img class="ph" src="./img/hero.jpg" alt="Prato do Bistrô du Lú"'
+        f'{dims("hero.jpg")} fetchpriority="high" decoding="async"></div>'
         '<div class="grad"></div>'
         '<div class="copy">'
         '<span class="eyebrow">Bistrô du Lú</span>'
