@@ -89,13 +89,16 @@ DESKTOP_CSS = """
 .nav-d a{font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--areia-a80);transition:var(--t-color)}
 .nav-d a:hover{color:var(--terracota-suave)}
 .hd-m .cta{padding:14px 26px;font-size:12.5px}
-/* hero — foto full-bleed, texto sobre a metade inferior */
+/* hero — vídeo full-bleed; a marca já está no vídeo, então o h1 sai de vista
+   (sem display:none: o título continua valendo para busca e leitor de tela)
+   e sobram o CTA e o horário, centralizados sobre o pé do vídeo */
 .heroM{height:760px}
-.heroM .copy{left:var(--gutter-desktop);right:var(--gutter-desktop);bottom:72px;gap:30px}
-.heroM .wordmark{width:360px;margin:0}
-.heroM h1.wm{justify-self:start}
+.heroM .copy{left:var(--gutter-desktop);right:var(--gutter-desktop);bottom:72px;gap:30px;
+  justify-items:center;text-align:center}
+.heroM h1.wm{position:absolute;width:1px;height:1px;margin:-1px;padding:0;
+  overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 .heroM .cta{width:auto;padding:19px 34px;font-size:15px}
-.heroM .meta{font-size:12px}
+.heroM .meta{font-size:12px;justify-content:center}
 /* sobre — texto à esquerda, retrato sangrando à direita */
 .abM{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,44%);align-items:stretch}
 .abM .shot{order:2;height:auto;min-height:640px;border-bottom:0;border-left:1px solid var(--verde-garrafa)}
@@ -449,6 +452,7 @@ else if(vid){
     fmt=next;
     document.querySelector('.heroM .v-webm').src='./img/hero-'+fmt+'.webm';
     document.querySelector('.heroM .v-mp4').src='./img/hero-'+fmt+'.mp4';
+    vid.poster='./img/hero-'+fmt+'-poster.jpg';
     vid.load();
     if(onscreen)play();
   };
@@ -940,7 +944,7 @@ def build_html():
     #     Desktop (1024+) usa landscape 1920x1080; mobile usa portrait 1080x1920.
     site = re.sub(
         r'<img class="ph" src="\./img/hero\.jpg"[^>]*>',
-        '<video class="ph" poster="./img/hero-poster.jpg" autoplay muted loop playsinline '
+        '<video class="ph" poster="./img/hero-mobile-poster.jpg" autoplay muted loop playsinline '
         'preload="auto" aria-label="Salão do Bistrô du Lú">'
         '<source class="v-webm" type="video/webm">'
         '<source class="v-mp4" type="video/mp4"></video>', site, count=1)
