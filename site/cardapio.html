@@ -412,7 +412,10 @@ body.menu-open{overflow:hidden}
 .col.b>*:nth-child(2){height:560px}
 .col.c>*:nth-child(1){height:540px}
 .col.c>*:nth-child(2){height:540px}
-.shot-g .cap{font-size:12px;left:16px;bottom:14px}
+/* a faixa do degradê tem que encostar nas três bordas da foto: recuar com
+   left/bottom deixava ela flutuando, com um dedo de foto por baixo e à
+   esquerda. O respiro do texto é padding. */
+.shot-g .cap{font-size:12px;left:0;right:0;bottom:0;padding:38px 20px 16px}
 .galM .foot{padding:56px var(--gutter-desktop) 0;margin-top:48px}
 .galM .foot a{font-size:17px;padding-bottom:9px}
 /* cardápio — pausa tipográfica, centrada para não deixar meia tela vazia */
