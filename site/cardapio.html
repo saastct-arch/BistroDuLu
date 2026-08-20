@@ -194,14 +194,39 @@ body.menu-open{overflow:hidden}
 .menuM{background:linear-gradient(180deg,var(--vinho-arroxeado) 0%,var(--carvao) 20%,var(--carvao) 100%);padding:38px var(--gutter-mobile) 42px;border-top:1px solid var(--verde-garrafa);display:grid;grid-template-columns:minmax(0,1fr);justify-items:start;gap:0}
 .menuM h2{margin:14px 0 12px;font-family:var(--font-serif-display);font-weight:var(--w-heading);font-size:29px;line-height:1.1;color:var(--text-strong)}
 .menuM p{margin:0 0 24px;font-size:15px;line-height:1.66;color:var(--areia-a80)}
-/* dicas do lú — carrossel de pratos, mesmo tratamento do mosaico de ambientes */
+/* dicas do lú — carrossel: o prato da vez grande no centro, o anterior e o
+   próximo encolhidos nas laterais. A legenda fica embaixo da foto, nunca por
+   cima, para não tapar o prato. */
 .dicas{width:100%;margin:4px 0 28px}
 .dicas>.eyebrow{display:block;margin-bottom:8px}
-.dicas h3{margin:0 0 16px;font-family:var(--font-serif-display);font-weight:var(--w-heading);font-size:20px;line-height:1.15;color:var(--text-strong)}
-.railD{display:flex;gap:12px;overflow-x:auto;scrollbar-width:none;
-  margin:0 calc(-1 * var(--gutter-mobile));padding:0 var(--gutter-mobile) 4px}
-.railD::-webkit-scrollbar{display:none}
-.w-e{width:168px;height:126px}
+.dicas h3{margin:0 0 18px;font-family:var(--font-serif-display);font-weight:var(--w-heading);font-size:20px;line-height:1.15;color:var(--text-strong)}
+/* o palco sangra até a borda da tela: as fotas laterais entram cortadas */
+.cxf{position:relative;margin:0 calc(-1 * var(--gutter-mobile))}
+.railD{--cw:74vw;--side:.78;position:relative;overflow:hidden;
+  height:calc(var(--cw) * .75 + 40px)}
+.railD .shot-g{position:absolute;left:50%;top:0;width:var(--cw);height:auto;
+  display:grid;gap:10px;overflow:visible;border:0;background:none;
+  transition:transform var(--m-comp) var(--m-ease),opacity var(--m-comp) var(--m-ease)}
+.railD .shot-g .ph{width:100%;height:auto;aspect-ratio:4/3;
+  border:1px solid var(--verde-garrafa)}
+/* sem véu sobre o prato: a legenda saiu de cima da foto e não precisa mais dele */
+.railD .shot-g .tint{display:none}
+.railD .shot-g .cap{position:static;padding:0;background:none;text-align:center;
+  font-size:11px;letter-spacing:.14em;line-height:1.45;color:var(--areia-quente);
+  transition:opacity var(--m-comp) var(--m-ease)}
+.railD .shot-g[data-pos="side"] .cap{opacity:0}
+.railD .shot-g[data-pos="on"] .ph{box-shadow:0 18px 46px rgba(23,18,15,.55)}
+.cxf-ctl{display:flex;align-items:center;justify-content:center;gap:14px;
+  margin-top:18px;padding:0 var(--gutter-mobile)}
+.cxf-ctl>button{appearance:none;-webkit-appearance:none;cursor:pointer;flex:0 0 auto;
+  width:38px;height:38px;display:grid;place-items:center;border-radius:var(--r-md);
+  background:var(--areia-a08);border:1px solid var(--verde-garrafa);color:var(--areia-quente);
+  transition:var(--t-color),background var(--m-micro) var(--m-ease-micro)}
+.cxf-ctl>button:hover{color:var(--terracota-suave);background:var(--areia-a14)}
+.cxf-dots{display:flex;flex-wrap:wrap;justify-content:center;gap:7px;min-width:0}
+.cxf-dots button{width:16px;height:4px;border-radius:2px;border:0;padding:0;
+  background:var(--areia-a14);transition:background var(--m-micro) var(--m-ease-micro)}
+.cxf-dots button[aria-current="true"]{background:var(--verde-300)}
 .scroll{position:relative}
 
 /* header sticky (variação B) */
@@ -295,7 +320,10 @@ body.menu-open{overflow:hidden}
 .ctM{background:linear-gradient(180deg,var(--carvao) 0%,var(--vinho-arroxeado) 20%,var(--vinho-arroxeado) 100%)}
 .ctM .map{position:relative;height:260px;overflow:hidden;border-top:1px solid var(--verde-garrafa);border-bottom:1px solid var(--verde-garrafa)}
 .ctM .map iframe{display:block;width:100%;height:100%;border:0}
-.ctM .map .veil{position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(180deg,rgba(23,18,15,.20) 0%,rgba(23,18,15,.44) 72%,rgba(23,18,15,0) 100%)}
+/* o mapa agora é claro (vista de ruas): o véu que servia sobre a foto de
+   satélite escurecia demais e sujava as ruas. Ficou só o fio que costura
+   a borda do mapa com a seção. */
+.ctM .map .veil{position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(180deg,rgba(23,18,15,.30) 0%,rgba(23,18,15,0) 22%,rgba(23,18,15,0) 100%)}
 .ctM .info{padding:34px var(--gutter-mobile) 42px}
 .ctM h2{margin:14px 0 24px;font-family:var(--font-serif-display);font-weight:var(--w-heading);font-size:30px;line-height:1.1;color:var(--text-strong)}
 .blk{display:grid;gap:8px;padding:20px 0;border-top:1px solid var(--verde-garrafa)}
@@ -392,12 +420,16 @@ body.menu-open{overflow:hidden}
 .menuM h2{font-size:44px;margin:18px 0 18px}
 .menuM p{font-size:17px;max-width:52ch;margin-bottom:34px}
 .menuM .btn2{padding:18px 30px}
-/* dicas do lú — mosaico de oito colunas, tudo na mesma proporção 4:3 */
-.dicas{justify-self:stretch;width:100%;max-width:1180px;margin:0 auto 40px}
-.dicas h3{font-size:26px;margin:12px 0 30px}
-.railD{display:grid;grid-template-columns:repeat(8,1fr);gap:16px}
-.railD .shot-g{width:auto;height:auto;aspect-ratio:4/3}
-.railD .shot-g .cap{font-size:10.5px;padding:24px 12px 10px}
+/* dicas do lú — o mesmo carrossel, em escala de desktop */
+.dicas{justify-self:stretch;width:100%;max-width:1180px;margin:0 auto 44px}
+.dicas h3{font-size:26px;margin:12px 0 32px}
+.cxf{margin:0 calc(-1 * var(--gutter-desktop))}
+.railD{--cw:660px;--side:.7;height:calc(660px * .75 + 52px)}
+.railD .shot-g{gap:14px}
+.railD .shot-g .cap{font-size:12px}
+.cxf-ctl{margin-top:26px;gap:18px}
+.cxf-ctl>button{width:44px;height:44px}
+.cxf-dots button{width:20px;height:4px}
 /* reservas — copy à esquerda, horários e CTA à direita */
 .resM .copy{padding:104px var(--gutter-desktop) 108px;display:grid;
   grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);column-gap:88px;align-items:start}
@@ -420,7 +452,7 @@ body.menu-open{overflow:hidden}
 /* como chegar — informações à esquerda, mapa sangrando à direita */
 .ctM{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,600px);align-items:stretch}
 .ctM .map{order:2;height:auto;min-height:520px;border-top:0;border-left:1px solid var(--verde-garrafa)}
-.ctM .map .veil{background:linear-gradient(268deg,rgba(23,18,15,0) 62%,rgba(23,18,15,.62) 100%)}
+.ctM .map .veil{background:linear-gradient(268deg,rgba(23,18,15,0) 78%,rgba(23,18,15,.55) 100%)}
 .ctM .info{order:1;padding:88px var(--s-7) 88px var(--gutter-desktop);align-self:center}
 .ctM .info>*{max-width:620px}   /* a coluna cresceu; a medida de leitura não */
 .ctM h2{font-size:44px;margin:16px 0 30px}

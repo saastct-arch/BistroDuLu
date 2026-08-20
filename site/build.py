@@ -138,12 +138,16 @@ DESKTOP_CSS = """
 .menuM h2{font-size:44px;margin:18px 0 18px}
 .menuM p{font-size:17px;max-width:52ch;margin-bottom:34px}
 .menuM .btn2{padding:18px 30px}
-/* dicas do lú — mosaico de oito colunas, tudo na mesma proporção 4:3 */
-.dicas{justify-self:stretch;width:100%;max-width:1180px;margin:0 auto 40px}
-.dicas h3{font-size:26px;margin:12px 0 30px}
-.railD{display:grid;grid-template-columns:repeat(8,1fr);gap:16px}
-.railD .shot-g{width:auto;height:auto;aspect-ratio:4/3}
-.railD .shot-g .cap{font-size:10.5px;padding:24px 12px 10px}
+/* dicas do lú — o mesmo carrossel, em escala de desktop */
+.dicas{justify-self:stretch;width:100%;max-width:1180px;margin:0 auto 44px}
+.dicas h3{font-size:26px;margin:12px 0 32px}
+.cxf{margin:0 calc(-1 * var(--gutter-desktop))}
+.railD{--cw:660px;--side:.7;height:calc(660px * .75 + 52px)}
+.railD .shot-g{gap:14px}
+.railD .shot-g .cap{font-size:12px}
+.cxf-ctl{margin-top:26px;gap:18px}
+.cxf-ctl>button{width:44px;height:44px}
+.cxf-dots button{width:20px;height:4px}
 /* reservas — copy à esquerda, horários e CTA à direita */
 .resM .copy{padding:104px var(--gutter-desktop) 108px;display:grid;
   grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);column-gap:88px;align-items:start}
@@ -166,7 +170,7 @@ DESKTOP_CSS = """
 /* como chegar — informações à esquerda, mapa sangrando à direita */
 .ctM{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,600px);align-items:stretch}
 .ctM .map{order:2;height:auto;min-height:520px;border-top:0;border-left:1px solid var(--verde-garrafa)}
-.ctM .map .veil{background:linear-gradient(268deg,rgba(23,18,15,0) 62%,rgba(23,18,15,.62) 100%)}
+.ctM .map .veil{background:linear-gradient(268deg,rgba(23,18,15,0) 78%,rgba(23,18,15,.55) 100%)}
 .ctM .info{order:1;padding:88px var(--s-7) 88px var(--gutter-desktop);align-self:center}
 .ctM .info>*{max-width:620px}   /* a coluna cresceu; a medida de leitura não */
 .ctM h2{font-size:44px;margin:16px 0 30px}
@@ -272,11 +276,97 @@ html.js .rv,html.js .rv-ph{opacity:1;transform:none}
 }
 """
 
+CAROUSEL_JS = """
+(function(){
+var rail=document.querySelector('.railD');if(!rail)return;
+var tiles=[].slice.call(rail.querySelectorAll('.shot-g')),n=tiles.length;if(!n)return;
+var dots=document.querySelector('.cxf-dots'),
+    prev=document.querySelector('.cxf-prev'),next=document.querySelector('.cxf-next'),
+    at=0;
+
+/* distância entre o centro do palco e o centro da foto vizinha: metade da
+   foto grande + respiro + metade da encolhida. Medida do DOM, então acompanha
+   a troca de --cw entre mobile e desktop sem repetir número nenhum aqui. */
+function step(){
+  var w=tiles[0].offsetWidth,
+      s=parseFloat(getComputedStyle(rail).getPropertyValue('--side'))||.75;
+  return w*.5 + w*.06 + w*s*.5;
+}
+/* deslocamento circular: da última para a primeira o caminho é 1, não n-1 */
+function delta(i){var d=i-at;if(d>n/2)d-=n;if(d<-n/2)d+=n;return d;}
+
+function layout(){
+  var d0=step(),
+      s=parseFloat(getComputedStyle(rail).getPropertyValue('--side'))||.75;
+  tiles.forEach(function(t,i){
+    var d=delta(i),far=Math.abs(d)>1;
+    t.style.transform='translateX(calc(-50% + '+(d*d0)+'px)) scale('+(d?s:1)+')';
+    t.style.opacity=far?0:(d?.62:1);
+    t.style.pointerEvents=far?'none':'auto';
+    t.style.zIndex=far?0:(d?1:2);
+    t.dataset.pos=far?'off':(d?'side':'on');
+    t.setAttribute('aria-hidden',far?'true':'false');
+    t.tabIndex=d?-1:0;
+  });
+  [].forEach.call(dots.children,function(b,i){
+    b.setAttribute('aria-current',i===at?'true':'false');
+  });
+}
+function go(i){at=(i%n+n)%n;layout();}
+
+for(var i=0;i<n;i++){
+  var b=document.createElement('button');
+  b.type='button';
+  b.setAttribute('aria-label',tiles[i].getAttribute('aria-label').replace('Ampliar: ','Ver: '));
+  (function(k){b.addEventListener('click',function(){go(k)})})(i);
+  dots.appendChild(b);
+}
+prev.addEventListener('click',function(){go(at-1)});
+next.addEventListener('click',function(){go(at+1)});
+/* clicar na foto lateral traz ela para o centro; a do centro abre ampliada
+   (o lightbox trata esse caso e ignora as laterais) */
+tiles.forEach(function(t,i){
+  t.addEventListener('click',function(e){
+    if(!delta(i))return;                 /* já é a do centro: deixa o lightbox abrir */
+    /* corta o evento aqui: sem isso o lightbox leria o data-pos DEPOIS de go()
+       ter promovido esta foto a centro, e a lateral abriria ampliada no clique
+       que só deveria trazê-la para o meio */
+    e.stopImmediatePropagation();
+    go(i);
+  });
+});
+/* arrastar com o dedo */
+var x0=null,y0=null;
+rail.addEventListener('touchstart',function(e){x0=e.touches[0].clientX;y0=e.touches[0].clientY},{passive:true});
+rail.addEventListener('touchend',function(e){
+  if(x0===null)return;
+  var dx=e.changedTouches[0].clientX-x0,dy=e.changedTouches[0].clientY-y0;
+  /* só conta como arrasto se for mais horizontal que vertical: senão rolar a
+     página com o dedo em cima do carrossel trocaria de prato sem querer */
+  if(Math.abs(dx)>40&&Math.abs(dx)>Math.abs(dy))go(at+(dx<0?1:-1));
+  x0=y0=null;
+},{passive:true});
+rail.addEventListener('keydown',function(e){
+  if(e.key==='ArrowLeft')go(at-1);else if(e.key==='ArrowRight')go(at+1);else return;
+  e.preventDefault();rail.querySelector('[data-pos="on"]').focus();
+});
+addEventListener('resize',layout,{passive:true});
+layout();
+})();
+"""
+
 LIGHTBOX_CSS = """
 /* ============ LIGHTBOX — as fotos do mosaico abrem ampliadas ============ */
-/* cada peça virou <button>: zera o desenho que o navegador dá de graça */
+/* cada peça virou <button>: zera o desenho que o navegador dá de graça.
+   O display:grid é obrigatório — o navegador embrulha o conteúdo de um botão
+   numa caixa anônima centralizada, e era ela que soltava a foto do fundo da
+   peça, deixando a legenda no meio da imagem em vez de no rodapé dela. */
 .shot-g{appearance:none;-webkit-appearance:none;background:none;padding:0;margin:0;
-  font:inherit;color:inherit;text-align:left;cursor:zoom-in}
+  font:inherit;color:inherit;text-align:left;cursor:zoom-in;display:grid}
+.shot-g>.ph,.shot-g>.ph--empty{grid-area:1/1;width:100%;height:100%}
+/* linha única e travada na altura da peça: com linha automática a foto crescia
+   até o tamanho natural, transbordava por baixo e o corte perdia o pé da imagem */
+.rail .shot-g{grid-template-rows:minmax(0,1fr)}
 .shot-g:focus-visible{outline:2px solid var(--terracota-suave);outline-offset:3px}
 
 .lbx{position:fixed;inset:0;z-index:60;display:none;place-items:center;
@@ -373,7 +463,11 @@ function close(){
 }
 function step(d){if(cur)show(cur,cur.i+d);}
 
-owner.forEach(function(o,t){t.addEventListener('click',function(){open(t)})});
+/* no carrossel só a foto do centro amplia: clicar numa lateral serve para
+   trazê-la para o centro, e quem cuida disso é o próprio carrossel */
+owner.forEach(function(o,t){
+  t.addEventListener('click',function(){if(t.dataset.pos!=='side')open(t)});
+});
 box.addEventListener('click',function(e){
   var b=e.target.closest('[data-lbx]');
   if(b){({close:close,prev:function(){step(-1)},next:function(){step(1)}})[b.dataset.lbx]();return;}
@@ -401,7 +495,9 @@ var calm=matchMedia('(prefers-reduced-motion: reduce)').matches;
 var GROUPS=[
  ['#sobre',       '.copy>.eyebrow,.copy>h2,.copy>p,.people .p', '.shot .ph,.shot .ph--empty'],
  ['#ambientes',   '.head>*,.foot',                              '.shot-g'],
- ['#cardapio',    '.eyebrow,h2,h3,p,.btn2',                     '.shot-g'],
+ /* as fotos dos pratos ficam de fora: o carrossel escreve transform e opacity
+    nelas o tempo todo, e dois donos da mesma propriedade brigariam */
+ ['#cardapio',    '.eyebrow,h2,h3,p,.btn2',                     ''],
  ['#reservas',    '.res-l>*,.res-r>*,.fab',                     ''],
  ['#peca-em-casa','.eyebrow,h2,.lead,.facts,.btn2',             ''],
  ['#como-chegar', '.info>*',                                    '.map'],
@@ -998,7 +1094,7 @@ def build_html():
             'b.addEventListener("click",function(){d.classList.add("open");document.body.classList.add("menu-open")});'
             'd.addEventListener("click",function(e){if(e.target.closest("[data-close]"))close()});'
             'document.addEventListener("keydown",function(e){if(e.key==="Escape")close()});})();'
-            + MOTION_JS + LIGHTBOX_JS +
+            + MOTION_JS + CAROUSEL_JS + LIGHTBOX_JS +
             '</script></body></html>')
     open(os.path.join(ROOT, "index.html"), "w", encoding="utf-8").write(html)
     return html, sheet, site
