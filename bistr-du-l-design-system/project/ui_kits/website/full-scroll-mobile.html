@@ -59,7 +59,10 @@ a{color:var(--areia-quente);text-decoration:none}a:hover{color:var(--terracota-s
 /* ---------- hero ---------- */
 .heroM{position:relative;height:720px;overflow:hidden}
 .heroM .photo{position:absolute;inset:0}
-.heroM .grad{position:absolute;inset:0;z-index:2;background:linear-gradient(180deg,rgba(23,18,15,.58) 0%,rgba(78,21,23,.14) 22%,rgba(53,14,16,.76) 56%,var(--carvao) 100%)}
+/* o véu escurece só o necessário: um fio no topo para o header sticky e a
+   descida para o carvão no pé, que costura o hero com a seção seguinte.
+   O trecho pesado começa a 72% — antes vinha de 56% e comia o vídeo. */
+.heroM .grad{position:absolute;inset:0;z-index:2;background:linear-gradient(180deg,rgba(23,18,15,.34) 0%,rgba(78,21,23,.05) 30%,rgba(53,14,16,.42) 72%,var(--carvao) 100%)}
 .heroM .copy{position:absolute;left:var(--gutter-mobile);right:var(--gutter-mobile);bottom:36px;z-index:3;display:grid;gap:22px;justify-items:start}
 .heroM .wordmark{width:252px;height:auto;display:block;margin:0 auto 4px;justify-self:center}
 .heroM h1{margin:6px 0 0;font-family:var(--font-serif-display);font-weight:var(--w-heading);font-size:46px;line-height:1.02;letter-spacing:-.01em;color:var(--text-strong)}
