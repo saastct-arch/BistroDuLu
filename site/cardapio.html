@@ -292,11 +292,26 @@ body.menu-open{overflow:hidden}
 .resM .copy{padding:40px var(--gutter-mobile) 116px}
 .resM h2{margin:16px 0 18px;font-family:var(--font-serif-display);font-weight:var(--w-heading);font-size:38px;line-height:1.05;color:var(--text-strong)}
 .resM p.lead{margin:0 0 30px;font-size:15px;line-height:1.66;color:var(--areia-a80)}
+/* horários: no celular viram um bloco fechado, com rótulo em cima, uma régua
+   por linha e a ressalva da cozinha como rodapé. Soltas na coluna, as três
+   linhas flutuavam sem par visível entre dia e horário, e a ressalva encostava
+   no botão como se fosse parte dele. */
 .hours{display:grid;gap:14px;border-top:1px solid var(--verde-garrafa);padding-top:22px;margin:0 0 32px}
 .hours .r{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:baseline}
 .hours .r dt{color:var(--areia-a60);text-transform:uppercase;letter-spacing:.14em;font-size:12px}
 .hours .r dd{margin:0;font-size:14px;color:var(--text-strong);font-variant-numeric:tabular-nums}
 .hours .r.off dd{color:var(--text-faint)}
+.hnote{margin:10px 0 0;font-size:12px;line-height:1.6;color:var(--text-faint)}
+.hbox{border:1px solid var(--verde-garrafa);border-radius:var(--r-md);
+  background:var(--areia-a08);padding:16px 16px 0;margin:0 0 30px}
+.hbox .hlbl{display:block;font-size:11px;font-weight:500;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--areia-a60);margin-bottom:4px}
+.hbox .hours{border-top:0;padding-top:0;margin:0;gap:0}
+.hbox .hours .r{padding:14px 0;border-bottom:1px solid var(--verde-a55);gap:16px}
+.hbox .hours .r dt{color:var(--areia-a80);font-size:11.5px;letter-spacing:.12em}
+.hbox .hours .r dd{font-size:15.5px;font-weight:500}
+.hbox .hours .r.off dt,.hbox .hours .r.off dd{color:var(--text-faint)}
+.hbox .hnote{margin:0;border-top:1px solid var(--verde-a55);padding:12px 0 14px}
 .act{display:grid;gap:16px}
 .resM .cta{width:100%;justify-content:center;padding:20px;font-size:14px}
 .sub{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-faint);text-align:center}
@@ -374,11 +389,16 @@ body.menu-open{overflow:hidden}
 /* hero — vídeo full-bleed; a marca já está no vídeo, então o h1 sai de vista
    (sem display:none: o título continua valendo para busca e leitor de tela)
    e sobram o CTA e o horário, centralizados sobre o pé do vídeo */
-.heroM{height:760px}
-.heroM .copy{left:var(--gutter-desktop);right:var(--gutter-desktop);bottom:72px;gap:30px;
-  justify-items:center;text-align:center}
-.heroM h1.wm{position:absolute;width:1px;height:1px;margin:-1px;padding:0;
-  overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+/* hero do desktop: sem vídeo. A marca é a própria hero — logo, CTA e horário
+   centralizados no bloco, um debaixo do outro. O vídeo continua só no celular,
+   onde o enquadramento vertical é o que foi filmado. */
+.heroM{height:620px}
+.heroM .photo{display:none}
+.heroM .copy{inset:0;left:var(--gutter-desktop);right:var(--gutter-desktop);bottom:auto;
+  display:grid;align-content:center;justify-items:center;text-align:center;gap:34px}
+.heroM h1.wm{position:static;width:auto;height:auto;margin:0;padding:0;
+  overflow:visible;clip-path:none;white-space:normal}
+.heroM .wordmark{width:340px;margin:0}
 .heroM .cta{width:auto;padding:19px 34px;font-size:15px}
 .heroM .meta{font-size:12px;justify-content:center}
 /* sobre — texto à esquerda, retrato sangrando à direita */
@@ -440,6 +460,10 @@ body.menu-open{overflow:hidden}
 .res-l p.lead{font-size:18px;max-width:44ch;margin:0}
 .res-r{display:grid;align-content:start;justify-items:start}
 .hours{margin-top:0;padding-top:0;border-top:0;width:100%;max-width:none}
+/* o bloco de horários acompanha a largura do CTA logo abaixo: encolhido no
+   conteúdo ele ficava perdido na coluna larga */
+.res-r .hbox{width:100%;max-width:460px;padding:18px 20px 0;margin-bottom:34px}
+.res-r .hbox .hours .r{padding:15px 0}
 .resM .cta{width:auto;justify-self:start;padding:22px 40px;font-size:15px}
 .sub{text-align:left}
 /* o botão flutuante não tem foto para pousar aqui: entra na coluna, sob o CTA */
@@ -690,7 +714,7 @@ html.js .rv,html.js .rv-ph{opacity:1;transform:none}
 <div class="foot"><span>Onde estamos</span><address>Rua Jequitibá, 910 — Horto<br>Ipatinga · MG</address></div>
 </aside>
 </div><div class="scroll"><header class="hd-m">
-<button class="burger" type="button" id="burger" aria-label="Ver menu" style="background:none;border:0;padding:0;cursor:pointer"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+<button class="burger" type="button" id="burger" aria-label="Abrir menu" style="background:none;border:0;padding:0;cursor:pointer"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
 <img class="mark" src="./img/logo.png" alt="Bistrô du Lú" data-comment-anchor="f7a1aa0e4a-img">
 <nav class="nav-d"><a href="/#sobre">Sobre nós</a><a href="/#ambientes">Ambientes</a><a href="/cardapio" aria-current="page">Cardápio</a><a href="/#peca-em-casa">Peça em casa</a><a href="/#como-chegar">Como chegar</a></nav>
 <a class="cta" href="/#reservas">Reservar</a>

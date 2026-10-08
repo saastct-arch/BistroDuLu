@@ -48,7 +48,7 @@ PHOTOS = {
     "dicas-tartare-de-salmao.jpg": ("dicas-tartare-de-salmao.jpg", 640),
     "dicas-torresmo-de-barriga.jpg": ("dicas-torresmo-de-barriga.jpg", 640),
 }
-LOGOS = {"assets/logo-topo.png": ("logo-topo.png", 320), "assets/logo-monogram-areia.png": ("logo.png", 160)}
+LOGOS = {"assets/logo-topo.png": ("logo-topo.png", 500), "assets/logo-monogram-areia.png": ("logo.png", 160)}
 
 # arquivo em site/img -> (largura, altura) já processadas; preenchido por build_images()
 SIZES = {}
@@ -92,11 +92,16 @@ DESKTOP_CSS = """
 /* hero — vídeo full-bleed; a marca já está no vídeo, então o h1 sai de vista
    (sem display:none: o título continua valendo para busca e leitor de tela)
    e sobram o CTA e o horário, centralizados sobre o pé do vídeo */
-.heroM{height:760px}
-.heroM .copy{left:var(--gutter-desktop);right:var(--gutter-desktop);bottom:72px;gap:30px;
-  justify-items:center;text-align:center}
-.heroM h1.wm{position:absolute;width:1px;height:1px;margin:-1px;padding:0;
-  overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+/* hero do desktop: sem vídeo. A marca é a própria hero — logo, CTA e horário
+   centralizados no bloco, um debaixo do outro. O vídeo continua só no celular,
+   onde o enquadramento vertical é o que foi filmado. */
+.heroM{height:620px}
+.heroM .photo{display:none}
+.heroM .copy{inset:0;left:var(--gutter-desktop);right:var(--gutter-desktop);bottom:auto;
+  display:grid;align-content:center;justify-items:center;text-align:center;gap:34px}
+.heroM h1.wm{position:static;width:auto;height:auto;margin:0;padding:0;
+  overflow:visible;clip-path:none;white-space:normal}
+.heroM .wordmark{width:340px;margin:0}
 .heroM .cta{width:auto;padding:19px 34px;font-size:15px}
 .heroM .meta{font-size:12px;justify-content:center}
 /* sobre — texto à esquerda, retrato sangrando à direita */
@@ -158,6 +163,10 @@ DESKTOP_CSS = """
 .res-l p.lead{font-size:18px;max-width:44ch;margin:0}
 .res-r{display:grid;align-content:start;justify-items:start}
 .hours{margin-top:0;padding-top:0;border-top:0;width:100%;max-width:none}
+/* o bloco de horários acompanha a largura do CTA logo abaixo: encolhido no
+   conteúdo ele ficava perdido na coluna larga */
+.res-r .hbox{width:100%;max-width:460px;padding:18px 20px 0;margin-bottom:34px}
+.res-r .hbox .hours .r{padding:15px 0}
 .resM .cta{width:auto;justify-self:start;padding:22px 40px;font-size:15px}
 .sub{text-align:left}
 /* o botão flutuante não tem foto para pousar aqui: entra na coluna, sob o CTA */
@@ -539,19 +548,33 @@ else{
 /* quem pediu menos movimento fica no poster, não no vídeo */
 /* responsivo: desktop usa landscape 1920x1080, mobile usa portrait 1080x1920 */
 var vid=document.querySelector('.heroM video');
-if(vid&&calm){vid.autoplay=false;vid.pause();vid.currentTime=0;vid.removeAttribute('autoplay');}
+/* o vídeo existe só no celular: no desktop a hero é a logo, então nem a fonte
+   nem o poster chegam a ser pedidos */
+function narrow(){return innerWidth<1024}
+if(vid&&calm){
+  vid.autoplay=false;vid.pause();vid.currentTime=0;vid.removeAttribute('autoplay');
+  var setPoster=function(){vid.poster=narrow()?'./img/hero-mobile-poster.jpg':''};
+  setPoster();addEventListener('resize',setPoster,{passive:true});
+}
 else if(vid){
   var onscreen=true,fmt='';
   function play(){var p=vid.play();if(p&&p.catch)p.catch(function(){});}
   var setVideoSrc=function(){
-    var next=innerWidth>=1024?'desktop':'mobile';
+    var next=narrow()?'mobile':'off';
     /* rolar no celular esconde a barra de endereço e dispara resize: sem esta
        guarda o vídeo recarregava e voltava ao início no meio da reprodução */
     if(next===fmt)return;
     fmt=next;
-    document.querySelector('.heroM .v-webm').src='./img/hero-'+fmt+'.webm';
-    document.querySelector('.heroM .v-mp4').src='./img/hero-'+fmt+'.mp4';
-    vid.poster='./img/hero-'+fmt+'-poster.jpg';
+    var webm=document.querySelector('.heroM .v-webm'),mp4=document.querySelector('.heroM .v-mp4');
+    if(next==='off'){
+      vid.pause();
+      webm.removeAttribute('src');mp4.removeAttribute('src');vid.removeAttribute('poster');
+      vid.load();
+      return;
+    }
+    webm.src='./img/hero-mobile.webm';
+    mp4.src='./img/hero-mobile.mp4';
+    vid.poster='./img/hero-mobile-poster.jpg';
     vid.load();
     if(onscreen)play();
   };
@@ -1037,13 +1060,12 @@ def build_html():
     site = re.sub(r'<img src="https://cdn\.jsdelivr\.net/npm/lucide-static@[^"]*/icons/menu\.svg"[^>]*>', MENU_SVG, site)
     site = re.sub(r'<img src="https://cdn\.jsdelivr\.net/npm/lucide-static@[^"]*/icons/x\.svg"[^>]*>', CLOSE_SVG, site)
 
-    # 4b. o hero da home recebe o vídeo; o do cardápio segue com a foto.
-    #     O poster é um quadro do próprio vídeo, então não há salto ao começar a tocar,
-    #     e sem JS (ou sem suporte ao codec) o poster é o que fica.
-    #     Desktop (1024+) usa landscape 1920x1080; mobile usa portrait 1080x1920.
+    # 4b. o vídeo é só do celular: no desktop a hero é a logo. Fonte e poster
+    #     entram por JS, senão o desktop baixava o quadro vertical do celular
+    #     antes de o CSS escondê-lo.
     site = re.sub(
         r'<img class="ph" src="\./img/hero\.jpg"[^>]*>',
-        '<video class="ph" poster="./img/hero-mobile-poster.jpg" autoplay muted loop playsinline '
+        '<video class="ph" autoplay muted loop playsinline '
         'preload="auto" aria-label="Salão do Bistrô du Lú">'
         '<source class="v-webm" type="video/webm">'
         '<source class="v-mp4" type="video/mp4"></video>', site, count=1)
