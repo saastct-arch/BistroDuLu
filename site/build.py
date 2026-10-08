@@ -797,10 +797,22 @@ MENU_CSS = """
 .mHero .photo{position:absolute;inset:0}
 .mHero .grad{position:absolute;inset:0;z-index:2;
   background:linear-gradient(180deg,rgba(23,18,15,.62) 0%,rgba(78,21,23,.22) 34%,rgba(53,14,16,.80) 72%,var(--carvao) 100%)}
+/* véu só atrás da coluna de texto: o olho da marca é o menor texto da página
+   e caía no ponto claro do prato (2,0:1). Escurecer o véu geral resolveria
+   também, mas apagaria a foto inteira para salvar uma linha. */
 .mHero .copy{position:relative;z-index:3;padding:64px var(--gutter-mobile) 34px;display:grid;gap:14px;justify-items:start}
+/* o véu vai no pseudo-elemento, não no fundo do bloco: no bloco ele cortava
+   a foto com uma linha reta no topo. Aqui ele nasce transparente e só fecha
+   na altura do texto. A máscara não pode ficar no .copy — apagaria a letra. */
+.mHero .copy::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:linear-gradient(97deg,rgba(23,18,15,.82) 0%,rgba(23,18,15,.66) 48%,rgba(23,18,15,0) 92%);
+  -webkit-mask-image:linear-gradient(180deg,rgba(0,0,0,0) 0%,#000 42%);
+  mask-image:linear-gradient(180deg,rgba(0,0,0,0) 0%,#000 42%)}
+.mHero .eyebrow{color:var(--areia-a80)}   /* 60% ficava em 4,2:1 sobre a foto */
 .mHero h1{margin:0;font-family:var(--font-serif-display);font-weight:var(--w-heading);font-size:42px;line-height:1.04;color:var(--text-strong)}
-.mHero .sub{margin:0;font-family:var(--font-serif-display);font-size:19px;line-height:1.3;color:var(--areia-a80)}
-.mHero .lead{margin:0;font-size:15px;line-height:1.68;color:var(--areia-a60);max-width:52ch}
+/* classe própria: com .sub ele herdava a regra do selo sob o botão de reserva
+   (caixa alta e entreletra larga), e virava um letreiro em vez de subtítulo */
+.mHero .subt{margin:0;font-family:var(--font-serif-display);font-size:19px;line-height:1.3;color:var(--areia-a80)}
 
 /* barra de categorias — encosta logo abaixo do header */
 .mcat{position:sticky;top:var(--header-h-mobile);z-index:20;background:var(--carvao-a90);
@@ -892,8 +904,7 @@ MENU_CSS = """
 .mHero{min-height:440px}
 .mHero .copy{padding:100px var(--gutter-desktop) 56px;gap:16px}
 .mHero h1{font-size:64px}
-.mHero .sub{font-size:23px}
-.mHero .lead{font-size:16.5px}
+.mHero .subt{font-size:23px}
 .mSec{padding:84px var(--gutter-desktop) 88px}
 .mSec h2{font-size:44px}
 .mSec>.head{margin-bottom:42px}
@@ -1334,9 +1345,7 @@ def build_menu(sheet, site):
         '<div class="copy">'
         '<span class="eyebrow">Bistrô du Lú</span>'
         '<h1>Cardápio</h1>'
-        '<p class="sub">Sabores para cada ocasião.</p>'
-        '<p class="lead">Da cozinha do Bistrô du Lú para a sua mesa. Conheça nossas entradas, '
-        'pratos principais, sobremesas e bebidas.</p>'
+        '<p class="subt">Sabores para cada ocasião.</p>'
         '</div></section>')
 
     # Estrutura pronta para a carta de bebidas adultas. O conteúdo não entra aqui:
