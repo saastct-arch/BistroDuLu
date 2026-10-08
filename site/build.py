@@ -68,6 +68,35 @@ OG_SIZE = (1200, 630)
 VINHO, VINHO_900 = (0x4E, 0x15, 0x17), (0x35, 0x0E, 0x10)
 
 
+SERIF_SCALE = 1.14      # Cormorant tem maiúscula ~13% menor que a Playfair que substituiu
+
+
+def serif_scale(css):
+    """Devolve o CSS com os títulos em serifa um pouco maiores.
+
+    A Cormorant desenha maiúsculas 13% menores e linhas 17% mais estreitas que
+    a Playfair no mesmo font-size, então trocar a fonte sem mexer nos tamanhos
+    encolhia todos os títulos. Em vez de uma lista de seletores para manter à
+    mão, descobre quem usa a serifa pelas regras que declaram a família e
+    depois escala o font-size de toda regra desses mesmos seletores — inclusive
+    as de desktop, que só redefinem o tamanho.
+    """
+    rule = re.compile(r'([^{}]+)\{([^{}]*)\}')
+    serif = {m.group(1).strip() for m in rule.finditer(css)
+             if "var(--font-serif-display)" in m.group(2)}
+    assert serif, "não achei nenhuma regra com a serifa de display"
+
+    def grow(m):
+        sel, body = m.group(1), m.group(2)
+        if sel.strip() not in serif:
+            return m.group(0)
+        body = re.sub(r'(font-size:)(\d+(?:\.\d+)?)px',
+                      lambda f: f"{f.group(1)}{round(float(f.group(2)) * SERIF_SCALE, 1)}px", body)
+        return f"{sel}{{{body}}}"
+
+    return rule.sub(grow, css)
+
+
 def dims(name):
     """width/height nativos: o navegador reserva a vaga antes de a foto chegar."""
     w, h = SIZES.get(name, (0, 0))
@@ -1111,7 +1140,7 @@ def build_html():
                         "Rua Jequitibá, 910.", "/")
             + '<script type="application/ld+json">'
             + json.dumps(restaurante_ld(), ensure_ascii=False) + '</script>' +
-            '<style>' + tokens + sheet + DESKTOP_CSS + MOTION_CSS + LIGHTBOX_CSS +
+            '<style>' + serif_scale(tokens + sheet + DESKTOP_CSS + MOTION_CSS + LIGHTBOX_CSS) +
             '</style></head><body>'
             '<div class="phone">' + site + '</div></div>' + LIGHTBOX_HTML + '<script>'
             '(function(){var d=document.getElementById("drawer"),b=document.getElementById("burger");if(!d||!b)return;'
@@ -1315,7 +1344,7 @@ def build_menu(sheet, site):
                         "carnes, frutos do mar, sobremesas e bebidas, com preços atualizados.",
                         "/cardapio", KEYWORDS_MENU)
             + jsonld
-            + '<style>' + tokens + sheet + DESKTOP_CSS + MOTION_CSS + MENU_CSS
+            + '<style>' + serif_scale(tokens + sheet + DESKTOP_CSS + MOTION_CSS + MENU_CSS)
             + '</style></head><body>'
             + '<div class="phone">' + drawer + '<div class="scroll">'
             + header + hero + menu_markup() + carta + end + note + footer

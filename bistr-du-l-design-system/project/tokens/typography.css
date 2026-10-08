@@ -1,6 +1,6 @@
 :root{
---font-serif-display:"Playfair Display",'Iowan Old Style',Georgia,serif;
---font-sans-body:"Jost",'Avenir Next','Helvetica Neue',sans-serif;
+--font-serif-display:"Cormorant Garamond",'Iowan Old Style',Georgia,serif;
+--font-sans-body:"Montserrat",'Avenir Next','Helvetica Neue',sans-serif;
 --font-body:var(--font-sans-body);
 --font-heading:var(--font-serif-display);
 
