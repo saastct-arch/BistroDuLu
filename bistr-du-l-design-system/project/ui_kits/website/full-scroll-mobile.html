@@ -61,14 +61,20 @@ a{color:var(--areia-quente);text-decoration:none}a:hover{color:var(--terracota-s
 .cxf-ctl{display:flex;align-items:center;justify-content:center;gap:14px;
   margin-top:18px;padding:0 var(--gutter-mobile)}
 .cxf-ctl>button{appearance:none;-webkit-appearance:none;cursor:pointer;flex:0 0 auto;
-  width:38px;height:38px;display:grid;place-items:center;border-radius:var(--r-md);
+  width:44px;height:44px;display:grid;place-items:center;border-radius:var(--r-md);
   background:var(--areia-a08);border:1px solid var(--verde-garrafa);color:var(--areia-quente);
   transition:var(--t-color),background var(--m-micro) var(--m-ease-micro)}
 .cxf-ctl>button:hover{color:var(--terracota-suave);background:var(--areia-a14)}
-.cxf-dots{display:flex;flex-wrap:wrap;justify-content:center;gap:7px;min-width:0}
-.cxf-dots button{width:16px;height:4px;border-radius:2px;border:0;padding:0;
+/* dezesseis pontos não cabem numa linha de celular: quebravam em duas e as
+   áreas de toque de uma fileira cobriam a da outra. Abaixo de 600px entra um
+   contador, e as setas (mais o arrasto) ficam sendo o controle. */
+.cxf-dots{display:none;flex-wrap:nowrap;justify-content:center;gap:7px;min-width:0}
+.cxf-dots button{position:relative;width:16px;height:4px;border-radius:2px;border:0;padding:0;
   background:var(--areia-a14);transition:background var(--m-micro) var(--m-ease-micro)}
 .cxf-dots button[aria-current="true"]{background:var(--verde-300)}
+.cxf-count{font-size:12px;letter-spacing:.14em;color:var(--areia-a60);
+  font-variant-numeric:tabular-nums;min-width:62px;text-align:center}
+@media(min-width:600px){.cxf-dots{display:flex}.cxf-count{display:none}}
 .scroll{height:100%;overflow-y:auto;scrollbar-width:none;position:relative}
 .scroll::-webkit-scrollbar{display:none}
 /* header sticky (variação B) */
@@ -172,7 +178,7 @@ a{color:var(--areia-quente);text-decoration:none}a:hover{color:var(--terracota-s
 .facts dd{margin:0;font-size:14px;color:var(--areia-a80);font-variant-numeric:tabular-nums}
 .btn2{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:var(--verde-500);border:1px solid var(--verde-300);color:var(--text-strong);font-size:13px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:16px 18px;border-radius:var(--r-xs);line-height:1;transition:var(--t-color)}
 .btn2:hover{background:var(--verde-300);border-color:var(--terracota-suave);color:var(--text-strong)}
-.btn2 .arw{color:var(--areia-a60)}
+.btn2 .arw{color:var(--areia-a80)}
 /* ---------- contato ---------- */
 .ctM{background:linear-gradient(180deg,var(--carvao) 0%,var(--vinho-arroxeado) 20%,var(--vinho-arroxeado) 100%)}
 .ctM .map{position:relative;height:260px;overflow:hidden;border-top:1px solid var(--verde-garrafa);border-bottom:1px solid var(--verde-garrafa)}
@@ -300,7 +306,8 @@ a{color:var(--areia-quente);text-decoration:none}a:hover{color:var(--terracota-s
 </div>
 <div class="cxf-ctl">
 <button type="button" class="cxf-prev" aria-label="Prato anterior"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button>
-<div class="cxf-dots" role="tablist" aria-label="Escolher prato"></div>
+<div class="cxf-dots" aria-label="Escolher prato"></div>
+<span class="cxf-count" aria-hidden="true"></span>
 <button type="button" class="cxf-next" aria-label="Próximo prato"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
 </div>
 </div>

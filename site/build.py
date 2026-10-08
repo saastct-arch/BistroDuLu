@@ -321,7 +321,7 @@ CAROUSEL_JS = """
 (function(){
 var rail=document.querySelector('.railD');if(!rail)return;
 var tiles=[].slice.call(rail.querySelectorAll('.shot-g')),n=tiles.length;if(!n)return;
-var dots=document.querySelector('.cxf-dots'),
+var dots=document.querySelector('.cxf-dots'),count=document.querySelector('.cxf-count'),
     prev=document.querySelector('.cxf-prev'),next=document.querySelector('.cxf-next'),
     at=0;
 
@@ -352,6 +352,7 @@ function layout(){
   [].forEach.call(dots.children,function(b,i){
     b.setAttribute('aria-current',i===at?'true':'false');
   });
+  if(count)count.textContent=(at+1)+' / '+n;
 }
 function go(i){at=(i%n+n)%n;layout();}
 
@@ -395,6 +396,36 @@ addEventListener('resize',layout,{passive:true});
 layout();
 })();
 """
+
+DRAWER_JS = (
+    '(function(){var d=document.getElementById("drawer"),b=document.getElementById("burger");'
+    'if(!d||!b)return;var panel=d.querySelector(".panel");'
+    # a gaveta é uma caixa modal: enquanto aberta o teclado não pode vazar para a
+    # página atrás dela. Antes, abrir o menu e apertar Tab levava direto para os
+    # links do conteúdo, com a gaveta ainda por cima; e fechada ela continuava na
+    # ordem de tabulação, recebendo foco invisível.
+    'd.setAttribute("role","dialog");d.setAttribute("aria-modal","true");'
+    'd.setAttribute("aria-label","Menu");b.setAttribute("aria-expanded","false");'
+    'function tab(){return [].filter.call(panel.querySelectorAll("a[href],button"),'
+    'function(el){return el.offsetWidth||el.offsetHeight})}'
+    'function shut(on){if("inert" in d)d.inert=!on;else if(on)d.removeAttribute("aria-hidden");'
+    'else d.setAttribute("aria-hidden","true")}'
+    'shut(false);'
+    'function open(){d.classList.add("open");document.body.classList.add("menu-open");'
+    'b.setAttribute("aria-expanded","true");shut(true);var f=tab();if(f.length)f[0].focus()}'
+    'function close(){if(!d.classList.contains("open"))return;'
+    'd.classList.remove("open");document.body.classList.remove("menu-open");'
+    'b.setAttribute("aria-expanded","false");shut(false);b.focus()}'
+    'b.addEventListener("click",open);'
+    'd.addEventListener("click",function(e){if(e.target.closest("[data-close]"))close()});'
+    'document.addEventListener("keydown",function(e){'
+    'if(e.key==="Escape"){close();return}'
+    'if(e.key!=="Tab"||!d.classList.contains("open"))return;'
+    'var f=tab();if(!f.length)return;var a=document.activeElement;'
+    'if(!panel.contains(a)){e.preventDefault();f[0].focus();return}'
+    'if(e.shiftKey&&a===f[0]){e.preventDefault();f[f.length-1].focus()}'
+    'else if(!e.shiftKey&&a===f[f.length-1]){e.preventDefault();f[0].focus()}'
+    '});})();')
 
 LIGHTBOX_CSS = """
 /* ============ LIGHTBOX — as fotos do mosaico abrem ampliadas ============ */
@@ -1042,7 +1073,28 @@ def build_html():
               ".drawer .close:hover{color:var(--terracota-suave)}\n"
               # o wordmark virou <h1>: quem passa a ser item do grid é o título,
               # então o alinhamento e o atraso da entrada migram da imagem para ele
-              ".heroM h1.wm{margin:0;justify-self:center;animation-delay:300ms}\n")
+              ".heroM h1.wm{margin:0;justify-self:center;animation-delay:300ms}\n"
+              # --- acessibilidade e alvo de toque -------------------------------
+              # o anel de foco existia só no mosaico e no lightbox: quem navega por
+              # teclado atravessava header, menu e rodapé sem ver onde estava
+              ":focus-visible{outline:2px solid var(--terracota-suave);outline-offset:3px;border-radius:2px}\n"
+              # dedo não acerta alvo de 16x4: a área clicável cresce por fora, com
+              # pseudo-elemento, sem mexer no desenho do ponto
+              ".cxf-dots button{position:relative}\n"
+              # a área se estende metade do respiro para cada lado: assim as 16 áreas
+              # ladrilham sem sobrepor (toque na borda acertava o ponto vizinho)
+              ".cxf-dots button::after{content:'';position:absolute;left:-3.5px;right:-3.5px;"
+              "top:50%;transform:translateY(-50%);height:44px}\n"
+              # ícones de 34px e CTA de 32px de altura ficavam abaixo do mínimo
+              # confortável; a área cresce sem alterar o tamanho visual do ícone
+              ".hd-m .burger,.drawer .close{width:44px;height:44px}\n"
+              ".hd-m .cta{min-height:44px}\n"
+              ".ft .cols a{display:inline-block;padding:9px 0}\n"
+              "@media(max-width:1023px){.galM .foot a{display:inline-block;padding:11px 0}}\n"
+              # links de texto do header e do endereço tinham 15 e 18px de altura:
+              # a área cresce por padding, o traço do sublinhado continua no lugar
+              ".nav-d a{display:inline-flex;align-items:center;min-height:44px}\n"
+              ".blk a.dir{display:inline-block;padding:9px 0}\n")
 
     # 3. <image-slot> vira <img>; slot sem foto vira marcador tracejado
     def slot(m):
@@ -1095,7 +1147,7 @@ def build_html():
     site = re.sub(
         r'<img class="ph" src="\./img/hero\.jpg"[^>]*>',
         '<video class="ph" autoplay muted loop playsinline '
-        'preload="auto" aria-label="Salão do Bistrô du Lú">'
+        'preload="metadata" aria-label="Salão do Bistrô du Lú">'
         '<source class="v-webm" type="video/webm">'
         '<source class="v-mp4" type="video/mp4"></video>', site, count=1)
 
@@ -1143,11 +1195,7 @@ def build_html():
             '<style>' + serif_scale(tokens + sheet + DESKTOP_CSS + MOTION_CSS + LIGHTBOX_CSS) +
             '</style></head><body>'
             '<div class="phone">' + site + '</div></div>' + LIGHTBOX_HTML + '<script>'
-            '(function(){var d=document.getElementById("drawer"),b=document.getElementById("burger");if(!d||!b)return;'
-            'function close(){d.classList.remove("open");document.body.classList.remove("menu-open")}'
-            'b.addEventListener("click",function(){d.classList.add("open");document.body.classList.add("menu-open")});'
-            'd.addEventListener("click",function(e){if(e.target.closest("[data-close]"))close()});'
-            'document.addEventListener("keydown",function(e){if(e.key==="Escape")close()});})();'
+            + DRAWER_JS
             + MOTION_JS + CAROUSEL_JS + LIGHTBOX_JS +
             '</script></body></html>')
     open(os.path.join(ROOT, "index.html"), "w", encoding="utf-8").write(html)
@@ -1349,11 +1397,7 @@ def build_menu(sheet, site):
             + '<div class="phone">' + drawer + '<div class="scroll">'
             + header + hero + menu_markup() + carta + end + note + footer
             + '</div></div>' + totop + '<script>'
-            '(function(){var d=document.getElementById("drawer"),b=document.getElementById("burger");if(!d||!b)return;'
-            'function close(){d.classList.remove("open");document.body.classList.remove("menu-open")}'
-            'b.addEventListener("click",function(){d.classList.add("open");document.body.classList.add("menu-open")});'
-            'd.addEventListener("click",function(e){if(e.target.closest("[data-close]"))close()});'
-            'document.addEventListener("keydown",function(e){if(e.key==="Escape")close()});})();'
+            + DRAWER_JS
             + MENU_JS + '</script></body></html>')
     open(os.path.join(ROOT, "cardapio.html"), "w", encoding="utf-8").write(html)
     return html

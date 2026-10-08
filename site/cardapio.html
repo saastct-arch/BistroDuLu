@@ -32,7 +32,9 @@
 /* ---- Alphas (transparency / blur layers) ---- */
 --areia-a80:rgba(217,201,179,.80);
 --areia-a60:rgba(217,201,179,.60);
---areia-a38:rgba(217,201,179,.38);
+/* 38% dava 2,65:1 sobre carvão e 2,44:1 sobre vinho — abaixo dos 4,5:1 que
+   texto pequeno exige. 66% passa nos dois fundos e mantém a hierarquia. */
+--areia-a38:rgba(217,201,179,.66);
 --areia-a14:rgba(217,201,179,.14);
 --areia-a08:rgba(217,201,179,.08);
 --carvao-a90:rgba(23,18,15,.90);
@@ -220,14 +222,20 @@ body.menu-open{overflow:hidden}
 .cxf-ctl{display:flex;align-items:center;justify-content:center;gap:14px;
   margin-top:18px;padding:0 var(--gutter-mobile)}
 .cxf-ctl>button{appearance:none;-webkit-appearance:none;cursor:pointer;flex:0 0 auto;
-  width:38px;height:38px;display:grid;place-items:center;border-radius:var(--r-md);
+  width:44px;height:44px;display:grid;place-items:center;border-radius:var(--r-md);
   background:var(--areia-a08);border:1px solid var(--verde-garrafa);color:var(--areia-quente);
   transition:var(--t-color),background var(--m-micro) var(--m-ease-micro)}
 .cxf-ctl>button:hover{color:var(--terracota-suave);background:var(--areia-a14)}
-.cxf-dots{display:flex;flex-wrap:wrap;justify-content:center;gap:7px;min-width:0}
-.cxf-dots button{width:16px;height:4px;border-radius:2px;border:0;padding:0;
+/* dezesseis pontos não cabem numa linha de celular: quebravam em duas e as
+   áreas de toque de uma fileira cobriam a da outra. Abaixo de 600px entra um
+   contador, e as setas (mais o arrasto) ficam sendo o controle. */
+.cxf-dots{display:none;flex-wrap:nowrap;justify-content:center;gap:7px;min-width:0}
+.cxf-dots button{position:relative;width:16px;height:4px;border-radius:2px;border:0;padding:0;
   background:var(--areia-a14);transition:background var(--m-micro) var(--m-ease-micro)}
 .cxf-dots button[aria-current="true"]{background:var(--verde-300)}
+.cxf-count{font-size:12px;letter-spacing:.14em;color:var(--areia-a60);
+  font-variant-numeric:tabular-nums;min-width:62px;text-align:center}
+@media(min-width:600px){.cxf-dots{display:flex}.cxf-count{display:none}}
 .scroll{position:relative}
 
 /* header sticky (variação B) */
@@ -331,7 +339,7 @@ body.menu-open{overflow:hidden}
 .facts dd{margin:0;font-size:14px;color:var(--areia-a80);font-variant-numeric:tabular-nums}
 .btn2{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:var(--verde-500);border:1px solid var(--verde-300);color:var(--text-strong);font-size:13px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:16px 18px;border-radius:var(--r-xs);line-height:1;transition:var(--t-color)}
 .btn2:hover{background:var(--verde-300);border-color:var(--terracota-suave);color:var(--text-strong)}
-.btn2 .arw{color:var(--areia-a60)}
+.btn2 .arw{color:var(--areia-a80)}
 /* ---------- contato ---------- */
 .ctM{background:linear-gradient(180deg,var(--carvao) 0%,var(--vinho-arroxeado) 20%,var(--vinho-arroxeado) 100%)}
 .ctM .map{position:relative;height:260px;overflow:hidden;border-top:1px solid var(--verde-garrafa);border-bottom:1px solid var(--verde-garrafa)}
@@ -376,6 +384,15 @@ body.menu-open{overflow:hidden}
 .hd-m .burger,.drawer .close{color:var(--areia-quente)}
 .drawer .close:hover{color:var(--terracota-suave)}
 .heroM h1.wm{margin:0;justify-self:center;animation-delay:300ms}
+:focus-visible{outline:2px solid var(--terracota-suave);outline-offset:3px;border-radius:2px}
+.cxf-dots button{position:relative}
+.cxf-dots button::after{content:'';position:absolute;left:-3.5px;right:-3.5px;top:50%;transform:translateY(-50%);height:44px}
+.hd-m .burger,.drawer .close{width:44px;height:44px}
+.hd-m .cta{min-height:44px}
+.ft .cols a{display:inline-block;padding:9px 0}
+@media(max-width:1023px){.galM .foot a{display:inline-block;padding:11px 0}}
+.nav-d a{display:inline-flex;align-items:center;min-height:44px}
+.blk a.dir{display:inline-block;padding:9px 0}
 
 /* ============ DESKTOP — composições aprovadas nos mockups de 1180px ============ */
 @media(min-width:1024px){
@@ -726,7 +743,7 @@ html.js .rv,html.js .rv-ph{opacity:1;transform:none}
 <div><span class="lbl">Reservas</span><address data-comment-anchor="8ad3a01b16-address">Get In · confirmação imediata<br>WhatsApp para dúvidas</address></div>
 <div><span class="lbl">Navegue</span><ul class="flinks"><li><a href="/cardapio">Cardápio</a></li><li><a href="https://pedidobistrodulu.ccmpedidoonline.com.br/" target="_blank" rel="noopener">Peça em casa</a></li><li><a href="https://api.whatsapp.com/send?phone=5531988600512" target="_blank" rel="noopener">WhatsApp</a></li><li><a href="https://www.instagram.com/bistrodulu/" target="_blank" rel="noopener">Instagram</a></li><li><a href="/#como-chegar">Como chegar</a></li></ul></div></div>
 <div class="legal"><span data-comment-anchor="9112e14f11-span">© 2026 Bistrô du Lú</span><span>Cozinha · Sabor · Afeto</span></div>
-</footer></div></div><button class="totop" type="button" aria-label="Voltar ao topo"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button><script>(function(){var d=document.getElementById("drawer"),b=document.getElementById("burger");if(!d||!b)return;function close(){d.classList.remove("open");document.body.classList.remove("menu-open")}b.addEventListener("click",function(){d.classList.add("open");document.body.classList.add("menu-open")});d.addEventListener("click",function(e){if(e.target.closest("[data-close]"))close()});document.addEventListener("keydown",function(e){if(e.key==="Escape")close()});})();
+</footer></div></div><button class="totop" type="button" aria-label="Voltar ao topo"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button><script>(function(){var d=document.getElementById("drawer"),b=document.getElementById("burger");if(!d||!b)return;var panel=d.querySelector(".panel");d.setAttribute("role","dialog");d.setAttribute("aria-modal","true");d.setAttribute("aria-label","Menu");b.setAttribute("aria-expanded","false");function tab(){return [].filter.call(panel.querySelectorAll("a[href],button"),function(el){return el.offsetWidth||el.offsetHeight})}function shut(on){if("inert" in d)d.inert=!on;else if(on)d.removeAttribute("aria-hidden");else d.setAttribute("aria-hidden","true")}shut(false);function open(){d.classList.add("open");document.body.classList.add("menu-open");b.setAttribute("aria-expanded","true");shut(true);var f=tab();if(f.length)f[0].focus()}function close(){if(!d.classList.contains("open"))return;d.classList.remove("open");document.body.classList.remove("menu-open");b.setAttribute("aria-expanded","false");shut(false);b.focus()}b.addEventListener("click",open);d.addEventListener("click",function(e){if(e.target.closest("[data-close]"))close()});document.addEventListener("keydown",function(e){if(e.key==="Escape"){close();return}if(e.key!=="Tab"||!d.classList.contains("open"))return;var f=tab();if(!f.length)return;var a=document.activeElement;if(!panel.contains(a)){e.preventDefault();f[0].focus();return}if(e.shiftKey&&a===f[0]){e.preventDefault();f[f.length-1].focus()}else if(!e.shiftKey&&a===f[f.length-1]){e.preventDefault();f[0].focus()}});})();
 (function(){
 var bar=document.querySelector('.mcat'),top=document.querySelector('.totop');
 if(bar){

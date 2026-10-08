@@ -26,7 +26,9 @@
 /* ---- Alphas (transparency / blur layers) ---- */
 --areia-a80:rgba(217,201,179,.80);
 --areia-a60:rgba(217,201,179,.60);
---areia-a38:rgba(217,201,179,.38);
+/* 38% dava 2,65:1 sobre carvão e 2,44:1 sobre vinho — abaixo dos 4,5:1 que
+   texto pequeno exige. 66% passa nos dois fundos e mantém a hierarquia. */
+--areia-a38:rgba(217,201,179,.66);
 --areia-a14:rgba(217,201,179,.14);
 --areia-a08:rgba(217,201,179,.08);
 --carvao-a90:rgba(23,18,15,.90);
