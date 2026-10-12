@@ -53,6 +53,17 @@ No codebase, Figma file, deck, website or photography was provided. Everything h
 
 ## Visual foundations
 
+> **Revisão de outubro/2026 — Diretrizes obrigatórias de identidade visual e copywriting.**
+> Onde o texto abaixo divergir, vale esta nota. (1) O vinho `#4E1517` é estrutural e tem
+> presença expressiva: fundos de seção, botão de reserva, títulos e marcadores sobre o claro,
+> navegação do cardápio e rodapé. (2) Entra o **marfim** (`--marfim #F5EFE6`, `--marfim-200`)
+> como superfície clara de leitura, com títulos em vinho e corpo em `--grafite`. (3) O CTA de
+> reserva passa a ser **vinho com letra marfim** (`--cta-*`), invertido sobre fundo vinho
+> (`--cta-inv-*`); a terracota deixa de ser CTA. (4) O verde garrafa sai da interface do site —
+> os fios usam `--line-dark*` / `--line-light*`. (5) Seções trocam de cor sem degradê decorativo,
+> e nenhuma foto recebe véu vinho. (6) Caixa alta só em eyebrows e rótulos; botões e navegação
+> em caixa normal.
+
 **Colour.** Five colours, no others. Vinho arroxeado `#4E1517` and carvão `#17120F` carry every background — always as a gradient or as alternating sections, **never one flat fill across a page** (`--grad-vinho-carvao`, `--grad-carvao-vinho`, `--grad-carvao-deep`). Verde garrafa `#1F3327` is a line colour only: dividers, 1px borders, icon strokes — never a large field. Terracota suave `#B06A55` is reserved for the reservation CTA and hover states; **max two terracota elements per screen**. Areia quente `#D9C9B3` is the only "light" — it replaces white and gold as text on dark, and as an alternate light surface with vinho type on it. Pure `#FFFFFF` and `#000000` are forbidden; so is any saturated gold.
 
 **Type.** Serif display at **medium weight (500)** for headings — Playfair Display; neutral geometric sans (Jost, 300 body / 500 labels) for everything else. Script/cursive exists only inside the logo artwork, never as live type. Scale is a 1.25 ratio on a 16px base, display clamped 44→84px. Tracking is the brand's signature: `-0.01em` on display, `+0.26em` uppercase on eyebrows (echoing `. COZINHA . SABOR . AFETO .`), `+0.18em` on the wordmark. Body line-height 1.68; prose capped at 62ch.

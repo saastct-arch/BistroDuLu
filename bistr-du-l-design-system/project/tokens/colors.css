@@ -22,6 +22,19 @@
 --areia-500:#D9C9B3;
 --areia-400:#C4B49E;
 --areia-300:#A9977E;
+/* vinho em degraus: o 400 é o fio que desenha o botão vinho sobre carvão
+   (vinho sobre carvão sozinho fica em 1,3:1 e o botão sumiria no fundo) */
+--vinho-400:#8C3A35;
+--vinho-950:#260A0C;
+
+/* ---- Marfim: a superfície clara da casa (leitura e respiro) ----
+   Entrou com as diretrizes de identidade: o site era só escuro. O vinho
+   escreve títulos sobre o marfim (12,7:1) e o grafite escreve o corpo. */
+--marfim:#F5EFE6;
+--marfim-200:#ECE3D6;
+--marfim-300:#DCCDBA;
+--grafite:#2B2421;
+--grafite-soft:#5E524B;
 
 /* ---- Alphas (transparency / blur layers) ---- */
 --areia-a80:rgba(217,201,179,.80);
@@ -35,6 +48,11 @@
 --carvao-a72:rgba(23,18,15,.72);
 --vinho-a70:rgba(78,21,23,.70);
 --verde-a55:rgba(31,51,39,.55);
+--vinho-a08:rgba(78,21,23,.08);
+--vinho-a16:rgba(78,21,23,.16);
+--vinho-a28:rgba(78,21,23,.28);
+--marfim-a40:rgba(245,239,230,.40);
+--marfim-a22:rgba(245,239,230,.22);
 
 /* ---- Semantic surfaces ---- */
 --surface-vinho:var(--vinho-arroxeado);
@@ -64,10 +82,24 @@
 --line-hairline:var(--verde-garrafa);       /* the brand's divider colour */
 --line-soft:var(--areia-a14);
 --line-strong:var(--verde-300);
+/* fios do site: o verde saiu da interface para não competir com o vinho.
+   Escuro = areia translúcida; claro = vinho translúcido. */
+--line-dark:rgba(217,201,179,.16);
+--line-dark-soft:rgba(217,201,179,.09);
+--line-dark-strong:rgba(217,201,179,.30);
+--line-light:var(--vinho-a16);
+--line-light-strong:var(--vinho-a28);
 
 /* ---- Interactive ---- */
---cta-bg:var(--terracota-suave);
---cta-bg-hover:var(--terracota-600);
---cta-fg:#1B0C13;
+/* o botão de reserva é vinho: a cor da marca, não mais a terracota */
+--cta-bg:var(--vinho-arroxeado);
+--cta-bg-hover:var(--vinho-500);
+--cta-fg:var(--marfim);
+--cta-line:var(--vinho-400);
+/* sobre fundo vinho o botão vinho desapareceria: ele se inverte */
+--cta-inv-bg:var(--marfim);
+--cta-inv-bg-hover:var(--marfim-200);
+--cta-inv-fg:var(--vinho-arroxeado);
 --focus-ring:var(--terracota-300);
+--focus-ring-light:var(--vinho-arroxeado);
 }

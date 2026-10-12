@@ -30,7 +30,7 @@ PHOTOS = {
     "amb-pergolado.jpg": ("amb-pergolado.jpg", 1300),
     "amb-sala-dos-pratos.jpg": ("amb-sala-dos-pratos.jpg", 1100),
     "amb-sala-labirinto.jpg": ("amb-sala-labirinto.jpg", 1100),
-    # Dicas do Lú — pratos da casa, mosaico dentro da seção Cardápio
+    # Dicas do Lú — pratos da casa, carrossel da seção "A cozinha"
     "dicas-bolinho-de-cupim.jpg": ("dicas-bolinho-de-cupim.jpg", 640),
     "dicas-bolo-de-cenoura.jpg": ("dicas-bolo-de-cenoura.jpg", 640),
     "dicas-brownie-perfeito.jpg": ("dicas-brownie-perfeito.jpg", 640),
@@ -48,7 +48,7 @@ PHOTOS = {
     "dicas-tartare-de-salmao.jpg": ("dicas-tartare-de-salmao.jpg", 640),
     "dicas-torresmo-de-barriga.jpg": ("dicas-torresmo-de-barriga.jpg", 640),
 }
-LOGOS = {"assets/logo-topo.png": ("logo-topo.png", 500), "assets/logo-monogram-areia.png": ("logo.png", 160)}
+LOGOS = {"assets/logo-monogram-areia.png": ("logo.png", 160)}
 
 # arquivo em site/img -> (largura, altura) já processadas; preenchido por build_images()
 SIZES = {}
@@ -108,46 +108,54 @@ CLOSE_SVG = ('<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke
              'stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>')
 
 DESKTOP_CSS = """
-/* ============ DESKTOP — composições aprovadas nos mockups de 1180px ============ */
+/* ============ DESKTOP ============ */
 @media(min-width:1024px){
 .phone{max-width:none}
 .hd-m{height:var(--header-h-desktop);padding:0 var(--gutter-desktop);grid-template-columns:auto 1fr auto;gap:40px}
 .hd-m .burger{display:none}
 .hd-m img.mark{height:46px;justify-self:start}
-.nav-d{display:flex;gap:34px;align-items:center;justify-self:end}
-.nav-d a{font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--areia-a80);transition:var(--t-color)}
-.nav-d a:hover{color:var(--terracota-suave)}
-.hd-m .cta{padding:14px 26px;font-size:12.5px}
-/* hero — vídeo full-bleed; a marca já está no vídeo, então o h1 sai de vista
-   (sem display:none: o título continua valendo para busca e leitor de tela)
-   e sobram o CTA e o horário, centralizados sobre o pé do vídeo */
-/* hero do desktop: sem vídeo. A marca é a própria hero — logo, CTA e horário
-   centralizados no bloco, um debaixo do outro. O vídeo continua só no celular,
-   onde o enquadramento vertical é o que foi filmado. */
-.heroM{height:620px}
-.heroM .photo{display:none}
-.heroM .copy{inset:0;left:var(--gutter-desktop);right:var(--gutter-desktop);bottom:auto;
-  display:grid;align-content:center;justify-items:center;text-align:center;gap:34px}
-.heroM h1.wm{position:static;width:auto;height:auto;margin:0;padding:0;
-  overflow:visible;clip-path:none;white-space:normal}
-.heroM .wordmark{width:340px;margin:0}
-.heroM .cta{width:auto;padding:19px 34px;font-size:15px}
-.heroM .meta{font-size:12px;justify-content:center}
-/* sobre — texto à esquerda, retrato sangrando à direita */
-.abM{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,44%);align-items:stretch}
-.abM .shot{order:2;height:auto;min-height:640px;border-bottom:0;border-left:1px solid var(--verde-garrafa)}
-.abM .copy{order:1;align-self:center;padding:100px var(--s-7) 100px var(--gutter-desktop)}
-.abM h2{font-size:52px;margin:18px 0 26px}
-.abM p{font-size:17px;max-width:56ch}
-.people{grid-template-columns:1fr 1fr;column-gap:44px;margin-top:44px}
-.people .p{border-bottom:0}
-/* ambientes — mosaico de três colunas, como no mockup de 1180 */
-.galM{padding:104px 0 68px}
-.galM .head{padding:0 var(--gutter-desktop);max-width:none;margin-bottom:48px;
-  display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:60px;align-items:end}
-.galM .head .eyebrow{grid-column:1;grid-row:1}
-.galM h2{grid-column:1;grid-row:2;font-size:44px;margin:16px 0 0;max-width:20ch}
-.galM .head p{grid-column:2;grid-row:2;justify-self:end;max-width:34ch;font-size:15px;padding-bottom:6px}
+.nav-d{display:flex;gap:32px;align-items:center;justify-self:end}
+.nav-d a{font-size:14px;letter-spacing:.02em;color:var(--areia-a80);transition:var(--t-color)}
+.nav-d a:hover,.nav-d a[aria-current]{color:var(--marfim)}
+.hd-m .cta{padding:14px 24px;font-size:14px}
+.ttl{font-size:44px;margin:18px 0 18px}
+.intro{font-size:17px}
+/* primeira dobra — o texto sobre o vinho da marca, à esquerda; o prato de
+   maior impacto, à direita, sem véu nenhum por cima. O vídeo vertical
+   continua só no celular, onde o enquadramento é o que foi filmado. */
+.heroM{grid-template-columns:minmax(0,1fr) minmax(0,1.04fr);align-items:stretch;
+  min-height:clamp(600px,calc(100vh - var(--header-h-desktop)),780px)}
+.heroM .photo,.heroM .grad{display:none}
+.heroM .photo-d{display:block;grid-column:2;grid-row:1;position:relative;overflow:hidden}
+.heroM .photo-d img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.heroM .copy{grid-column:1;grid-row:1;align-self:center;padding:72px 72px 72px var(--gutter-desktop);gap:22px}
+.heroM h1{font-size:50px;max-width:12em}
+.heroM .lead{font-size:18px;max-width:42ch}
+.heroM .acts{display:flex;gap:14px;width:auto;margin-top:14px}
+.heroM .cta,.heroM .btn2{width:auto;padding:19px 30px;font-size:15px}
+/* gastronomia — título e apoio lado a lado, o carrossel embaixo */
+.menuM{padding:112px var(--gutter-desktop);justify-items:center}
+.menuM .head{width:100%;margin-bottom:56px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  column-gap:80px;align-items:end}
+.menuM .head .eyebrow{grid-column:1;grid-row:1;justify-self:start}
+.menuM .head .ttl{grid-column:1;grid-row:2;margin-bottom:0}
+.menuM .head .intro{grid-column:2;grid-row:2;justify-self:end;max-width:44ch}
+.dicas{width:100%;max-width:1180px;margin:0 auto 48px}
+.cxf{margin:0 calc(-1 * var(--gutter-desktop))}
+.railD{--cw:600px;--side:.7;--caph:98px}
+.railD .shot-g{gap:16px}
+.railD .shot-g .cap{font-size:21px}
+.railD .shot-g .desc{font-size:14px}
+.cxf-ctl{margin-top:26px;gap:18px}
+.cxf-dots button{width:20px;height:4px}
+.menuM>.btn2{padding:18px 30px}
+/* ambientes — mosaico de três colunas */
+.galM{padding:112px 0 72px}
+.galM .head{padding:0 var(--gutter-desktop);margin-bottom:52px;
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:80px;align-items:end}
+.galM .head .eyebrow{grid-column:1;grid-row:1;justify-self:start}
+.galM .head .ttl{grid-column:1;grid-row:2;margin-bottom:0}
+.galM .head .intro{grid-column:2;grid-row:2;justify-self:end;max-width:46ch}
 /* três colunas de larguras desiguais; os invólucros .col são display:contents no mobile */
 .rail{display:grid;grid-template-columns:1.35fr 1fr 1.05fr;gap:20px;align-items:start;
   padding:0 var(--gutter-desktop);overflow:visible}
@@ -164,70 +172,59 @@ DESKTOP_CSS = """
 .col.b>*:nth-child(2){height:560px}
 .col.c>*:nth-child(1){height:540px}
 .col.c>*:nth-child(2){height:540px}
-/* a faixa do degradê tem que encostar nas três bordas da foto: recuar com
-   left/bottom deixava ela flutuando, com um dedo de foto por baixo e à
-   esquerda. O respiro do texto é padding. */
-.shot-g .cap{font-size:12px;left:0;right:0;bottom:0;padding:38px 20px 16px}
-.galM .foot{padding:56px var(--gutter-desktop) 0;margin-top:48px}
-.galM .foot a{font-size:17px;padding-bottom:9px}
-/* cardápio — pausa tipográfica, centrada para não deixar meia tela vazia */
-.menuM{padding:104px var(--gutter-desktop) 108px;justify-items:center;text-align:center}
-.menuM h2{font-size:44px;margin:18px 0 18px}
-.menuM p{font-size:17px;max-width:52ch;margin-bottom:34px}
-.menuM .btn2{padding:18px 30px}
-/* dicas do lú — o mesmo carrossel, em escala de desktop */
-.dicas{justify-self:stretch;width:100%;max-width:1180px;margin:0 auto 44px}
-.dicas h3{font-size:26px;margin:12px 0 32px}
-.cxf{margin:0 calc(-1 * var(--gutter-desktop))}
-.railD{--cw:660px;--side:.7;height:calc(660px * .75 + 52px)}
-.railD .shot-g{gap:14px}
-.railD .shot-g .cap{font-size:12px}
-.cxf-ctl{margin-top:26px;gap:18px}
-.cxf-ctl>button{width:44px;height:44px}
-.cxf-dots button{width:20px;height:4px}
-/* reservas — copy à esquerda, horários e CTA à direita */
-.resM .copy{padding:104px var(--gutter-desktop) 108px;display:grid;
-  grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);column-gap:88px;align-items:start}
-.res-l h2{font-size:56px;margin:18px 0 22px;max-width:15ch}
-.res-l p.lead{font-size:18px;max-width:44ch;margin:0}
-.res-r{display:grid;align-content:start;justify-items:start}
-.hours{margin-top:0;padding-top:0;border-top:0;width:100%;max-width:none}
-/* o bloco de horários acompanha a largura do CTA logo abaixo: encolhido no
-   conteúdo ele ficava perdido na coluna larga */
-.res-r .hbox{width:100%;max-width:460px;padding:18px 20px 0;margin-bottom:34px}
-.res-r .hbox .hours .r{padding:15px 0}
-.resM .cta{width:auto;justify-self:start;padding:22px 40px;font-size:15px}
-.sub{text-align:left}
-/* o botão flutuante não tem foto para pousar aqui: entra na coluna, sob o CTA */
-.resM .fab{position:static;margin-top:24px;padding:13px 18px}
-/* peça em casa — copy à esquerda, retirada como nota lateral */
-.delM{padding:84px var(--gutter-desktop) 88px;display:grid;
-  grid-template-columns:minmax(0,1fr) minmax(0,340px);column-gap:80px;align-items:start}
-.delM .eyebrow{grid-column:1;grid-row:1}
-.delM h2{grid-column:1;grid-row:2;font-size:40px}
-.delM p.lead{grid-column:1;grid-row:3;font-size:17px;max-width:52ch;margin-bottom:30px}
+.shot-g .cap{font-size:14px;left:0;right:0;bottom:0;padding:42px 20px 16px}
+.galM .foot{padding:52px var(--gutter-desktop) 0;margin-top:56px}
+.galM .foot a{font-size:16px;padding-bottom:8px}
+/* nossa história — retrato à esquerda sangrando, texto à direita */
+.abM{display:grid;grid-template-columns:minmax(0,44%) minmax(0,1fr);align-items:stretch}
+.abM .shot{height:auto;min-height:760px}
+.abM .copy{align-self:center;padding:104px var(--gutter-desktop) 104px 80px}
+.abM .intro{max-width:56ch}
+.people{grid-template-columns:repeat(3,minmax(0,1fr));column-gap:32px;margin-top:44px}
+.people .p{border-bottom:0;align-content:start}
+.vinhos{margin-top:44px;padding:34px 36px 36px;display:grid;
+  grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);column-gap:40px;align-items:end}
+.vinhos .eyebrow{grid-column:1;grid-row:1;justify-self:start}
+.vinhos h3{grid-column:1;grid-row:2;margin-bottom:0;font-size:26px}
+.vinhos p{grid-column:2;grid-row:1/3;align-self:end}
+/* reservas — uma chamada só, centrada */
+.resM .copy{padding:128px var(--gutter-desktop);justify-items:center;text-align:center}
+.resM .eyebrow::after{content:"";flex:0 0 auto;width:22px;height:1px;background:currentColor;opacity:.7}
+.resM .ttl{max-width:18ch}
+.resM .intro{margin-bottom:38px}
+.act{width:auto;justify-items:center}
+.resM .cta{width:auto;padding:21px 42px}
+/* peça em casa — texto à esquerda, retirada como nota lateral */
+.delM{padding:92px var(--gutter-desktop) 96px;display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,360px);column-gap:80px;align-items:start}
+.delM .eyebrow{grid-column:1;grid-row:1;justify-self:start}
+.delM .ttl{grid-column:1;grid-row:2}
+.delM .intro{grid-column:1;grid-row:3;margin-bottom:32px}
 .delM .btn2{grid-column:1;grid-row:4;justify-self:start;padding:17px 30px}
-.facts{grid-column:2;grid-row:1/5;margin:0;align-self:start}
-/* como chegar — informações à esquerda, mapa sangrando à direita */
+.facts{grid-column:2;grid-row:1/5;margin:0;align-self:center}
+/* localização — informações à esquerda, mapa sangrando à direita */
 .ctM{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,600px);align-items:stretch}
-.ctM .map{order:2;height:auto;min-height:520px;border-top:0;border-left:1px solid var(--verde-garrafa)}
+.ctM .map{order:2;height:auto;min-height:640px}
 .ctM .map .veil{background:linear-gradient(268deg,rgba(23,18,15,0) 78%,rgba(23,18,15,.55) 100%)}
-.ctM .info{order:1;padding:88px var(--s-7) 88px var(--gutter-desktop);align-self:center}
+.ctM .info{order:1;padding:100px var(--s-8) 100px var(--gutter-desktop);align-self:center}
 .ctM .info>*{max-width:620px}   /* a coluna cresceu; a medida de leitura não */
-.ctM h2{font-size:44px;margin:16px 0 30px}
+.ctM .acts{display:flex;flex-wrap:wrap;gap:12px;margin:32px 0 34px}
+.ctM .acts .cta,.ctM .acts .btn2{width:auto;padding:16px 24px}
 /* rodapé */
-.ft{padding:84px var(--gutter-desktop) 40px;grid-template-columns:auto minmax(0,1fr);column-gap:96px;align-items:start}
-.ft img.mark{grid-row:1/3;height:96px}
-.ft .cols{grid-template-columns:1fr 1fr;gap:56px}
-.ft .legal{grid-column:1/-1;display:flex;justify-content:space-between;gap:24px;margin-top:16px}
+.ft{padding:88px var(--gutter-desktop) 40px;grid-template-columns:minmax(0,.9fr) minmax(0,1.6fr);column-gap:96px;align-items:start}
+.ft img.mark{height:92px}
+.ft .sig{font-size:20px}
+.ft .cols{grid-template-columns:repeat(3,minmax(0,1fr));gap:44px}
+.ft .cols>:first-child{grid-column:auto}
+.ft .legal{grid-column:1/-1;margin-top:20px}
 }
 /* acima de 1400px o conteúdo para de crescer e centraliza */
 @media(min-width:1400px){
-.abM .copy,.ctM .info{padding-left:calc((100vw - 1400px)/2 + var(--gutter-desktop))}
+.ctM .info,.heroM .copy{padding-left:calc((100vw - 1400px)/2 + var(--gutter-desktop))}
+.abM .copy{padding-right:calc((100vw - 1400px)/2 + var(--gutter-desktop))}
 /* o mapa mede 600px dentro do quadro de 1400 e só a sangria cresce com a tela */
 .ctM{grid-template-columns:minmax(0,1fr) minmax(0,calc(600px + (100vw - 1400px)/2))}
-.heroM .copy,.galM .head,.rail,.galM .foot,.menuM,.resM .copy,.delM,.ft{padding-left:calc((100vw - 1400px)/2 + var(--gutter-desktop));padding-right:calc((100vw - 1400px)/2 + var(--gutter-desktop))}
-.heroM .copy{left:calc((100vw - 1400px)/2 + var(--gutter-desktop));right:calc((100vw - 1400px)/2 + var(--gutter-desktop));padding:0}
+.galM .head,.rail,.galM .foot,.menuM,.resM .copy,.delM,.ft{padding-left:calc((100vw - 1400px)/2 + var(--gutter-desktop));padding-right:calc((100vw - 1400px)/2 + var(--gutter-desktop))}
 .hd-m{padding:0 calc((100vw - 1400px)/2 + var(--gutter-desktop))}
 }
 """
@@ -255,10 +252,11 @@ html{scroll-behavior:smooth}
 .heroM .photo .ph{animation:m-fade 900ms var(--m-ease) both,m-drift 9s var(--m-ease-micro) both}
 /* com vídeo não há deriva: o movimento já está na imagem */
 .heroM .photo video.ph{animation:m-fade 900ms var(--m-ease) both}
+.heroM .photo-d img{animation:m-fade 900ms var(--m-ease) both}
 .heroM .copy>*{animation:m-rise var(--m-enter) var(--m-ease) both}
-.heroM .wordmark{animation-delay:300ms}
-.heroM .cta{animation-delay:460ms}
-.heroM .meta{animation-delay:600ms}
+.heroM h1{animation-delay:200ms}
+.heroM .lead{animation-delay:340ms}
+.heroM .acts{animation-delay:480ms}
 @keyframes m-fade{from{opacity:0}to{opacity:1}}
 @keyframes m-rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 /* zoom que termina — nada de laço infinito */
@@ -274,14 +272,13 @@ html.js .in .rv-ph,html.js .in.rv-ph{opacity:1;transform:none}
 
 /* ---- microinterações ---- */
 .cta,.btn2{transition:var(--t-color),transform var(--m-micro) var(--m-ease-micro)}
-.blk a.dir,.galM .foot a,.drawer nav a{transition:var(--t-color),transform var(--m-micro) var(--m-ease-micro)}
-.icons a,.fab{transition:var(--t-color),transform var(--m-micro) var(--m-ease-micro)}
+.galM .foot a,.drawer nav a{transition:var(--t-color),transform var(--m-micro) var(--m-ease-micro)}
 .shot-g .ph,.shot-g .ph--empty{transition:transform var(--m-comp) var(--m-ease)}
 /* header: só cor e sombra mudam. Altura ficaria em fluxo e empurraria a página. */
 .hd-m{transition:background-color var(--m-comp) var(--m-ease-micro),
   border-color var(--m-comp) var(--m-ease-micro)}
 /* elevação por fio, como o resto do sistema — só o fundo fecha de 72% para 90% */
-.hd-m.stuck{background:var(--carvao-a90);border-bottom-color:var(--verde-garrafa)}
+.hd-m.stuck{background:var(--carvao-a90);border-bottom-color:var(--line-dark)}
 .hd-m img.mark{transition:transform var(--m-comp) var(--m-ease-micro)}
 .hd-m.stuck img.mark{transform:scale(.92)}
 
@@ -289,13 +286,12 @@ html.js .in .rv-ph,html.js .in.rv-ph{opacity:1;transform:none}
 .cta:hover,.btn2:hover{transform:translateY(-1px)}
 .cta:active,.btn2:active{transform:translateY(0)}
 .shot-g:hover .ph,.shot-g:hover .ph--empty{transform:scale(1.03)}
-.icons a:hover,.fab:hover{transform:translateY(-2px)}
-.blk a.dir:hover,.galM .foot a:hover{transform:translateX(3px)}
+.galM .foot a:hover{transform:translateX(3px)}
 /* sublinhado que cresce na navegação de desktop */
 .nav-d a{position:relative}
-.nav-d a::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:1px;background:var(--terracota-suave);
+.nav-d a::after{content:"";position:absolute;left:0;right:0;bottom:6px;height:1px;background:var(--marfim);
   transform:scaleX(0);transform-origin:left;transition:transform 260ms var(--m-ease-micro)}
-.nav-d a:hover::after{transform:scaleX(1)}
+.nav-d a:hover::after,.nav-d a[aria-current]::after{transform:scaleX(1)}
 }
 
 /* ---- mobile: menos deslocamento, sem zoom contínuo ---- */
@@ -313,7 +309,7 @@ html{scroll-behavior:auto}
 *,*::before,*::after{animation-duration:1ms!important;animation-delay:0ms!important;
   animation-iteration-count:1!important;transition-duration:1ms!important;transition-delay:0ms!important}
 html.js .rv,html.js .rv-ph{opacity:1;transform:none}
-.heroM .photo .ph,.heroM .copy>*{animation:none;opacity:1;transform:none}
+.heroM .photo .ph,.heroM .photo-d img,.heroM .copy>*{animation:none;opacity:1;transform:none}
 }
 """
 
@@ -433,13 +429,14 @@ LIGHTBOX_CSS = """
    O display:grid é obrigatório — o navegador embrulha o conteúdo de um botão
    numa caixa anônima centralizada, e era ela que soltava a foto do fundo da
    peça, deixando a legenda no meio da imagem em vez de no rodapé dela. */
-.shot-g{appearance:none;-webkit-appearance:none;background:none;padding:0;margin:0;
+.shot-g{appearance:none;-webkit-appearance:none;background:none;border:0;padding:0;margin:0;
   font:inherit;color:inherit;text-align:left;cursor:zoom-in;display:grid}
 .shot-g>.ph,.shot-g>.ph--empty{grid-area:1/1;width:100%;height:100%}
 /* linha única e travada na altura da peça: com linha automática a foto crescia
    até o tamanho natural, transbordava por baixo e o corte perdia o pé da imagem */
 .rail .shot-g{grid-template-rows:minmax(0,1fr)}
-.shot-g:focus-visible{outline:2px solid var(--terracota-suave);outline-offset:3px}
+.shot-g:focus-visible{outline:2px solid var(--focus-ring);outline-offset:3px}
+.lt .shot-g:focus-visible{outline-color:var(--focus-ring-light)}
 
 .lbx{position:fixed;inset:0;z-index:60;display:none;place-items:center;
   padding:clamp(14px,4vw,44px);background:rgba(23,18,15,.94)}
@@ -448,16 +445,16 @@ body.lbx-open{overflow:hidden}
 .lbx figure{margin:0;display:grid;gap:16px;justify-items:center;min-width:0}
 /* a foto cabe inteira na tela: o que sobra de altura é a legenda mais o respiro */
 .lbx img{display:block;max-width:100%;max-height:calc(100vh - 150px);
-  width:auto;height:auto;border:1px solid var(--verde-garrafa)}
-.lbx figcaption{font-size:12px;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--areia-quente);text-align:center}
+  width:auto;height:auto}
+.lbx figcaption{font-size:14px;letter-spacing:.02em;
+  color:var(--marfim);text-align:center}
 .lbx .ct{font-size:11px;letter-spacing:.16em;color:var(--areia-a38)}
 .lbx button{position:absolute;appearance:none;-webkit-appearance:none;cursor:pointer;
   width:44px;height:44px;display:grid;place-items:center;border-radius:50%;
-  background:var(--areia-a08);border:1px solid var(--verde-garrafa);color:var(--areia-quente);
+  background:var(--areia-a08);border:1px solid var(--line-dark-strong);color:var(--areia-quente);
   transition:var(--t-color),background var(--m-micro) var(--m-ease-micro)}
-.lbx button:hover{color:var(--terracota-suave);background:var(--areia-a14)}
-.lbx button:focus-visible{outline:2px solid var(--terracota-suave);outline-offset:3px}
+.lbx button:hover{color:var(--marfim);background:var(--areia-a14)}
+.lbx button:focus-visible{outline:2px solid var(--focus-ring);outline-offset:3px}
 .lbx .x{top:clamp(12px,3vw,28px);right:clamp(12px,3vw,28px)}
 .lbx .prev,.lbx .next{top:50%;transform:translateY(-50%)}
 .lbx .prev{left:clamp(8px,2vw,28px)}
@@ -565,15 +562,15 @@ var calm=matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* o que entra por seção, na ordem em que deve aparecer */
 var GROUPS=[
- ['#sobre',       '.copy>.eyebrow,.copy>h2,.copy>p,.people .p', '.shot .ph,.shot .ph--empty'],
- ['#ambientes',   '.head>*,.foot',                              '.shot-g'],
  /* as fotos dos pratos ficam de fora: o carrossel escreve transform e opacity
     nelas o tempo todo, e dois donos da mesma propriedade brigariam */
- ['#cardapio',    '.eyebrow,h2,h3,p,.btn2',                     ''],
- ['#reservas',    '.res-l>*,.res-r>*,.fab',                     ''],
- ['#peca-em-casa','.eyebrow,h2,.lead,.facts,.btn2',             ''],
+ ['#cardapio',    '.head>*,.cxf-ctl,.menuM>.btn2',              ''],
+ ['#ambientes',   '.head>*,.foot',                              '.shot-g'],
+ ['#sobre',       '.copy>.eyebrow,.copy>.ttl,.copy>.intro,.people .p,.vinhos', '.shot .ph,.shot .ph--empty'],
+ ['#reservas',    '.copy>*',                                    ''],
+ ['#peca-em-casa','.eyebrow,.ttl,.intro,.facts,.btn2',          ''],
  ['#como-chegar', '.info>*',                                    '.map'],
- ['#contato',     '.cols>*,.legal',                             '.mark']
+ ['#contato',     '.brand>*,.cols>*,.legal',                    '']
 ];
 var sections=[];
 GROUPS.forEach(function(g){
@@ -608,7 +605,7 @@ else{
 /* quem pediu menos movimento fica no poster, não no vídeo */
 /* responsivo: desktop usa landscape 1920x1080, mobile usa portrait 1080x1920 */
 var vid=document.querySelector('.heroM video');
-/* o vídeo existe só no celular: no desktop a hero é a logo, então nem a fonte
+/* o vídeo existe só no celular: no desktop a hero é texto + foto, então nem a fonte
    nem o poster chegam a ser pedidos */
 function narrow(){return innerWidth<1024}
 if(vid&&calm){
@@ -695,13 +692,16 @@ CUISINE = ["Bistrô", "Contemporânea", "Brasileira", "Italiana", "Frutos do mar
 # CARDÁPIO — conteúdo fornecido pelo restaurante, transcrito sem acréscimos.
 # Item sem descrição fica só com nome e preço: descrição inventada seria pior
 # que descrição nenhuma. (nome, descrição|None, preço)
+# Só a grafia foi uniformizada: "c/" virou "com", "pêra" perdeu o acento
+# (Acordo de 1990), "batata-doce" ganhou hífen e "papardelle" virou
+# "pappardelle" — os mesmos nomes aparecem no carrossel da home.
 # ---------------------------------------------------------------------------
 MENU = [
  {"id": "entradas", "nav": "Entradas", "title": "Entradas", "tone": "a",
   "lead": "Para abrir a mesa e dividir.",
   "groups": [{"items": [
-    ("Bife Ancho de Angus c/ Farofinha Crocante e Molho Pesto", None, "136"),
-    ("Bife de Chorizo de Angus c/ Batatas ao Murro", None, "126"),
+    ("Bife Ancho de Angus com Farofinha Crocante e Molho Pesto", None, "136"),
+    ("Bife de Chorizo de Angus com Batatas ao Murro", None, "126"),
     ("Burrata com Tomates Confitados", None, "52"),
     ("Burrata Crocante com Parma e Panko", None, "76"),
     ("Bruschetta Tradicional", None, "39"),
@@ -709,17 +709,17 @@ MENU = [
     ("Camarão VG na Crosta de Coco", "5 unidades", "116"),
     ("Carpaccio Bovino", None, "59"),
     ("Carré de Cordeiro com Batatas ao Murro e Tomatinhos Tostados", None, "142"),
-    ("Ceviche de Tilápia com Toque de Leite de Coco e Chips de Batata Doce", None, "58"),
-    ("Coxinha de Costela c/ Queijo do Serro e Barbecue de Goiabada", "6 unidades", "39"),
-    ("Dados de Queijo Coalho c/ Bacon Caramelizado", "6 unidades", "49"),
-    ("Fritas na Páprica c/ Maionese de Bacon e Catchup de Picles", None, "29"),
+    ("Ceviche de Tilápia com Toque de Leite de Coco e Chips de Batata-Doce", None, "58"),
+    ("Coxinha de Costela com Queijo do Serro e Barbecue de Goiabada", "6 unidades", "39"),
+    ("Dados de Queijo Coalho com Bacon Caramelizado", "6 unidades", "49"),
+    ("Fritas na Páprica com Maionese de Bacon e Catchup de Picles", None, "29"),
     ("Pastelzinho de Queijo do Serro e Melado de Cachaça", "6 unidades", "39"),
-    ("Picanha em Tiras c/ Batatas na Páprica e Molho de Mostarda", None, "136"),
+    ("Picanha em Tiras com Batatas na Páprica e Molho de Mostarda", None, "136"),
     # REVISAR: R$ 3 veio assim na fonte. Destoa da faixa da seção (R$ 29–142) e
     # parece faltar um dígito. Mantido como recebido — corrigir exige confirmação.
     ("Salada Pesto", None, "3"),
     ("Tábua de Frios", None, "75"),
-    ("Tartare de Salmão, Manga e Chips de Batata Doce", None, "78"),
+    ("Tartare de Salmão, Manga e Chips de Batata-Doce", None, "78"),
   ]}]},
 
  {"id": "principais", "nav": "Principais", "title": "Pratos principais", "tone": "b",
@@ -727,18 +727,18 @@ MENU = [
   "groups": [
     {"items": [
       ("Bife Ancho ao Alho Doce com Espaguete na Manteiga de Sálvia", None, "92"),
-      ("Bife de Chorizo c/ Risoto de Pêra e Gorgonzola", None, "85"),
+      ("Bife de Chorizo com Risoto de Pera e Gorgonzola", None, "85"),
       ("Camarões VG Flambados na Absolut com Risoto de Abacaxi e Parma", None, "128"),
       ("Carré de Cordeiro com Risoto à Pomodoro", None, "142"),
       ("Filé Mignon ao Molho de Melado com Risoto de Queijo Coalho", None, "82"),
-      ("Filé Mignon ao Molho de Mostarda c/ Risoto de Brie e Damasco", None, "82"),
+      ("Filé Mignon ao Molho de Mostarda com Risoto de Brie e Damasco", None, "82"),
       ("Lagosta no Abacaxi", None, "169"),
-      ("Papardelle ao Molho de Queijos e Camarões VG", None, "116"),
+      ("Pappardelle ao Molho de Queijos e Camarões VG", None, "116"),
       ("Penne ao Molho de Gorgonzola e Filé Mignon em Tiras", None, "64"),
       ("Risoto de Camarão", None, "84"),
-      ("Risoto de Filé Mignon c/ Funghi", None, "64"),
+      ("Risoto de Filé Mignon com Funghi", None, "64"),
       ("Salmão com Legumes Salteados", None, "98"),
-      ("Stinco de Suíno c/ Polenta Cremosa", None, "71"),
+      ("Stinco de Suíno com Polenta Cremosa", None, "71"),
       ("Talharim ao Pesto", None, "56"),
       ("Tilápia ao Molho de Alcaparras e Purê de Baroa", None, "69"),
     ]},
@@ -746,7 +746,7 @@ MENU = [
       ("Adicional de Risoto", None, "35"),
       ("Adicional de Risoto de Abacaxi e Parma", None, "48"),
     ], "opts": ("Sabores do adicional de risoto",
-                ["Limão siciliano", "Funghi", "Pêra e gorgonzola", "Brie e damasco", "Parmesão"])},
+                ["Limão siciliano", "Funghi", "Pera e gorgonzola", "Brie e damasco", "Parmesão"])},
     {"sub": "Especial Kids", "items": [
       ("Especial Kids", "Arroz, filé picadinho e fritas.", "39"),
     ]},
@@ -756,13 +756,13 @@ MENU = [
   "lead": "Para fechar sem pressa.",
   "groups": [
     {"items": [
-      ("Cocada de Forno c/ Sorvete de Doce de Leite", None, "29"),
-      ("Sorvete de Doce de Leite c/ Crocante de Amêndoas e Caramelo Salgado", None, "18"),
+      ("Cocada de Forno com Sorvete de Doce de Leite", None, "29"),
+      ("Sorvete de Doce de Leite com Crocante de Amêndoas e Caramelo Salgado", None, "18"),
       ("Brownie Perfeito", "Creme de chocolate amargo, farofa de nozes e cookies.", "39"),
     ]},
-    {"sub": "No potinho pra levar ♥", "items": [
+    {"sub": "No potinho, para levar", "items": [
       ("Sorvete de Doce de Leite Tradicional", "Feito por nós.", "15"),
-      ("Sorvete de Doce de Leite c/ Crocante de Amêndoas e Caramelo Salgado", None, "18"),
+      ("Sorvete de Doce de Leite com Crocante de Amêndoas e Caramelo Salgado", None, "18"),
       ("Cocada de Forno", None, "20"),
     ]},
   ]},
@@ -774,8 +774,8 @@ MENU = [
       ("Suco de Polpa de Maracujá", None, "10"),
       ("Suco Lata Del Valle", None, "7"),
       ("Suco de Uva Tinto Integral", "Casa Madeira, 250 ml.", "13"),
-      ("Suco Natural de Abacaxi c/ Hortelã", None, "12"),
-      ("Limonada c/ Água de Coco", None, "12"),
+      ("Suco Natural de Abacaxi com Hortelã", None, "12"),
+      ("Limonada com Água de Coco", None, "12"),
       ("Água de Coco", None, "12"),
     ]},
     {"sub": "Águas e refrigerantes", "items": [
@@ -795,8 +795,9 @@ MENU_CSS = """
 /* ============ CARDÁPIO ============ */
 .mHero{position:relative;min-height:380px;display:grid;align-items:end;overflow:hidden}
 .mHero .photo{position:absolute;inset:0}
+/* véu neutro, em carvão: o prato não recebe filtro vinho */
 .mHero .grad{position:absolute;inset:0;z-index:2;
-  background:linear-gradient(180deg,rgba(23,18,15,.62) 0%,rgba(78,21,23,.22) 34%,rgba(53,14,16,.80) 72%,var(--carvao) 100%)}
+  background:linear-gradient(180deg,rgba(23,18,15,.58) 0%,rgba(23,18,15,.12) 34%,rgba(23,18,15,.70) 74%,var(--carvao) 100%)}
 /* véu só atrás da coluna de texto: o olho da marca é o menor texto da página
    e caía no ponto claro do prato (2,0:1). Escurecer o véu geral resolveria
    também, mas apagaria a foto inteira para salvar uma linha. */
@@ -808,87 +809,76 @@ MENU_CSS = """
   background:linear-gradient(97deg,rgba(23,18,15,.82) 0%,rgba(23,18,15,.66) 48%,rgba(23,18,15,0) 92%);
   -webkit-mask-image:linear-gradient(180deg,rgba(0,0,0,0) 0%,#000 42%);
   mask-image:linear-gradient(180deg,rgba(0,0,0,0) 0%,#000 42%)}
-.mHero .eyebrow{color:var(--areia-a80)}   /* 60% ficava em 4,2:1 sobre a foto */
-.mHero h1{margin:0;font-family:var(--font-serif-display);font-weight:var(--w-heading);font-size:42px;line-height:1.04;color:var(--text-strong)}
-/* classe própria: com .sub ele herdava a regra do selo sob o botão de reserva
-   (caixa alta e entreletra larga), e virava um letreiro em vez de subtítulo */
+.mHero h1{margin:0;font-family:var(--font-serif-display);font-weight:var(--w-heading);font-size:42px;line-height:1.04;color:var(--marfim)}
+/* classe própria: com .sub ele herdava a regra do selo sob o botão de reserva */
 .mHero .subt{margin:0;font-family:var(--font-serif-display);font-size:19px;line-height:1.3;color:var(--areia-a80)}
 
-/* barra de categorias — encosta logo abaixo do header */
-.mcat{position:sticky;top:var(--header-h-mobile);z-index:20;background:var(--carvao-a90);
-  backdrop-filter:var(--blur-sticky);-webkit-backdrop-filter:var(--blur-sticky);
-  border-top:1px solid var(--verde-garrafa);border-bottom:1px solid var(--verde-garrafa)}
+/* barra de categorias — navegação em vinho, encostada logo abaixo do header */
+.mcat{position:sticky;top:var(--header-h-mobile);z-index:20;background:var(--vinho-arroxeado);
+  border-bottom:1px solid var(--line-dark)}
 .mcat ul{margin:0;padding:0 var(--gutter-mobile);list-style:none;display:flex;gap:26px;
   overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
 .mcat ul::-webkit-scrollbar{display:none}
-.mcat a{display:block;padding:15px 0;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--areia-a60);white-space:nowrap;position:relative;transition:var(--t-color)}
-.mcat a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--terracota-suave);
+.mcat a{display:block;padding:15px 0;font-size:14px;font-weight:500;letter-spacing:.02em;
+  color:var(--areia-a80);white-space:nowrap;position:relative;transition:var(--t-color)}
+.mcat a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--marfim);
   transform:scaleX(0);transform-origin:left;transition:transform 260ms var(--m-ease-micro)}
-.mcat a.on{color:var(--text-strong)}
+.mcat a.on{color:var(--marfim)}
 .mcat a.on::after{transform:scaleX(1)}
 
 /* a âncora precisa limpar o header E a barra de categorias, que é sticky logo abaixo */
-.mSec{padding:52px var(--gutter-mobile) 56px;scroll-margin-top:calc(var(--header-h-mobile) + 44px + 8px)}
-.mSec.a{background:var(--carvao)}
-.mSec.b{background:linear-gradient(180deg,var(--carvao) 0%,var(--vinho-arroxeado) 18%,var(--vinho-arroxeado) 100%)}
-.mSec.a+.mSec.a{border-top:1px solid var(--verde-garrafa)}
-.mSec.after-b{background:linear-gradient(180deg,var(--vinho-arroxeado) 0%,var(--carvao) 18%,var(--carvao) 100%)}
+.mSec{padding:52px var(--gutter-mobile) 56px;scroll-margin-top:calc(var(--header-h-mobile) + 48px + 8px)}
+.mSec.b{background:var(--marfim-200)}
 .mSec>.head{margin-bottom:30px}
-.mSec h2{margin:12px 0 8px;font-family:var(--font-serif-display);font-weight:var(--w-heading);
-  font-size:33px;line-height:1.1;color:var(--text-strong)}
-.mSec .head p{margin:0;font-size:14.5px;line-height:1.7;color:var(--areia-a60)}
-.mSub{margin:38px 0 20px;padding-top:20px;border-top:1px solid var(--verde-garrafa);
-  font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--areia-a38)}
+.mSec h2{margin:14px 0 8px;font-family:var(--font-serif-display);font-weight:var(--w-heading);
+  font-size:30px;line-height:1.1;color:var(--vinho-arroxeado)}
+.mSec .head p{margin:0;font-size:15px;line-height:1.7;font-weight:400;color:var(--grafite-soft)}
+.mSub{margin:38px 0 18px;padding-top:20px;border-top:1px solid var(--line-light);
+  font-size:11px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--grafite-soft)}
 .mGrid{display:grid;gap:12px}
-.mItem{border:1px solid var(--verde-garrafa);border-radius:var(--r-xs);padding:18px 18px 19px;
-  background:var(--areia-a08);display:grid;gap:7px;
+.mItem{border:1px solid var(--line-light);border-radius:var(--r-xs);padding:18px 18px 19px;
+  display:grid;gap:7px;
   transition:transform var(--m-micro) var(--m-ease-micro),border-color var(--m-micro) var(--m-ease-micro)}
 .mItem .row{display:flex;align-items:baseline;justify-content:space-between;gap:16px}
-.mItem .n{font-family:var(--font-serif-display);font-weight:var(--w-heading);font-size:17.5px;
-  line-height:1.28;color:var(--text-strong)}
-.mItem .pr{flex:0 0 auto;font-size:14px;letter-spacing:.04em;color:var(--areia-quente);
+.mItem .n{font-family:var(--font-serif-display);font-weight:var(--w-heading-strong);font-size:17.5px;
+  line-height:1.28;color:var(--grafite)}
+.mItem .pr{flex:0 0 auto;font-size:14px;font-weight:500;letter-spacing:.02em;color:var(--vinho-arroxeado);
   font-variant-numeric:tabular-nums;white-space:nowrap}
-.mItem .d{margin:0;font-size:13.5px;line-height:1.62;color:var(--areia-a60)}
-.mOpts{margin:14px 0 0;padding:16px 18px;border:1px dashed var(--verde-300);border-radius:var(--r-xs)}
-.mOpts .lbl{display:block;font-size:11px;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--areia-a38);margin-bottom:10px}
+.mItem .d{margin:0;font-size:13.5px;line-height:1.62;font-weight:400;color:var(--grafite-soft)}
+.mOpts{margin:14px 0 0;padding:16px 18px;border:1px dashed var(--line-light-strong);border-radius:var(--r-xs)}
+.mOpts .lbl{display:block;font-size:11px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--grafite-soft);margin-bottom:10px}
 .mOpts ul{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:8px}
-.mOpts li{font-size:13px;color:var(--areia-a80);border:1px solid var(--verde-garrafa);
+.mOpts li{font-size:13px;font-weight:400;color:var(--grafite);border:1px solid var(--line-light);
   border-radius:var(--r-xs);padding:6px 12px}
 
-/* carta de bebidas adultas: estrutura pronta, sem conteúdo nesta implementação */
-.mCarta{padding:46px var(--gutter-mobile) 50px;
-  background:linear-gradient(180deg,var(--vinho-arroxeado) 0%,var(--carvao) 18%,var(--carvao) 100%)}
-.mCarta h2{margin:12px 0 10px;font-family:var(--font-serif-display);font-weight:var(--w-heading);
-  font-size:26px;line-height:1.15;color:var(--text-strong)}
-.mCarta p{margin:0;font-size:14px;line-height:1.7;color:var(--areia-a60);max-width:46ch}
+/* carta de vinhos: ainda sem rótulos publicados, então só o convite */
+.mCarta{padding:52px var(--gutter-mobile) 56px;background:var(--vinho-900)}
+.mCarta h2{margin:14px 0 10px;font-family:var(--font-serif-display);font-weight:var(--w-heading);
+  font-size:27px;line-height:1.15;color:var(--marfim)}
+.mCarta p{margin:0;font-size:15px;line-height:1.7;color:var(--areia-a80);max-width:48ch}
 
-.mEnd{padding:56px var(--gutter-mobile) 60px;border-top:1px solid var(--verde-garrafa);
-  background:linear-gradient(180deg,var(--carvao) 0%,var(--vinho-arroxeado) 18%,var(--vinho-arroxeado) 100%)}
-.mEnd h2{margin:12px 0 10px;font-family:var(--font-serif-display);font-weight:var(--w-heading);
-  font-size:31px;line-height:1.1;color:var(--text-strong)}
-.mEnd p{margin:0 0 26px;font-size:15px;line-height:1.68;color:var(--areia-a80)}
+.mEnd{padding:60px var(--gutter-mobile) 64px;background:var(--vinho-arroxeado)}
+.mEnd h2{margin:14px 0 10px;font-family:var(--font-serif-display);font-weight:var(--w-heading);
+  font-size:30px;line-height:1.1;color:var(--marfim);text-wrap:balance}
+.mEnd p{margin:0 0 28px;font-size:15.5px;line-height:1.68;color:var(--areia-a80)}
 .mEnd .acts{display:grid;gap:12px}
-.mEnd .cta,.mEnd .btn2{width:100%;justify-content:center;padding:18px 20px;font-size:13.5px}
-.flinks{list-style:none;margin:0;padding:0;display:grid;gap:9px}
-.flinks a{font-size:15px;line-height:1.5;color:var(--text-muted);transition:var(--t-color)}
-.flinks a:hover{color:var(--terracota-suave)}
+.mEnd .cta,.mEnd .btn2{width:100%;padding:18px 20px;font-size:14.5px}
 .mNote{margin:0;padding:22px var(--gutter-mobile) 26px;background:var(--vinho-arroxeado);
-  font-size:12px;line-height:1.66;color:var(--text-faint);border-top:1px solid var(--verde-a55)}
+  font-size:12.5px;line-height:1.66;color:var(--areia-a80);border-top:1px solid var(--line-dark)}
 
 .totop{position:fixed;right:16px;bottom:16px;z-index:35;width:46px;height:46px;display:grid;place-items:center;
-  background:var(--carvao-a90);border:1px solid var(--verde-300);border-radius:var(--r-xs);color:var(--areia-quente);
-  cursor:pointer;padding:0;backdrop-filter:var(--blur-sticky);-webkit-backdrop-filter:var(--blur-sticky);
+  background:var(--vinho-arroxeado);border:1px solid var(--vinho-400);border-radius:var(--r-xs);color:var(--marfim);
+  cursor:pointer;padding:0;
   opacity:0;visibility:hidden;transform:translateY(8px);
   transition:opacity var(--m-comp) var(--m-ease),transform var(--m-comp) var(--m-ease),
-    visibility var(--m-comp),border-color var(--m-micro) var(--m-ease-micro)}
+    visibility var(--m-comp),background-color var(--m-micro) var(--m-ease-micro)}
 .totop.on{opacity:1;visibility:visible;transform:none}
 
 @media(hover:hover){
-.mcat a:hover{color:var(--text-strong)}
-.mItem:hover{transform:translateY(-2px);border-color:var(--terracota-suave)}
-.totop:hover{border-color:var(--terracota-suave)}
+.mcat a:hover{color:var(--marfim)}
+.mItem:hover{transform:translateY(-2px);border-color:var(--vinho-arroxeado)}
+.totop:hover{background:var(--vinho-500)}
 }
 @media(min-width:768px){
 .mGrid{grid-template-columns:1fr 1fr;gap:14px}
@@ -898,21 +888,23 @@ MENU_CSS = """
 }
 @media(min-width:1024px){
 .mcat{top:var(--header-h-desktop)}
-.mSec{scroll-margin-top:calc(var(--header-h-desktop) + 52px + 8px)}
+.mSec{scroll-margin-top:calc(var(--header-h-desktop) + 54px + 8px)}
 .mcat ul{padding:0 var(--gutter-desktop);gap:38px}
-.mcat a{padding:18px 0;font-size:12.5px}
+.mcat a{padding:18px 0;font-size:14.5px}
 .mHero{min-height:440px}
 .mHero .copy{padding:100px var(--gutter-desktop) 56px;gap:16px}
 .mHero h1{font-size:64px}
 .mHero .subt{font-size:23px}
-.mSec{padding:84px var(--gutter-desktop) 88px}
+.mSec{padding:88px var(--gutter-desktop) 92px}
 .mSec h2{font-size:44px}
 .mSec>.head{margin-bottom:42px}
 .mItem{padding:22px 22px 23px}
 .mItem .n{font-size:19px}
 .mItem .pr{font-size:15px}
 .mCarta,.mEnd{padding-left:var(--gutter-desktop);padding-right:var(--gutter-desktop)}
-.ft .cols{grid-template-columns:repeat(3,minmax(0,1fr));gap:44px}
+.mCarta{padding-top:80px;padding-bottom:84px}
+.mEnd{padding-top:96px;padding-bottom:100px}
+.mEnd h2{font-size:44px}
 .mNote{padding-left:var(--gutter-desktop);padding-right:var(--gutter-desktop)}
 .totop{right:28px;bottom:28px;width:52px;height:52px}
 }
@@ -962,7 +954,7 @@ def menu_markup():
     nav = "".join(f'<li><a href="#{s["id"]}">{s["nav"]}</a></li>' for s in MENU)
     out.append(f'<nav class="mcat" aria-label="Categorias do cardápio"><ul>{nav}</ul></nav>')
     for si, sec in enumerate(MENU):
-        tone = sec["tone"] + (" after-b" if si and MENU[si - 1]["tone"] == "b" and sec["tone"] == "a" else "")
+        tone = "lt " + sec["tone"]      # marfim e marfim quente alternados
         body = [f'<div class="head"><span class="eyebrow">Cardápio</span><h2>{sec["title"]}</h2>'
                 f'<p>{sec["lead"]}</p></div>']
         for g in sec["groups"]:
@@ -1058,8 +1050,8 @@ def build_html():
         ".phone{position:relative;width:390px;height:880px;border:1px solid var(--verde-garrafa);"
         "border-radius:var(--r-md);overflow:hidden;background:var(--carvao)}",
         ".phone{position:relative;width:100%;max-width:430px;margin:0 auto;background:var(--carvao);overflow-x:clip}\n"
-        "@media(min-width:431px) and (max-width:1023px){.phone{border-left:1px solid var(--verde-garrafa);"
-        "border-right:1px solid var(--verde-garrafa)}}")
+        "@media(min-width:431px) and (max-width:1023px){.phone{border-left:1px solid var(--line-dark);"
+        "border-right:1px solid var(--line-dark)}}")
     sheet = sheet.replace(".scroll{height:100%;overflow-y:auto;scrollbar-width:none;position:relative}",
                           ".scroll{position:relative}")
     sheet = sheet.replace(".scroll::-webkit-scrollbar{display:none}", "")
@@ -1077,18 +1069,15 @@ def build_html():
               ".ph--empty span{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--areia-a38)}\n"
               # o mosaico do desktop agrupa as peças em colunas; no mobile o carrossel volta a ser plano
               ".rail>.col{display:contents}\n"
-              # a régua só separa dois dados: sozinha na frente vira um traço solto
-              ".heroM .meta span.sep:first-child{display:none}\n"
               ".nav-d{display:none}\n"
               ".hd-m .burger,.drawer .close{color:var(--areia-quente)}\n"
-              ".drawer .close:hover{color:var(--terracota-suave)}\n"
-              # o wordmark virou <h1>: quem passa a ser item do grid é o título,
-              # então o alinhamento e o atraso da entrada migram da imagem para ele
-              ".heroM h1.wm{margin:0;justify-self:center;animation-delay:300ms}\n"
+              ".drawer .close:hover{color:var(--marfim)}\n"
               # --- acessibilidade e alvo de toque -------------------------------
               # o anel de foco existia só no mosaico e no lightbox: quem navega por
               # teclado atravessava header, menu e rodapé sem ver onde estava
-              ":focus-visible{outline:2px solid var(--terracota-suave);outline-offset:3px;border-radius:2px}\n"
+              # marfim no escuro, vinho no claro: o anel some se tiver a cor do fundo
+              ":focus-visible{outline:2px solid var(--focus-ring);outline-offset:3px;border-radius:2px}\n"
+              ".lt :focus-visible{outline-color:var(--focus-ring-light)}\n"
               # dedo não acerta alvo de 16x4: a área clicável cresce por fora, com
               # pseudo-elemento, sem mexer no desenho do ponto
               ".cxf-dots button{position:relative}\n"
@@ -1105,7 +1094,7 @@ def build_html():
               # links de texto do header e do endereço tinham 15 e 18px de altura:
               # a área cresce por padding, o traço do sublinhado continua no lugar
               ".nav-d a{display:inline-flex;align-items:center;min-height:44px}\n"
-              ".blk a.dir{display:inline-block;padding:9px 0}\n")
+              ".resM .wa a{display:inline-block;padding:10px 0 2px}\n")
 
     # 3. <image-slot> vira <img>; slot sem foto vira marcador tracejado
     def slot(m):
@@ -1127,14 +1116,6 @@ def build_html():
 
     site = re.sub(r'<image-slot\b[^>]*></image-slot>', slot, site)
     site = site.replace('src="../../assets/logo-monogram-areia.png"', 'src="./img/logo.png"')
-    site = site.replace('src="../../assets/logo-topo.png"', 'src="./img/logo-topo.png"')
-
-    # 3b. o wordmark do hero é o título da home, e a home não tinha <h1> nenhum —
-    #     o Google lê o h1 como o assunto da página. Envolver a imagem, em vez de
-    #     esconder um texto atrás dela, mantém o alt como o texto do título e não
-    #     mexe em um pixel do hero.
-    site, n = re.subn(r'<img class="wordmark"[^>]*>', r'<h1 class="wm">\g<0></h1>', site, count=1)
-    assert n == 1, "não achei o wordmark do hero para envolver no <h1>"
 
     # 3c. cada peça do mosaico abre a foto ampliada, então precisa ser um botão de
     #     verdade: teclado e leitor de tela ganham o clique de graça. O rótulo
@@ -1152,7 +1133,7 @@ def build_html():
     site = re.sub(r'<img src="https://cdn\.jsdelivr\.net/npm/lucide-static@[^"]*/icons/menu\.svg"[^>]*>', MENU_SVG, site)
     site = re.sub(r'<img src="https://cdn\.jsdelivr\.net/npm/lucide-static@[^"]*/icons/x\.svg"[^>]*>', CLOSE_SVG, site)
 
-    # 4b. o vídeo é só do celular: no desktop a hero é a logo. Fonte e poster
+    # 4b. o vídeo é só do celular: no desktop a hero é texto + foto. Fonte e poster
     #     entram por JS, senão o desktop baixava o quadro vertical do celular
     #     antes de o CSS escondê-lo.
     site = re.sub(
@@ -1162,24 +1143,22 @@ def build_html():
         '<source class="v-webm" type="video/webm">'
         '<source class="v-mp4" type="video/mp4"></video>', site, count=1)
 
+    # 4c. no desktop a primeira dobra é texto + foto do prato. O <picture> só
+    #     pede a foto acima de 1024px: no celular fica o GIF de 1px embutido,
+    #     e os 260 KB do prato nem saem do servidor.
+    photo_d = ('<div class="photo-d"><picture>'
+               '<source media="(min-width:1024px)" srcset="./img/hero.jpg">'
+               '<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" '
+               f'alt="Carré de cordeiro servido no Bistrô du Lú"{dims("hero.jpg")} '
+               'fetchpriority="high" decoding="async"></picture></div>')
+    assert site.count('<div class="grad"></div>') == 1, "esperava um único véu, o da primeira dobra"
+    site = site.replace('<div class="grad"></div>', photo_d + '<div class="grad"></div>')
+
     # 5. navegação horizontal do desktop (no mobile o menu é a gaveta)
     site = re.sub(r'<a class="cta" href="#reservas"[^>]*>Reservar</a>',
-                  '<nav class="nav-d"><a href="#sobre">Sobre nós</a><a href="#ambientes">Ambientes</a>'
-                  '<a href="/cardapio">Cardápio</a><a href="#peca-em-casa">Peça em casa</a>'
+                  '<nav class="nav-d"><a href="/cardapio">Cardápio</a><a href="#ambientes">Ambientes</a>'
+                  '<a href="#sobre">Nossa história</a><a href="#peca-em-casa">Peça em casa</a>'
                   '<a href="#como-chegar">Como chegar</a></nav>\n<a class="cta" href="#reservas">Reservar</a>', site)
-
-    # 6. duas colunas em Reservas no desktop (texto | horários + CTA)
-    site = site.replace('<span class="eyebrow">Reservas</span>', '<div class="res-l"><span class="eyebrow">Reservas</span>')
-    site = re.sub(r'<p class="lead"[^>]*>O ambiente ideal para o casal, amigos ou família\.</p>',
-                  '<p class="lead">O ambiente ideal para o casal, amigos ou família.</p></div><div class="res-r">', site)
-    site = site.replace('<span class="sub">Confirmação imediata · sem taxa</span>\n</div>',
-                        '<span class="sub">Confirmação imediata · sem taxa</span>\n</div></div>')
-
-    # 7. o WhatsApp entra na coluna da direita: no desktop não há foto sob a qual flutuar.
-    #    No mobile ele continua absoluto em relação a .resM, que é o ancestral posicionado.
-    fab = re.search(r'<a class="fab".*?</a>\n', site, re.S).group(0)
-    anchor = '<span class="sub">Confirmação imediata · sem taxa</span>\n</div>'
-    site = site.replace(fab, "").replace(anchor, anchor + fab, 1)
 
     # 8. mosaico do desktop: as seis peças passam a viver em três colunas
     head, rest = site.split('<div class="rail">\n', 1)
@@ -1198,8 +1177,8 @@ def build_html():
             # o título e a descrição são a isca da busca: quem procura não digita
             # "Bistrô du Lú", digita "restaurante em Ipatinga"
             + head_meta("Bistrô du Lú — Restaurante e Bistrô em Ipatinga MG",
-                        "Restaurante e bistrô em Ipatinga, no Horto: massas, risotos, carnes e "
-                        "frutos do mar em um ambiente romântico e familiar. Reserve sua mesa — "
+                        "Gastronomia, vinhos e hospitalidade em uma casa familiar em Ipatinga, no "
+                        "Horto: massas, risotos, carnes e frutos do mar. Reserve sua mesa — "
                         "Rua Jequitibá, 910.", "/")
             + '<script type="application/ld+json">'
             + json.dumps(restaurante_ld(), ensure_ascii=False) + '</script>' +
@@ -1269,8 +1248,8 @@ def restaurante_ld():
         "@type": "Restaurant",
         "@id": SITE_URL + "/#restaurante",
         "name": "Bistrô du Lú",
-        "description": "Bistrô em Ipatinga, no bairro Horto. Cozinha de família em um "
-                       "ambiente aconchegante, romântico e reservado, desde 2017.",
+        "description": "Bistrô em Ipatinga, no bairro Horto. Casa familiar de gastronomia, "
+                       "vinhos e hospitalidade, desde 2017.",
         "url": SITE_URL + "/",
         "image": [f"{SITE_URL}/img/{OG_IMG}", f"{SITE_URL}/img/hero.jpg",
                   f"{SITE_URL}/img/amb-pergolado.jpg"],
@@ -1320,21 +1299,12 @@ def build_menu(sheet, site):
     # as âncoras do menu passam a apontar para a home; /cardapio e links externos ficam
     drawer = drawer.replace('href="#', 'href="/#')
     header = header.replace('href="#', 'href="/#')
+    footer = footer.replace('href="#', 'href="/#')
     # na página do cardápio, o item da própria página fica marcado
     header = header.replace('<a href="/cardapio">Cardápio</a>', '<a href="/cardapio" aria-current="page">Cardápio</a>')
 
-    # o rodapé do site não tem links (os ícones sociais moram em "Como chegar");
-    # aqui ele ganha uma coluna de navegação, como pede a especificação da página
-    flinks = "".join(f'<li><a href="{u}"{e}>{t}</a></li>' for t, u, e in [
-        ("Cardápio", "/cardapio", ""),
-        ("Peça em casa", PEDIDOS, ' target="_blank" rel="noopener"'),
-        ("WhatsApp", WA, ' target="_blank" rel="noopener"'),
-        ("Instagram", IG, ' target="_blank" rel="noopener"'),
-        ("Como chegar", "/#como-chegar", ""),
-    ])
-    footer = footer.replace('</div>\n<div class="legal">',
-                            f'<div><span class="lbl">Navegue</span><ul class="flinks">{flinks}</ul></div>'
-                            '</div>\n<div class="legal">', 1)
+    # no rodapé daqui, "Cardápio" vira a volta para a home
+    footer = footer.replace('<li><a href="/cardapio">Cardápio</a></li>', '<li><a href="/">Início</a></li>', 1)
 
     hero = (
         '<section class="mHero">'
@@ -1345,28 +1315,28 @@ def build_menu(sheet, site):
         '<div class="copy">'
         '<span class="eyebrow">Bistrô du Lú</span>'
         '<h1>Cardápio</h1>'
-        '<p class="subt">Sabores para cada ocasião.</p>'
+        '<p class="subt">Da entrada à sobremesa, a cozinha do Bistrô du Lú.</p>'
         '</div></section>')
 
     # Estrutura pronta para a carta de bebidas adultas. O conteúdo não entra aqui:
     # basta trocar o parágrafo abaixo por um bloco .mGrid quando o restaurante enviar.
     carta = ('<section class="mCarta" id="carta">'
-             '<span class="eyebrow">Carta</span>'
-             '<h2>Vinhos e destilados</h2>'
-             '<p>Consulte a carta no restaurante — nossa equipe ajuda a escolher o acompanhamento '
-             'para o seu prato.</p></section>')
+             '<span class="eyebrow">Vinhos</span>'
+             '<h2>À mesa, cada detalhe importa.</h2>'
+             '<p>A carta de vinhos e destilados é apresentada no restaurante, e nossa equipe '
+             'ajuda a escolher o que acompanha o seu prato.</p></section>')
 
     end = ('<section class="mEnd">'
-           '<span class="eyebrow">Próximo passo</span>'
-           '<h2>Gostou do que viu?</h2>'
-           '<p>Agora é só escolher a ocasião.</p>'
+           '<span class="eyebrow">Reservas</span>'
+           '<h2>Seu próximo momento especial começa aqui.</h2>'
+           '<p>Escolha uma data e venha conhecer o Bistrô du Lú.</p>'
            '<div class="acts">'
            # os dois botões deste bloco agem direto: mandar para a seção de reservas
            # da home seria um salto a mais, enquanto o vizinho já abre o sistema de pedidos
-           f'<a class="cta" href="{GETIN}" target="_blank" rel="noopener">'
-           '<span>Reservar uma mesa</span><span>→</span></a>'
+           f'<a class="cta cta--inv" href="{GETIN}" target="_blank" rel="noopener">'
+           '<span>Reserve sua mesa</span><span>→</span></a>'
            f'<a class="btn2" href="{PEDIDOS}" target="_blank" rel="noopener">'
-           '<span>Pedir para levar</span><span class="arw">→</span></a>'
+           '<span>Peça para levar</span><span class="arw">→</span></a>'
            '</div></section>')
 
     note = ('<p class="mNote">Os itens e valores podem sofrer alterações. '
